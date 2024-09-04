@@ -13,7 +13,7 @@
 <body>
       <nav class="navbar navbar-expand-lg bg-body-tertiary" id="navbarTop">
         <div class="container-fluid justify-content-between" id="container-nav"> 
-          <a class="navbar-brand" href="#">Navbar</a> 
+          <a class="navbar-brand" href="#"><img src="public/assets/images/logo.png" alt="Logo de Cinéphoria" class="mb-2"></a> 
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -27,10 +27,14 @@
                   RESERVATION
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Action</a></li>
-                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                  <li><a class="dropdown-item" href="#">Nantes</a></li>
+                  <li><a class="dropdown-item" href="#">Bordeaux</a></li>
+                  <li><a class="dropdown-item" href="#">Paris</a></li>
+                  <li><a class="dropdown-item" href="#">Toulouse</a></li>
+                  <li><a class="dropdown-item" href="#">Lille</a></li>
                   <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                  <li><a class="dropdown-item" href="#">Charleroi</a></li>
+                  <li><a class="dropdown-item" href="#">Liège</a></li>
                 </ul>
               </li>
               <li class="nav-item">
@@ -55,9 +59,9 @@
       </div>
     </header>
 
-    <section>
+    <section id="section-home-card">
       <div class="container">
-        <div class="row row-cols-1 row-cols-md-4 g-4">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
           <div class="col">
             <div class="card">
               <img src="public/assets/images/cover1.png" class="card-img-top" alt="...">
@@ -124,6 +128,29 @@
           </div>
       </div> 
     </section>
+
+    <footer class="pt-4 pb-4">
+      <div class="container">
+          <div class="row">
+              <div class="col-md-4 mb-3">
+                  <img src="public/assets/images/logo.png" alt="Logo de Cinéphoria" class="mb-2">
+                  <p>Le cinéma responsable qui vous apporte les meilleurs films tout en prenant soin de notre planète.</p>
+              </div>
+              <div class="col-md-4 mb-3">
+                  <h5>Horaires</h5>
+                  <ul class="list-unstyled">
+                      <li>Lundi-Vendredi: 9h - 22h</li>
+                      <li>Samedi-Dimanche: 10h - 23h</li>
+                  </ul>
+              </div>
+              <div class="col-md-4 mb-3">
+                  <h5>Contact</h5>
+                  <p><strong>Adresse:</strong> 123 Rue Exemple, 75001 Paris</p>
+                  <p><strong>Téléphone:</strong> +33 1 23 45 67 89</p>
+              </div>
+          </div>
+      </div>
+  </footer>
 
     
     <script src="public/assets/js/bootstrap.bundle.min.js"></script>
