@@ -25,7 +25,6 @@ p{
 
 #navbarTop{
     background: var(--cn-color-green-1) !important;
-    height: 70px;
 }
 
 h.navbar-toggler-icon {
@@ -75,12 +74,12 @@ h.navbar-toggler-icon {
     right: 0;
     bottom: 0;
     background: rgba(0, 0, 0, 0.5); 
-    z-index: 1;
+    uz-index: 1;
 }
 
 #header-home .container {
     position: relative;
-    z-index: 2;
+    uz-index: 2;
 }
 
 
@@ -111,6 +110,13 @@ footer {
     #container-nav {
         padding-left: 30px;
         padding-right: 30px;
+        
+    }
+}
+
+@media (min-width: 992px) {
+    #navbarTop {
+        height: 70px;
     }
 }
 
