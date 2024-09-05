@@ -23,6 +23,18 @@ p{
     font-size: 22px;
 }
 
+.btn {
+    background: #DE7420;
+    padding: 8px 32px;
+    font-size: 22px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.btn:hover {
+    background: var(--cn-color-orange-2);
+}
+
 #navbarTop{
     background: var(--cn-color-green-1) !important;
 }
@@ -93,12 +105,34 @@ h.navbar-toggler-icon {
     margin-bottom: 100px;
 }
 
+#section-home-card .card {
+    position: relative;
+}
+
 #section-home-card .card img {
     height: 350px;
     object-fit: cover;
     width: 100%;
 }
 
+.btn-session {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    position: absolute;
+    width: 90%;
+    margin: 0 auto;
+    bottom: 75px;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+#section-home-card .card:hover .btn-session {
+    opacity: 1;
+}
+ 
+.btn.primary {
+    width: 100%;
+ }
 
 /* ******footer************ */
 footer {
