@@ -2,7 +2,7 @@
       <div class="container">
           <div class="row">
               <div class="col-md-4 mb-3">
-                  <img src="../../../public/assets/images/logo.png" alt="Logo de Cinéphoria" class="mb-2">
+                  <img src="<?= BASE_URL ?>/public/assets/images/logo.png" alt="Logo de Cinéphoria" class="mb-2">
                   <p>Le cinéma responsable qui vous apporte les meilleurs films tout en prenant soin de notre planète.</p>
               </div>
               <div class="col-md-4 mb-3">

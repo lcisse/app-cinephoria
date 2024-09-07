@@ -3,6 +3,9 @@ namespace App\Models;
 
 require __DIR__ . '/../../vendor/autoload.php';
 
+use PDO;
+use PDOException;
+
 use App\Models\Manager;
 
 class MoviesManager
@@ -14,7 +17,6 @@ class MoviesManager
     {
         // Obtenir la connexion via la classe Singleton
         $this->pdo = Manager::getInstance()->getConnection();
-        echo "Connexion réussie à la base de données via le Singleton.\n";
     }
 
     // Méthode pour créer la table "movies"
@@ -80,6 +82,13 @@ class MoviesManager
         $this->executeQuery($sql, 'Table "movie_schedule" créée avec succès.');
     }
 
+    public function getAllMovies()
+    {
+        $sql = "SELECT * FROM movies";
+        $stmt = $this->pdo->query($sql);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     // Méthode pour exécuter une requête SQL et afficher un message
     private function executeQuery($sql, $successMessage)
     {
@@ -93,9 +102,9 @@ class MoviesManager
 }
 
 // Utilisation de la classe pour créer les tables en passant par le Singleton
-$moviesManager = new MoviesManager();
+/*$moviesManager = new MoviesManager();
 $moviesManager->createMoviesTable();
 $moviesManager->createGenresTable();
 $moviesManager->createMovieGenresTable();
 $moviesManager->createCinemasTable();
-$moviesManager->createMovieScheduleTable();
+$moviesManager->createMovieScheduleTable();*/

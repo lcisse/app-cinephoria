@@ -1,3 +1,6 @@
+<?php 
+require_once __DIR__ . '/../../../config.php'; 
+?>
 <?php $title = "Accueil - Cinéphoria"; ?>
 
 <?php ob_start(); ?>
@@ -16,97 +19,33 @@
     <section id="section-home-card">
       <div class="container">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-          <div class="col">
-            <div class="card">
-              <img src="../../../public/assets/images/cover1.png" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-              </div>
-              <div class="btn-session">
-                <button type="button" class="btn primary">Séance</button>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card">
-              <img src="../../../public/assets/images/cover2.png" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-              </div>
-              <div class="btn-session">
-                <button type="button" class="btn primary">Séance</button>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card">
-              <img src="../../../public/assets/images/cover3.png" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-              </div>
-              <div class="btn-session">
-                <button type="button" class="btn primary">Séance</button>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card">
-              <img src="../../../public/assets/images/cover4.png" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-              </div>
-              <div class="btn-session">
-                <button type="button" class="btn primary">Séance</button>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card">
-              <img src="../../../public/assets/images/cover5.png" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-              </div>
-              <div class="btn-session">
-                <button type="button" class="btn primary">Séance</button>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card">
-              <img src="../../../public/assets/images/cover6.png" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-              </div>
-              <div class="btn-session">
-                <button type="button" class="btn primary">Séance</button>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card">
-              <img src="../../../public/assets/images/cover7.png" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-              </div>
-              <div class="btn-session">
-                <button type="button" class="btn primary">Séance</button>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card">
-              <img src="../../../public/assets/images/cover8.png" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-              </div>
-              <div class="btn-session">
-                <button type="button" class="btn primary">Séance</button>
-              </div>
-            </div>
-          </div>
+
+                <?php 
+                $counter = 0; 
+
+                foreach ($movies as $movie): 
+                    if ($counter >= 8) break; 
+                ?>
+                <div class="col">
+                    <div class="card">
+                    <img src="<?= htmlspecialchars($movie['poster']) ?>" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title"><?= htmlspecialchars($movie['title']) ?></h5>
+                    </div>
+                    <div class="btn-session">
+                        <button type="button" class="btn primary">Séance</button>
+                    </div>
+                    </div>
+                </div>
+
+                <?php 
+                $counter++; 
+                endforeach; 
+                ?>
+        
       </div> 
     </section>
 
 <?php $content = ob_get_clean(); ?>
 
-<?php require('../layout.php') ?>
+<?php require_once __DIR__ . '/../layout.php';?>
