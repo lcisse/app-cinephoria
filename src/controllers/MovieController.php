@@ -1,17 +1,15 @@
 <?php
 namespace App\controllers;
 
-require __DIR__ . '/../../vendor/autoload.php';
+use App\models\MovieManager;
 
-use App\models\MoviesManager;
-
-class MoviesController
+class MovieController
 {
     private $moviesManager;
 
     public function __construct()
     {
-        $this->moviesManager = new MoviesManager();
+        $this->moviesManager = new MovieManager();
     }
 
     public function showHome()

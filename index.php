@@ -2,8 +2,8 @@
 
 require __DIR__ . '/vendor/autoload.php';
 
-use App\controllers\MoviesController;
+use App\controllers\MovieController;
 
 
-$controller = new MoviesController();
+$controller = new MovieController();
 $controller->showHome();

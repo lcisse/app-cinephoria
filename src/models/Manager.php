@@ -13,7 +13,6 @@ class Manager
     // Constructeur privé pour empêcher l'instanciation directe
     private function __construct() 
     {
-        // Connexion à la base de données
         try {
             $this->bdd = new PDO('mysql:host=localhost;dbname=lc_cinephoria;charset=utf8', 'root', '');
             $this->bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -32,7 +31,6 @@ class Manager
         return self::$instance;
     }
 
-    // Méthode pour obtenir la connexion PDO
     public function getConnection()
     {
         return $this->bdd;

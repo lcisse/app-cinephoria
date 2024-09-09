@@ -1,8 +1,6 @@
 <?php
 namespace App\Models;
 
-require __DIR__ . '/../../vendor/autoload.php';
-
 use PDO;
 use PDOException;
 
@@ -28,8 +26,7 @@ class MoviesManager
             description TEXT,
             age_minimum INT,
             favorite BOOLEAN DEFAULT 0,
-            poster VARCHAR(255),
-            rating FLOAT
+            poster VARCHAR(255)
         )";
         $this->executeQuery($sql, 'Table "movies" créée avec succès.');
     }

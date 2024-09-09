@@ -1,7 +1,4 @@
 <?php
-
-require __DIR__ . '/../../vendor/autoload.php';
-
 use App\Models\Manager;
 use Faker\Factory;
 
