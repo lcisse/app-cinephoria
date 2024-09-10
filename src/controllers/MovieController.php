@@ -18,4 +18,11 @@ class MovieController
 
         require __DIR__ . '/../views/frontend/home.php';
     }
+
+    public function showFimsPage()
+    {
+        $movies = $this->moviesManager->getAllMovies();
+
+        require __DIR__ . '/../views/frontend/films.php';
+    }
 }

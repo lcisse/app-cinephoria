@@ -19,6 +19,10 @@ body{
     font-family: 'Sofia Sans Extra Condensed', sans-serif !important;
 }
 
+.bloc-section{
+    margin-bottom: 100px;
+}
+
 p{
     font-size: 22px;
 }
@@ -101,10 +105,6 @@ h.navbar-toggler-icon {
 }
 
 /* home card*/
-#section-home-card {
-    margin-bottom: 100px;
-}
-
 #section-home-card .card {
     position: relative;
 }
@@ -133,6 +133,29 @@ h.navbar-toggler-icon {
 .btn.primary {
     width: 100%;
  }
+
+ /* ********** page fims *********** */
+ #cine-filter {
+    margin-bottom: 20px;
+ }
+
+ #all-films-list .card img {
+    height: 370px;
+    object-fit: cover;
+    width: 100%;
+}
+
+.cinemas-genres-jours h5 {
+    font-size: 22px;
+    color: var(--cn-color-green-1);
+}
+
+.cinemas-genres-jours div label {
+    font-size: 20px;
+    margin-left: 10px;
+}
+
+ /* ********** page fims end *********** */
 
 /* ******footer************ */
 footer {

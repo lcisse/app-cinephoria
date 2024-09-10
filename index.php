@@ -7,7 +7,8 @@ use App\Models\DatabaseSeeder;
 
 
 $controller = new MovieController();
-$controller->showHome();
+//$controller->showHome();
+$controller->showFimsPage();
 
 
 /*$seeder = new DatabaseSeeder();

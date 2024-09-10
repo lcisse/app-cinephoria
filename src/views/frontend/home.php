@@ -1,5 +1,5 @@
 <?php 
-require_once __DIR__ . '/../../../config.php'; 
+//require_once __DIR__ . '/../../../config.php'; 
 ?>
 <?php $title = "Accueil - Cinéphoria"; ?>
 
@@ -16,7 +16,7 @@ require_once __DIR__ . '/../../../config.php';
       </div>
     </header>
 
-    <section id="section-home-card">
+    <section id="section-home-card" class="bloc-section">
       <div class="container">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
 
