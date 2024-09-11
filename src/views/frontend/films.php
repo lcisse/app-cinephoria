@@ -90,90 +90,58 @@
 
 <section id="all-films-list" class="bloc-section">
 <div class="container">
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4 d-flex align-items-center">
-
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4 d-flex align-items-stretch">
 
     <?php foreach ($movies as $movie): ?>
                 <div class="col">
-            <div class="card">
+            <div class="card h-100 d-flex flex-column position-relative">
                 <img src="<?= htmlspecialchars($movie['poster']) ?>" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title"><?= htmlspecialchars($movie['title']) ?></h5>
-                    <p class="card-text"><?= htmlspecialchars($movie['description']) ?></p>
+                <div class="card-body flex-grow-1 position-relative">
+                    <h3 class="card-title"><?= htmlspecialchars($movie['title']) ?> </h3>
+                    <p class="card-text"><?= htmlspecialchars($movie['description']) ?></p> 
+                    <?= $movie['age_minimum'] !== 0 ? '<span class="position-absolute top-0 end-0 badge rounded-pill bg-dark mt-1 me-1 p-2 fs-6 age-min">-' . htmlspecialchars($movie['age_minimum']) . '</span>' : '' ?>
                 </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><?= htmlspecialchars($movie['age_minimum']) ?></li>
-                    <li class="list-group-item"><?= htmlspecialchars($movie['favorite']) ?></li>
-                    <li class="list-group-item">A third item</li>
+                <ul class="list-group list-group-flush flex-grow-5">
+                    <li class="list-group-item">
+                        Notes : 
+                        <span class="star-rating">
+                            <?php if (isset($ratings[$movie['id']])): ?>
+                                <?php 
+                                $rating = $ratings[$movie['id']]; // La note moyenne
+                                $fullStars = floor($rating);  // Nombre d'étoiles pleines (arrondi à l'entier inférieur)
+                                $hasHalfStar = ($rating - $fullStars) >= 0.5; // Vérifier s'il y a une demi-étoile
+                                $emptyStars = 5 - ($fullStars + ($hasHalfStar ? 1 : 0)); // Calculer les étoiles vides
+                                ?>
+
+                                <!-- Afficher les étoiles pleines -->
+                                <?php for ($i = 1; $i <= $fullStars; $i++): ?>
+                                    <i class="fas fa-star text-warning"></i> <!-- Étoile pleine -->
+                                <?php endfor; ?>
+
+                                <!-- Afficher la demi-étoile si nécessaire -->
+                                <?php if ($hasHalfStar): ?>
+                                    <i class="fas fa-star-half-alt text-warning"></i> <!-- Demi-étoile -->
+                                <?php endif; ?>
+
+                                <!-- Afficher les étoiles vides -->
+                                <?php for ($i = 1; $i <= $emptyStars; $i++): ?>
+                                    <i class="far fa-star text-warning"></i> <!-- Étoile vide -->
+                                <?php endfor; ?>
+
+                            <?php else: ?>
+                                Pas de note pour ce film
+                            <?php endif; ?>
+                        </span>
+                    </li>
                 </ul>
-                <div class="card-body">
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
+                <div class="card-body mt-auto flex-grow-0">
+                <button type="button" class="btn primary">Séances</button>
                 </div>
+                <?= $movie['favorite'] !== 0 ? '<span class="position-absolute top-0 end-0 badge rounded-0 mt-1 me-1 ps-2 p-1 fs-6 cine-heart">Coup de coeur ❤️</span>' : '' ?>
             </div>
         </div>
 
     <?php endforeach; ?>
-
-
-
-
-        <div class="col">
-            <div class="card">
-                <img src="https://fr.web.img3.acsta.net/img/cf/d2/cfd22f75f5cc0c1c1becf4f2be075958.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">An item</li>
-                    <li class="list-group-item">A second item</li>
-                    <li class="list-group-item">A third item</li>
-                </ul>
-                <div class="card-body">
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col">
-            <div class="card">
-                <img src="https://www.hachette.fr/sites/default/files/images/livres/couv/9782016265468-001-T.jpeg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">An item</li>
-                    <li class="list-group-item">A second item</li>
-                    <li class="list-group-item">A third item</li>
-                </ul>
-                <div class="card-body">
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col">
-            <div class="card">
-                <img src="https://img.over-blog-kiwi.com/0/49/61/14/20141006/ob_679964_affiche-labyrinthe.png" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">An item</li>
-                    <li class="list-group-item">A second item</li>
-                    <li class="list-group-item">A third item</li>
-                </ul>
-                <div class="card-body">
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 </section>
