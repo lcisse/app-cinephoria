@@ -25,7 +25,26 @@ class MovieManager extends BaseManager
     // Méthode pour récupérer tous les films
     public function getAllMovies()
     {
-        $sql = "SELECT * FROM movies";
+        /*$sql = "SELECT * FROM movies";
+        return $this->fetchAll($sql);*/
+
+        $sql = "SELECT 
+                    movies.id, 
+                    movies.title, 
+                    movies.description, 
+                    movies.age_minimum, 
+                    movies.favorite,
+                    movies.poster,
+                    GROUP_CONCAT(DISTINCT genres.genre_name SEPARATOR ', ') AS genre,  -- Agrégation des genres
+                    cinemas.cinema_name AS cinema,  -- Nom du cinéma
+                    GROUP_CONCAT(DISTINCT DATE_FORMAT(movie_schedule.screening_day, '%W') SEPARATOR ', ') AS screening_days  -- Agrégation des jours de projection
+                FROM movies
+                LEFT JOIN movie_genres ON movies.id = movie_genres.movie_id
+                LEFT JOIN genres ON movie_genres.genre_id = genres.id
+                LEFT JOIN movie_schedule ON movies.id = movie_schedule.movie_id
+                LEFT JOIN cinemas ON movie_schedule.cinema_id = cinemas.id
+                GROUP BY movies.id";  // Groupement par film
+
         return $this->fetchAll($sql);
     }
 

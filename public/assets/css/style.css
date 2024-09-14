@@ -139,6 +139,19 @@ h.navbar-toggler-icon {
     margin-bottom: 20px;
  }
 
+ #toggleButton i {
+    transition: transform 0.3s ease-in-out;
+} 
+
+.icon-rotate {
+    transform: rotate(180deg); /* Rotation pour l'icône "up" */
+}
+
+ #toggleButton i {
+    font-size: 22px;
+    margin-left: 10px;
+ }
+
  #all-films-list .card img {
     height: 370px;
     object-fit: cover;

@@ -5,10 +5,13 @@
 <div class="container">
 
 <p class="d-inline-flex gap-1 mt-5">
-  <button class="btn" type="button" data-bs-toggle="collapse" data-bs-target="#filterSection" aria-expanded="false" aria-controls="filterSection">
+  <button id="toggleButton" class="btn" type="button" data-bs-toggle="collapse" data-bs-target="#filterSection" aria-expanded="false" aria-controls="filterSection">
   <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-filter-left" viewBox="0 0 16 16">
   <path d="M2 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m0-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5"/>
-</svg>Filtrer
+</svg>Filtrer 
+    <span class="toggle-icon">
+        <i class="fa-solid fa-chevron-down"></i>
+    </span> 
   </button>
 </p>
 <div class="collapse" id="filterSection">
@@ -19,19 +22,19 @@
     <div class="col cinemas-genres-jours">
         <h5>Cinémas</h5>
         <div>
-            <input type="checkbox" id="nantes" name="nantes" value="nantes">
+            <input type="checkbox" id="nantes" class="cinema-checkbox" value="nantes">
             <label for="nantes">Nantes</label><br>
-            <input type="checkbox" id="bordeaux" name="bordeaux" value="bordeaux">
+            <input type="checkbox" id="bordeaux" class="cinema-checkbox" value="bordeaux">
             <label for="bordeaux">Bordeaux</label><br>
-            <input type="checkbox" id="paris" name="paris" value="paris">
+            <input type="checkbox" id="paris" class="cinema-checkbox" value="paris">
             <label for="paris">Paris</label><br>
-            <input type="checkbox" id="toulpuse" name="toulouse" value="toulouse">
+            <input type="checkbox" id="toulpuse" class="cinema-checkbox" value="toulouse">
             <label for="toulouse">Toulouse</label><br>
-            <input type="checkbox" id="lille" name="lille" value="lille">
+            <input type="checkbox" id="lille" class="cinema-checkbox" value="lille">
             <label for="lille">Lille</label><br>
-            <input type="checkbox" id="charleroi" name="charleroi" value="charleroi">
+            <input type="checkbox" id="charleroi" class="cinema-checkbox" value="charleroi">
             <label for="charleroi">Charleroi</label><br>
-            <input type="checkbox" id="liege" name="liege" value="liege">
+            <input type="checkbox" id="liege" class="cinema-checkbox" value="liege">
             <label for="liege">Liège</label><br>
 
         </div>
@@ -40,19 +43,19 @@
         <div class="col cinemas-genres-jours">
         <h5>Genres</h5>
         <div>
-            <input type="checkbox" id="comedie" name="comedie" value="comedie">
+            <input type="checkbox" id="comedie" class="genre-checkbox" value="comedie">
             <label for="comedie">Comédie</label><br>
-            <input type="checkbox" id="drame" name="drame" value="drame">
+            <input type="checkbox" id="drame" class="genre-checkbox" value="drame">
             <label for="drame">Drame</label><br>
-            <input type="checkbox" id="comedie-dramatique" name="comedie-dramatique" value="comedie-dramatique">
+            <input type="checkbox" id="comedie-dramatique" class="genre-checkbox" value="comedie-dramatique">
             <label for="comedie-dramatique">Comédie dramatique</label><br>
-            <input type="checkbox" id="thriller" name="thriller" value="thriller">
+            <input type="checkbox" id="thriller" class="genre-checkbox" value="thriller">
             <label for="thriller">Thriller</label><br>
-            <input type="checkbox" id="action" name="action" value="action">
+            <input type="checkbox" id="action" class="genre-checkbox" value="action">
             <label for="action">Action</label><br>
-            <input type="checkbox" id="horreur" name="horreur" value="horreur">
+            <input type="checkbox" id="horreur" class="genre-checkbox" value="horreur">
             <label for="horreur">Horreur</label><br>
-            <input type="checkbox" id="science-fiction" name="science-fiction" value="science-fiction">
+            <input type="checkbox" id="science-fiction" class="genre-checkbox" value="science-fiction">
             <label for="science-fiction">Science-fiction</label><br>
         </div>
         </div>
@@ -60,19 +63,19 @@
         <div class="col cinemas-genres-jours">
         <h5>Jours</h5>
         <div>
-            <input type="checkbox" id="lundi" name="lundi" value="lundi">
+            <input type="checkbox" id="lundi" class="day-checkbox" value="lundi">
             <label for="lundi">Lundi</label><br>
-            <input type="checkbox" id="mardi" name="mardi" value="mardi">
+            <input type="checkbox" id="mardi" class="day-checkbox" value="mardi">
             <label for="mardi">Mardi</label><br>
-            <input type="checkbox" id="mercredi" name="mercredi" value="mercredi">
+            <input type="checkbox" id="mercredi" class="day-checkbox" value="mercredi">
             <label for="mercredi">Mercredi</label><br>
-            <input type="checkbox" id="jeudi" name="jeudi" value="jeudi">
+            <input type="checkbox" id="jeudi" class="day-checkbox" value="jeudi">
             <label for="jeudi">Jeudi</label><br>
-            <input type="checkbox" id="vendredi" name="vendredi" value="vendredi">
+            <input type="checkbox" id="vendredi" class="day-checkbox" value="vendredi">
             <label for="vendredi">Vendredi</label><br>
-            <input type="checkbox" id="samedi" name="samedi" value="samedi">
+            <input type="checkbox" id="samedi" class="day-checkbox" value="samedi">
             <label for="samedi">Samedi</label><br>
-            <input type="checkbox" id="Dimanche" name="Dimanche" value="Dimanche">
+            <input type="checkbox" id="Dimanche" class="day-checkbox" value="Dimanche">
             <label for="Dimanche">Dimanche</label><br>
         </div>
         </div>
@@ -93,7 +96,8 @@
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4 d-flex align-items-stretch">
 
     <?php foreach ($movies as $movie): ?>
-                <div class="col">
+        <?php $movie['screening_days'] = $this->convertDayToFrench($movie['screening_days']); ?>
+                <div class="col movie-card" data-cinema="<?= htmlspecialchars($movie['cinema']) ?>" data-genre="<?= htmlspecialchars($movie['genre']) ?>" data-day="<?= isset($movie['screening_days']) ? htmlspecialchars($movie['screening_days']) : '' ?>">
             <div class="card h-100 d-flex flex-column position-relative">
                 <img src="<?= htmlspecialchars($movie['poster']) ?>" class="card-img-top" alt="...">
                 <div class="card-body flex-grow-1 position-relative">

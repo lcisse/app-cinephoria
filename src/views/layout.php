@@ -22,5 +22,6 @@ require_once __DIR__ . '/../../config.php';
     <?php require('footer.php') ?>
 
     <script src="<?= BASE_URL ?>/public/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="<?= BASE_URL ?>/public/assets/js/filmsFilter"></script>
 </body>
 </html>
