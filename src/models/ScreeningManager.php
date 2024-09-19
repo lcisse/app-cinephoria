@@ -12,8 +12,8 @@ class ScreeningManager extends BaseManager
             id INT PRIMARY KEY AUTO_INCREMENT,
             movie_id INT,
             room_id INT,
-            start_time DATETIME,
-            end_time DATETIME,
+            start_time TIME,
+            end_time TIME,
             FOREIGN KEY (movie_id) REFERENCES movies(id) ON DELETE CASCADE,
             FOREIGN KEY (room_id) REFERENCES rooms(id) ON DELETE CASCADE
         )";

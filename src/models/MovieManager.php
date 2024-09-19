@@ -59,4 +59,25 @@ class MovieManager extends BaseManager
         return $result['average_rating'] ?? null;  // Retourner la note moyenne ou null s'il n'y a pas d'avis
     }
 
+    public function getMovieScreenings($movieId)
+    {
+        $sql = "SELECT 
+                    movies.title,
+                    movies.description, 
+                    TIME_FORMAT(screenings.start_time, '%H:%i') AS start_time, 
+                    TIME_FORMAT(screenings.end_time, '%H:%i') AS end_time,  
+                    rooms.room_number, 
+                    rooms.projection_quality
+                FROM screenings
+                JOIN movies ON screenings.movie_id = movies.id
+                JOIN rooms ON screenings.room_id = rooms.id
+                WHERE movies.id = :movie_id";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':movie_id', $movieId, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 }

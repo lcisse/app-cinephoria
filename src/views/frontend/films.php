@@ -96,7 +96,7 @@
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4 d-flex align-items-stretch">
 
     <?php foreach ($movies as $movie): ?>
-        <?php $movie['screening_days'] = $this->convertDayToFrench($movie['screening_days']); ?>
+        <?php $movie['screening_days'] = $this->convertDayToFrench($movie['screening_days']);?>
                 <div class="col movie-card" data-cinema="<?= htmlspecialchars($movie['cinema']) ?>" data-genre="<?= htmlspecialchars($movie['genre']) ?>" data-day="<?= isset($movie['screening_days']) ? htmlspecialchars($movie['screening_days']) : '' ?>">
             <div class="card h-100 d-flex flex-column position-relative">
                 <img src="<?= htmlspecialchars($movie['poster']) ?>" class="card-img-top" alt="...">
@@ -139,7 +139,10 @@
                     </li>
                 </ul>
                 <div class="card-body mt-auto flex-grow-0">
-                <button type="button" class="btn primary">Séances</button>
+                <button type="button" class="btn primary">
+                <a href="<?= BASE_URL ?>/index.php?action=seances&movie_id=<?= htmlspecialchars($movie['id']) ?>" class="btn btn-primary">Séances</a>
+
+                </button>
                 </div>
                 <?= $movie['favorite'] !== 0 ? '<span class="position-absolute top-0 end-0 badge rounded-0 mt-1 me-1 ps-2 p-1 fs-6 cine-heart">Coup de coeur ❤️</span>' : '' ?>
             </div>

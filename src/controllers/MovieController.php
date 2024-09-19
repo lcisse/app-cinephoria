@@ -59,4 +59,11 @@ class MovieController
 
         require __DIR__ . '/../views/frontend/films.php';
     }
+
+    public function showScreenings($movieId)
+    {
+        $screenings = $this->moviesManager->getMovieScreenings($movieId);
+        
+        require __DIR__ . '/../views/frontend/seances.php';
+    }
 }
