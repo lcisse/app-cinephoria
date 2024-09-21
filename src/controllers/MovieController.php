@@ -2,6 +2,7 @@
 namespace App\controllers;
 
 use App\models\MovieManager;
+use App\models\ScreeningManager;
 
 class MovieController
 {
@@ -63,7 +64,33 @@ class MovieController
     public function showScreenings($movieId)
     {
         $screenings = $this->moviesManager->getMovieScreenings($movieId);
+        //var_dump($screenings);
+
+        if (!empty($screenings)) {
+            $movieTitle = $screenings[0]['title'];
+            $movieDescription = $screenings[0]['description'];
+            $moviePoster = $screenings[0]['poster'];
+        }else {
+            // Ajouter un message d'erreur si aucune séance n'est trouvée
+            $movieTitle = "Pas de séances disponibles pour cette date.";
+            $movieDescription = "";
+            $moviePoster = "default-image.jpg"; // Une image par défaut
+        }
         
         require __DIR__ . '/../views/frontend/seances.php';
+    }
+
+    public function handleScreeningsRequest()
+    {
+        if (isset($_GET['movie_id']) && isset($_GET['date'])) {
+            $movieId = (int)$_GET['movie_id'];
+            $date = $_GET['date'];
+
+            $screenings = $this->moviesManager->getScreeningsByDate($movieId, $date);
+
+            // Retourner les séances en format JSON
+            echo json_encode($screenings);
+            exit;
+        }
     }
 }

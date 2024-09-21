@@ -23,5 +23,6 @@
 
     <script src="<?= BASE_URL ?>/public/assets/js/bootstrap.bundle.min.js"></script>
     <script src="<?= BASE_URL ?>/public/assets/js/filmsFilter"></script>
+    <script src="<?= BASE_URL ?>/public/assets/js/screenings"></script>
 </body>
 </html>

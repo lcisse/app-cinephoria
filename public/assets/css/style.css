@@ -1,7 +1,9 @@
 :root {
     --cn-color-green-1: #0F3C44;
+    --cn-color-green-2: #035f70;
     --cn-color-blue-1: #00C7F8;
     --cn-color-grey-1: #F1F2F7;
+    --cn-color-grey-2: #d4d5da;
     --cn-color-white-1: #F1F2F7;
     --cn-color-orange-1: #DE7420;
     --cn-color-orange-2: #FD8F3B;
@@ -191,8 +193,8 @@ L.star-rating {
  #screenings-section .btn-group {
     margin-top: 20px;
     margin-bottom: 30px;
-    padding-left: 8%;
-    padding-right: 8%;
+    /*padding-left: 8%;
+    padding-right: 8%;*/
     background: var(--cn-color-grey-1);
 }
 
@@ -200,18 +202,35 @@ L.star-rating {
     background: none;
     border: none;
     color: var(--cn-color-green-1);
+    padding: 8px 32px !important;
+    mmax-width: 250px;
 }
 
 #screenings-section .btn-group .btn.active {
     color: var(--cn-color-orange-1);
 }
+#screenings-section .card.movie-title-desc {
+   border: none;
+}
+
+.screenings .card {
+    background: var(--cn-color-green-2);
+    color: var(--cn-color-white-1);
+    cursor: pointer;
+}
 
 .screenings .b-quality, .screenings h5{
     color: var(--cn-color-green-1);
-    font-size: 23px !important;
+    font-size: 25px !important;
     font-weight: 600;
+    color: var(--cn-color-white-1);
 }
- /* ************* page séances *********** */
+
+.screenings h6 {
+    color: var(--cn-color-grey-2) !important;
+    margin-top: -10px;
+}
+
 #quality-price {
     margin-bottom: 50px;
     margin-top: 50px;
@@ -220,6 +239,8 @@ L.star-rating {
 #quality-price h2 {
     margin-bottom: 20px;
 }
+ /* ************* fin page séances *********** */
+
 
 /* ******footer************ */
 footer {

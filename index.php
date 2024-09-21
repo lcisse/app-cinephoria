@@ -1,5 +1,7 @@
 <?php
-
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 require __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/config.php'; 
 
@@ -44,9 +46,17 @@ class App
                 break;
 
             case 'seances':
-                $movieId = isset($_GET['movie_id']);
-                if ($movieId) {
+                //$movieId = isset($_GET['movie_id']);
+                //$date = isset($_GET['date']) ? $_GET['date'] : date('Y-m-d');
+                if (isset($_GET['movie_id'])) {
+                    $movieId = (int)$_GET['movie_id']; 
                     $this->controller->showScreenings($movieId);
+                }
+                break;
+                
+            case 'getScreenings':  // Requête Ajax pour les séances par jour
+                if (isset($_GET['movie_id']) && isset($_GET['date'])) {
+                    $this->controller->handleScreeningsRequest();
                 }
                 break;    
 

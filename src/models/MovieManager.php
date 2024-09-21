@@ -64,17 +64,46 @@ class MovieManager extends BaseManager
         $sql = "SELECT 
                     movies.title,
                     movies.description, 
+                    movies.poster,
                     TIME_FORMAT(screenings.start_time, '%H:%i') AS start_time, 
                     TIME_FORMAT(screenings.end_time, '%H:%i') AS end_time,  
                     rooms.room_number, 
-                    rooms.projection_quality
+                    rooms.projection_quality,
+                    screenings.screening_day
                 FROM screenings
                 JOIN movies ON screenings.movie_id = movies.id
-                JOIN rooms ON screenings.room_id = rooms.id
+                JOIN rooms ON screenings.room_id = rooms.id 
                 WHERE movies.id = :movie_id";
+                //AND movie_schedule.screening_day = :screening_day;
 
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindParam(':movie_id', $movieId, PDO::PARAM_INT);
+        //$stmt->bindParam(':screening_day', $date, PDO::PARAM_STR);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getScreeningsByDate($movieId, $date)
+    {
+        $sql = "SELECT 
+                    movies.title,
+                    movies.description, 
+                    movies.poster,
+                    TIME_FORMAT(screenings.start_time, '%H:%i') AS start_time, 
+                    TIME_FORMAT(screenings.end_time, '%H:%i') AS end_time,  
+                    rooms.room_number, 
+                    rooms.projection_quality,
+                    screenings.screening_day
+                FROM screenings
+                JOIN movies ON screenings.movie_id = movies.id
+                JOIN rooms ON screenings.room_id = rooms.id
+                WHERE movies.id = :movie_id
+                AND screenings.screening_day = :screening_day";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':movie_id', $movieId, PDO::PARAM_INT);
+        $stmt->bindParam(':screening_day', $date, PDO::PARAM_STR);
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
