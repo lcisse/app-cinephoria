@@ -14,14 +14,14 @@
                   RESERVATION
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Nantes</a></li>
-                  <li><a class="dropdown-item" href="#">Bordeaux</a></li>
-                  <li><a class="dropdown-item" href="#">Paris</a></li>
-                  <li><a class="dropdown-item" href="#">Toulouse</a></li>
-                  <li><a class="dropdown-item" href="#">Lille</a></li>
+                  <li><a class="dropdown-item" href="<?= BASE_URL ?>/index.php?action=reservation&cinema=nantes">Nantes</a></li>
+                  <li><a class="dropdown-item" href="<?= BASE_URL ?>/index.php?action=reservation&cinema=bordeaux">Bordeaux</a></li>
+                  <li><a class="dropdown-item" href="<?= BASE_URL ?>/index.php?action=reservation&cinema=paris">Paris</a></li>
+                  <li><a class="dropdown-item" href="<?= BASE_URL ?>/index.php?action=reservation&cinema=toulouse">Toulouse</a></li>
+                  <li><a class="dropdown-item" href="<?= BASE_URL ?>/index.php?action=reservation&cinema=lille">Lille</a></li>
                   <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Charleroi</a></li>
-                  <li><a class="dropdown-item" href="#">Liège</a></li>
+                  <li><a class="dropdown-item" href="<?= BASE_URL ?>/index.php?action=reservation&cinema=charleroi">Charleroi</a></li>
+                  <li><a class="dropdown-item" href="<?= BASE_URL ?>/index.php?action=reservation&cinema=liege">Liège</a></li>
                 </ul>
               </li>
               <li class="nav-item">

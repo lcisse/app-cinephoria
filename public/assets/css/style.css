@@ -157,7 +157,7 @@ h.navbar-toggler-icon {
     margin-left: 10px;
  }
 
- #all-films-list .card img {
+ .bloc-section .card img {
     height: 370px;
     object-fit: cover;
     width: 100%;
@@ -241,6 +241,27 @@ L.star-rating {
 }
  /* ************* fin page séances *********** */
 
+ /* ************ page réservation ********* */
+#film-list-by-cinema {
+    margin-top: 50px;
+}
+
+#film-list-by-cinema h1 {
+    margin-bottom: 20px;
+}
+
+#film-list-by-cinema h1 span {
+    text-transform: capitalize;
+    color: var(--cn-color-orange-1);
+}
+
+#film-list-by-cinema .no-movie-available {
+    height: 30vh;
+    font-size: 40px;
+    color: var(--cn-color-orange-1);
+}
+ 
+ /* ************ fin page réservation ********* */
 
 /* ******footer************ */
 footer {

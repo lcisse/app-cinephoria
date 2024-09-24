@@ -45,9 +45,14 @@ class App
                 $this->controller->showFimsPage($movieId);
                 break;
 
+            case 'reservation':
+                if(isset($_GET['cinema']) && !empty($_GET['cinema'])) {
+                    $cinema = $_GET['cinema']; 
+                    $this->controller->showMoviesByCinema($cinema);
+                }
+                break;    
+
             case 'seances':
-                //$movieId = isset($_GET['movie_id']);
-                //$date = isset($_GET['date']) ? $_GET['date'] : date('Y-m-d');
                 if (isset($_GET['movie_id'])) {
                     $movieId = (int)$_GET['movie_id']; 
                     $this->controller->showScreenings($movieId);

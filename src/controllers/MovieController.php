@@ -61,6 +61,38 @@ class MovieController
         require __DIR__ . '/../views/frontend/films.php';
     }
 
+    public function showReservation()
+    {
+        //$movies = $this->moviesManager->getAllMovies();
+
+        require __DIR__ . '/../views/frontend/reservation.php';
+    }
+
+    public function showMoviesByCinema($cinema)
+    {
+        $movies = $this->moviesManager->getMoviesByCinema($cinema);
+
+        if (!empty($movies)) {
+            $cinemaName = $movies[0]['cinema'];
+        } else {
+            // name of cinema if movies is empty
+            $cinemaName = ucfirst($cinema);
+        }
+
+        $ratings = [];
+
+        foreach ($movies as $movie) {
+            $ratings[$movie['id']] = $this->moviesManager->getMovieAverageRating($movie['id']);
+
+            // Vérifier si 'screening_day' existe avant d'essayer de le convertir
+            if (isset($movie['screening_days'])) {
+                $movie['screening_days'] = $this->convertDayToFrench($movie['screening_days']); // Convertir le jour au format français
+            }
+        }
+        
+        require __DIR__ . '/../views/frontend/reservation.php';
+    }
+
     public function showScreenings($movieId)
     {
         $screenings = $this->moviesManager->getMovieScreenings($movieId);
