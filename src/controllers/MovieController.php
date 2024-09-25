@@ -1,8 +1,11 @@
 <?php
 namespace App\controllers;
 
+use App\Models\DataSeeder;
 use App\models\MovieManager;
 use App\models\ScreeningManager;
+use App\Models\ReservationManager;
+use App\Models\SeatManager;
 
 class MovieController
 {

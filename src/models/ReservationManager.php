@@ -3,25 +3,31 @@ namespace App\Models;
 
 class ReservationManager extends BaseManager
 {
-    // Méthode pour créer la table "reservations"
     public function createReservationsTable()
     {
+        $sql = "DROP TABLE IF EXISTS reservations";
+        $this->executeQuery($sql, 'Table "reservations" supprimée avec succès.');
+
         $sql = "CREATE TABLE IF NOT EXISTS reservations (
             id INT PRIMARY KEY AUTO_INCREMENT,
-            screening_id INT,
-            seat_id INT,
-            price DECIMAL(8, 2),
-            reservation_date DATETIME,
-            customer_id INT,
-            status ENUM('confirmed', 'pending', 'cancelled'),
-            FOREIGN KEY (screening_id) REFERENCES screenings(id) ON DELETE CASCADE,
-            FOREIGN KEY (seat_id) REFERENCES seats(id) ON DELETE CASCADE,
-            FOREIGN KEY (customer_id) REFERENCES customers(id) ON DELETE CASCADE
+            user_id INT,  
+            movie_id INT, 
+            screening_id INT, 
+            seats INT,  -- Nombre de sièges réservés
+            price DECIMAL(10, 2), -- Le prix total
+            reservation_date DATETIME DEFAULT CURRENT_TIMESTAMP, 
+            status ENUM('confirmed', 'pending', 'cancelled') DEFAULT 'pending', 
+            qr_code VARCHAR(255), -- Stocker l'URL ou la donnée du QR code
+            scanned TINYINT DEFAULT 0, 
+            FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+            FOREIGN KEY (movie_id) REFERENCES movies(id) ON DELETE CASCADE,
+            FOREIGN KEY (screening_id) REFERENCES screenings(id) ON DELETE CASCADE
         )";
+        
         $this->executeQuery($sql, 'Table "reservations" créée avec succès.');
     }
 
-    // Méthode pour récupérer toutes les réservations
+
     public function getAllReservations()
     {
         $sql = "SELECT * FROM reservations";

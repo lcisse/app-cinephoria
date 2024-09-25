@@ -36,7 +36,7 @@ class DataSeeder
     }*/
 
     // Seeder pour la table cinemas
-    public function seedCinemas($count = 5)
+    /*public function seedCinemas($count = 5)
     {
         for ($i = 0; $i < $count; $i++) {
             $sql = "INSERT INTO cinemas (cinema_name, location) 
@@ -190,14 +190,71 @@ class DataSeeder
             ]);
         }
         echo "$count avis ont été ajoutés avec succès.\n";
+    }*/
+
+    public function seedSeats($roomCount = 5, $seatsPerRoom = 20)
+    {
+        for ($roomId = 1; $roomId <= $roomCount; $roomId++) {
+            for ($seatNumber = 1; $seatNumber <= $seatsPerRoom; $seatNumber++) {
+                $seatNum = sprintf("%02d", $seatNumber);
+                $isAccessible = $this->faker->boolean(10);  // 10% de sièges pour PMR
+
+                $sql = "INSERT INTO seats (room_id, seat_number, reserved, is_accessible) 
+                        VALUES (:room_id, :seat_number, :reserved, :is_accessible)";
+                
+                $stmt = $this->pdo->prepare($sql);
+                $stmt->execute([
+                    ':room_id' => $roomId,
+                    ':seat_number' => $seatNum,
+                    ':reserved' => 0,  // Tous les sièges sont libres initialement
+                    ':is_accessible' => $isAccessible
+                ]);
+            }
+        }
+
+        echo "Fausses données insérées dans la table seats.\n";
     }
+
+    // Insérer des fausses données dans la table reservations
+    public function seedReservations($reservationCount = 50)
+    {
+        for ($i = 0; $i < $reservationCount; $i++) {
+            $userId = $this->faker->numberBetween(1, 10);  // Supposons 10 utilisateurs
+            $movieId = $this->faker->numberBetween(1, 10); // 10 films
+            $screeningId = $this->faker->numberBetween(1, 30); // 30 séances
+            $seats = $this->faker->numberBetween(1, 5); // Nombre aléatoire de sièges
+            $price = $this->faker->randomFloat(2, 8, 50); // Prix aléatoire
+            $qrCode = $this->faker->uuid;  // Générer un UUID pour simuler le QR code
+            $status = $this->faker->randomElement(['confirmed', 'pending', 'cancelled']);
+            $scanned = $this->faker->boolean(10); // 10% de chances que le billet soit scanné
+
+            $sql = "INSERT INTO reservations (user_id, movie_id, screening_id, seats, price, reservation_date, status, qr_code, scanned) 
+                    VALUES (:user_id, :movie_id, :screening_id, :seats, :price, NOW(), :status, :qr_code, :scanned)";
+            
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute([
+                ':user_id' => $userId,
+                ':movie_id' => $movieId,
+                ':screening_id' => $screeningId,
+                ':seats' => $seats,
+                ':price' => $price,
+                ':status' => $status,
+                ':qr_code' => $qrCode,
+                ':scanned' => $scanned
+            ]);
+        }
+
+        echo "$reservationCount réservations ont été ajoutées avec succès.\n";
+    }
+
+    
 }
 
 // Exécuter le seeder avec 10 films
 $seeder = new DataSeeder();
 //$seeder->seedMovies(10);
 //$seeder->seedMovies();
-$seeder->seedCinemas();
+/*$seeder->seedCinemas();
 $seeder->seedGenres();
 $seeder->seedMovieGenres();
 $seeder->seedMovieSchedule();
@@ -205,4 +262,6 @@ $seeder->seedRooms();
 $seeder->seedSeats();
 $seeder->seedScreenings();
 $seeder->seedReservations();
-$seeder->seedReviews();
+$seeder->seedReviews();*/
+$seeder->seedSeats(5, 20);  
+$seeder->seedReservations(30);
