@@ -82,10 +82,6 @@
 
         </div>
         </div>
-        <!--<div class="text-center mt-4">
-            <button type="reset" class="btn">Réinitialiser</button>
-            <button type="submit" class="btn">Valider</button>
-        </div>-->
     </div>
 </div>
 </div>

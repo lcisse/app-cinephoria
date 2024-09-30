@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const dayButtonsContainer = document.getElementById("day-buttons-container");
     const screeningsContainer = document.getElementById("screenings-container");
     const screeningsData = document.getElementById("screenings-data");
+    const BASE_URL = screeningsData.getAttribute('data-base-url');
 
     const movieId = screeningsData.getAttribute("data-movie-id");
     const todayDate = new Date(); // Obtenir la date actuelle
@@ -63,11 +64,13 @@ document.addEventListener("DOMContentLoaded", function () {
             .then((data) => {
                 // Vider le conteneur des séances avant d'en insérer de nouvelles
                 screeningsContainer.innerHTML = "";
+                console.log(data);
 
                 // Insérer les nouvelles séances
                 data.forEach((screening) => {
                     const screeningHTML = `
                         <div class="col">
+                        <a href="${BASE_URL}/index.php?action=reservationsSeats&screening_id=${screening.id}">
                             <div class="card position-relative">
                                 <div class="card-body text-center">
                                     <h5 class="card-title">${screening.start_time}</h5>
@@ -76,6 +79,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                 </div>
                                 <span class="position-absolute top-0 start-0 badge rounded-0 mt-1 me-1 ps-2 p-1 fs-6 b-quality">${screening.projection_quality}</span>
                             </div>
+                        </a>    
                         </div>`;
                     screeningsContainer.innerHTML += screeningHTML;
                 });

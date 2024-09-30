@@ -40,7 +40,7 @@
       </div>
 
     </div>
-    <div id="screenings-data" data-movie-id="<?= $movieId ?>" data-today="<?= date('Y-m-d') ?>"></div> <!--div disabled-->
+    <div id="screenings-data" data-movie-id="<?= $movieId ?>" data-today="<?= date('Y-m-d') ?>" data-base-url="<?= BASE_URL ?>"></div> <!--div disabled-->
 </section>
 
 <section id="quality-price">

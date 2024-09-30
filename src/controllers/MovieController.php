@@ -128,4 +128,34 @@ class MovieController
             exit;
         }
     }
+
+    public function reservationsSeats($screening_id) {
+        $screenings = $this->moviesManager->getScreeningDetails($screening_id);
+        //var_dump($screenings);
+
+       if (!empty($screenings)) {
+            $movieTitle = $screenings['title'];
+            $moviePoster = $screenings['poster'];
+            $cinema = $screenings['cinema'];
+            $room_number = $screenings['room_number'];
+            $start_time = $screenings['start_time'];
+            $end_time = $screenings['end_time'];
+            $screening_day = $screenings['screening_day'];
+            $seat_capacity = $screenings['seat_capacity'];
+            $projection_quality = $screenings['projection_quality'];
+
+            $dateTime = new \DateTime($screening_day);
+            $screening_day = $dateTime->format('d/m');
+        }
+        require __DIR__ . '/../views/frontend/reservation-siege.php';
+    }
+
+    public function handleSeatsRequest($screening_id)
+    {
+        $seats = $this->moviesManager->getSeatsByScreening($screening_id); // Appel au modèle pour récupérer les sièges
+
+        // Renvoyer les sièges sous format JSON pour être utilisés par AJAX
+        echo json_encode($seats);
+        exit;
+    }
 }

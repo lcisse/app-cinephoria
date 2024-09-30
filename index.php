@@ -63,7 +63,17 @@ class App
                 if (isset($_GET['movie_id']) && isset($_GET['date'])) {
                     $this->controller->handleScreeningsRequest();
                 }
-                break;    
+                break;
+            case 'reservationsSeats':
+                if (isset($_GET['screening_id'])) {
+                    $this->controller->reservationsSeats($_GET['screening_id']);
+                }
+                break;
+            case 'getSeats':
+                if (isset($_GET['screening_id'])) {
+                    $this->controller->handleSeatsRequest($_GET['screening_id']);
+                }
+                break;        
 
             default:
                 // Par défaut, afficher la page d'accueil

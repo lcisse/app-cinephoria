@@ -213,6 +213,10 @@ L.star-rating {
    border: none;
 }
 
+.screenings .col a {
+    text-decoration: none;
+}
+
 .screenings .card {
     background: var(--cn-color-green-2);
     color: var(--cn-color-white-1);
@@ -261,7 +265,223 @@ L.star-rating {
     color: var(--cn-color-orange-1);
 }
  
- /* ************ fin page réservation ********* */
+/* ************ fin page réservation ********* */
+
+ 
+/* ************ header funnel ********* */
+.heauder-funnel .container .logo-funnel {
+    width: 150px !important;
+    background: var(--cn-color-green-1);
+    border-radius: 5px;
+}
+
+.heauder-funnel .container .logo-funnel img {
+    width: 100%;
+}
+
+
+
+.heauder-funnel .container .b-back {
+    width: 50px;
+    left: 25% !important;
+}
+
+.heauder-funnel .container .b-back a {
+    width: 50px;  
+}
+
+.heauder-funnel .container .b-back a img {
+    width: 100%;
+}
+
+.heauder-funnel .container .hero-funnel {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.heauder-funnel .container .hero-funnel .card {
+    border: none;
+    background: var(--cn-color-white-1);
+}
+
+.heauder-funnel .container .hero-funnel .card .col-md-3 {
+    height: 193px;
+}
+
+.heauder-funnel .container .hero-funnel .card .col-md-3 img {
+    height: 193px;
+    object-fit: cover;
+    width: 100%;
+}
+
+.heauder-funnel .container .hero-funnel .infos-screening {
+    display: flex;
+    align-items: center;
+    color: var(--cn-color-green-1);
+}
+
+.heauder-funnel .container .hero-funnel .col-md-4.infos-screening  {
+    background: var(--cn-color-green-1);
+    color: var(--cn-color-white-1);
+    border-radius: 0 5px 5px 0;
+    margin-right: -1px;
+}
+
+.heauder-funnel .container .hero-funnel .col-md-4.infos-screening h6 {
+    color: var(--cn-color-white-1);
+}
+ 
+/* ************ fin header funnel  ********* */
+
+
+
+
+
+/* ************ page réservation siége ********* */
+/* Styles pour masquer les cases à cocher et personnaliser les icônes */
+/* Général */
+.seat-plan {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.seat-plan .row {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+/* Masquer les cases à cocher */
+.seat-checkbox {
+    display: none;
+}
+
+/* Styles des sièges */
+/*.seat {
+    margin: 5px;
+    position: relative;
+    width: 8%; 
+    text-align: center;
+}*/
+
+/* Icône de siège disponible */
+.seat-icon {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    background-color: #00ff00; /* Couleur par défaut des sièges disponibles (vert) */
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Siège réservé (gris) */
+.seat-icon.reserved {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Siège sélectionné (bleu) */
+.seat-checkbox:checked + .seat-icon {
+    background-color: #1e90ff;
+    border-color: #1e90ff;
+}
+
+/* Siège pour personnes à mobilité réduite (jaune) */
+.seat-icon.accessible {
+    background-color: #ffd700;
+}
+
+/* Ajout d'une petite animation */
+.seat-icon:hover {
+    opacity: 0.8;
+}
+
+/* Styles pour le texte du compteur */
+#seatCounter, #reservedSeats, #selectedSeats {
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+#seatCounter span, #selectedSeats span, #reservedSeats span {
+    font-weight: bold;
+    color: #1e90ff;
+}
+
+/* Mise en page de la salle */
+.rooms-seats {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Style pour l'écran */
+.rooms-seats h5 {
+    margin-bottom: 20px;
+    font-weight: bold;
+    font-size: 18px;
+    text-align: center;
+}
+
+/* Ajout d'un effet d'ombre pour le conteneur de l'écran */
+.rooms-seats div {
+    margin-bottom: 10px;
+}
+
+/* Forcer l'affichage en 10 sièges par ligne */
+.seat-plan-row {
+    max-width: 100%; /* Limiter la largeur maximale pour garder les sièges dans une ligne */
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.seat {
+    flex: 1 1 9%; /* Chaque siège occupera environ 9% de la largeur disponible pour avoir 10 sièges par ligne */
+    max-width: 9%; /* Pour s'assurer qu'il y a toujours 10 sièges par ligne */
+    box-sizing: border-box;
+}
+
+
+
+/* Sièges disponibles */
+.seat-icon.available {
+    background-color: #4CAF50; /* Couleur pour les sièges disponibles (verts) */
+    cursor: pointer;
+}
+
+/* Sièges réservés (gris) */
+.seat-icon.reserved {
+    background-color: #D3D3D3; /* Couleur grise pour les sièges réservés */
+    cursor: not-allowed;
+}
+
+/* Sièges accessibles (par exemple, pour personnes à mobilité réduite) */
+.seat-icon.accessible {
+    border: 2px solid #0000FF; /* Bordure bleue pour les sièges accessibles */
+}
+
+/* Style des sièges sélectionnés */
+.seat-checkbox:checked + .seat-icon.available {
+    background-color: #FFD700; /* Couleur jaune pour les sièges sélectionnés */
+}
+
+
+
+
+/* ************ fin page réservation siége ********* */
+
+
+
+
+
+
 
 /* ******footer************ */
 footer {
@@ -288,4 +508,17 @@ footer {
         padding-left: 10px;
         padding-right: 10px;
     }
+
+    .heauder-funnel .container .b-back {
+        width: 50px;
+        left: 15% !important;
+    }
+
+    .heauder-funnel .container .hero-funnel .card .col-md-3 {
+        height: auto;
+    }
+    .heauder-funnel .container .hero-funnel .card .col-md-3 img {
+        height: 400px;
+    }
+
 }
