@@ -1,8 +1,9 @@
 <?php $title = "Cinéphoria - Réservation sièges"; ?>
+<?php $body_reserv = "body-seat"; ?>
 
 <?php ob_start(); ?>
 
-<section id="seats-section" style="display: none;">
+<section id="seats-section" class="section-transition active">
     <div class="container mt-4">
         <div class="row">
             <div class="col text-center">
@@ -33,20 +34,20 @@
                 <div id="selectedSeats">
                     <p><strong>Numéros des sièges sélectionnés :</strong> <span id="selectedSeatNumbers">Aucun</span></p>               
                 </div>
-                <button type="button" class="btn primary mt-4">Réserver ma place</button>
+                <button type="button" class="btn primary mt-4" id="reserveBtn">Réserver ma place</button>
             </div>
         </div>
     </div>
 </section>
 
-<section id="log">
+<section id="log" class="section-transition">
     <div class="container">
         <div class="row mt-4 btn-row">
-            <div class="col text-end"><button class="btn group active">Je m'identifie</button></div>
-            <div class="col"><button class="btn group">Je crée un compte</button></div>
+            <div class="col text-end"><button id="loginBtn" class="btn group active">Je m'identifie</button></div>
+            <div class="col"><button id="createAccountBtn" class="btn group">Je crée un compte</button></div>
         </div>
         <div class="row row-cols-1 form-row mt-5 mb-5">
-            <div class="col text-center" id="loginForm" style="display: none;">
+            <div class="col text-center" id="loginForm">
                 <form>
                     <div class="mb-3">
                         <input type="email" class="form-control" id="InputEmail1" aria-describedby="emailHelp" placeholder="E-mail*">

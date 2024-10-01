@@ -64,15 +64,21 @@ class App
                     $this->controller->handleScreeningsRequest();
                 }
                 break;
+
             case 'reservationsSeats':
                 if (isset($_GET['screening_id'])) {
                     $this->controller->reservationsSeats($_GET['screening_id']);
                 }
                 break;
+
             case 'getSeats':
                 if (isset($_GET['screening_id'])) {
                     $this->controller->handleSeatsRequest($_GET['screening_id']);
                 }
+                break; 
+                       
+            case 'recapCommande':
+                    $this->controller->showRecapCommande();
                 break;        
 
             default:

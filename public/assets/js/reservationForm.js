@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const loginBtn = document.getElementById("loginBtn");
     const createAccountBtn = document.getElementById("createAccountBtn");
 
+
     // Fonction pour afficher le formulaire de connexion et masquer celui de création
     function showLoginForm() {
         loginForm.style.display = "block"; // Affiche le formulaire de connexion
@@ -34,4 +35,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Afficher le formulaire de connexion par défaut
     showLoginForm();
+
+    /* **************************Section plan and log************************ */
+    const seatsSection = document.getElementById("seats-section");
+    const logSection = document.getElementById("log");
+    const reserveBtn = document.getElementById("reserveBtn");
+
+    // Fonction pour basculer entre les sections avec une transition fluide
+    function switchSection() {
+        seatsSection.classList.remove("active");
+        logSection.classList.add("active");
+
+        // Faire défiler jusqu'au formulaire "log"
+        logSection.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Écouter le clic sur le bouton "Réserver ma place"
+    reserveBtn.addEventListener("click", function () {
+        switchSection();
+    });
 });

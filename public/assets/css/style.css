@@ -505,9 +505,24 @@ L.star-rating {
 }
       /* ************ fin section log ********* */
 
+      .section-transition {
+        opacity: 0;
+        transition: opacity 0.5s ease-in-out;
+        display: none;
+    }
+    
+    .section-transition.active {
+        opacity: 1;
+        display: block;
+    }
 /* ************ fin page réservation siége ********* */
 
+/* ********** page récapitulatif commande **************** */
+#section-recap .title1 {
+    border-bottom: 2px solid var(--cn-color-green-1);
+}
 
+/* ********** page récapitulatif commande **************** */
 /* ******footer************ */
 footer {
     background: var(--cn-color-green-1);

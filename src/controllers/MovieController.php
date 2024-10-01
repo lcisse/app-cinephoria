@@ -64,11 +64,11 @@ class MovieController
         require __DIR__ . '/../views/frontend/films.php';
     }
 
-    public function showReservation()
+    public function showRecapCommande()
     {
         //$movies = $this->moviesManager->getAllMovies();
 
-        require __DIR__ . '/../views/frontend/reservation.php';
+        require __DIR__ . '/../views/frontend/reservation-commande-recap.php';
     }
 
     public function showMoviesByCinema($cinema)
