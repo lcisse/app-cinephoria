@@ -2,7 +2,7 @@
 
 <?php ob_start(); ?>
 
-<section id="seats-section">
+<section id="seats-section" style="display: none;">
     <div class="container mt-4">
         <div class="row">
             <div class="col text-center">
@@ -10,18 +10,6 @@
                 <p><span id="seatCapacity"><?= $seat_capacity ?></span> places libres</p>
             </div>
         </div>
-
-        <!-- Affichage du nombre de sièges réservés et des numéros 
-        <div class="row">
-            <div class="col text-center">
-                <div id="reservedSeats">
-                    <strong>Places réservées :</strong> <span id="reservedCount">0</span>
-                </div>
-                <div id="reservedSeatNumbers">
-                    <strong>Numéro des places réservées :</strong> <span id="reservedSeatNumbersList">Aucun</span>
-                </div>
-            </div>
-        </div>-->
 
         <!-- Plan de salle généré par JavaScript -->
         <div class="row">
@@ -37,17 +25,66 @@
         </div>
 
         <!-- Sélection dynamique des sièges -->
-        <div class="row mt-4">
+        <div class="row mt-4 " id="counter-selected-btn">
             <div class="col text-center">
                 <div id="seatCounter">
-                    <strong>Sièges sélectionnés :</strong> <span id="selectedCount">0</span>
+                    <p><strong>Sièges sélectionnés :</strong> <span id="selectedCount">0</span></p>
                 </div>
                 <div id="selectedSeats">
-                    <strong>Numéros des sièges sélectionnés :</strong> <span id="selectedSeatNumbers">Aucun</span>
+                    <p><strong>Numéros des sièges sélectionnés :</strong> <span id="selectedSeatNumbers">Aucun</span></p>               
                 </div>
+                <button type="button" class="btn primary mt-4">Réserver ma place</button>
             </div>
         </div>
     </div>
+</section>
+
+<section id="log">
+    <div class="container">
+        <div class="row mt-4 btn-row">
+            <div class="col text-end"><button class="btn group active">Je m'identifie</button></div>
+            <div class="col"><button class="btn group">Je crée un compte</button></div>
+        </div>
+        <div class="row row-cols-1 form-row mt-5 mb-5">
+            <div class="col text-center" id="loginForm" style="display: none;">
+                <form>
+                    <div class="mb-3">
+                        <input type="email" class="form-control" id="InputEmail1" aria-describedby="emailHelp" placeholder="E-mail*">
+                    </div>
+                    <div class="mb-3">
+                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Mot de passe*">
+                    </div>
+                    <button type="submit" class="btn mt-3">Je me connecte</button>
+                </form>
+            </div>
+            <div class="col" id="createAccountForm">
+                <form class="text-center">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" placeholder="Prénom" aria-label="First name">
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" placeholder="Nom" aria-label="Last name">
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" placeholder="Nom d'utilisateur" aria-label="User name">
+                        </div>
+                        <div class="col-md-6">
+                        <input type="email" class="form-control" id="InputEmail2" aria-describedby="emailHelp" placeholder="E-mail*">
+                        </div>
+                        <div class="col-md-6">
+                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Mot de passe*">
+                        </div>
+                        <div class="col-md-6">
+                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Confirmer votre mot de passe*">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn mt-3">Je me connecte</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
 </section>
 
 
