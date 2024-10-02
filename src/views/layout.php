@@ -24,5 +24,6 @@
     <script src="<?= BASE_URL ?>/public/assets/js/bootstrap.bundle.min.js"></script>
     <script src="<?= BASE_URL ?>/public/assets/js/filmsFilter"></script>
     <script src="<?= BASE_URL ?>/public/assets/js/screenings"></script>
+    <script src="<?= BASE_URL ?>/public/assets/js/myAccount"></script>
 </body>
 </html>

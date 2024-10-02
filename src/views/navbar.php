@@ -28,7 +28,7 @@
                 <a class="nav-link" href="#">CONTACT</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">MON COMPTE</a>
+                <a class="nav-link" href="<?= BASE_URL ?>/index.php?action=myAccount">MON COMPTE</a>
               </li>
             </ul>
           </div>

@@ -6,6 +6,7 @@ require __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/config.php'; 
 
 use App\controllers\MovieController;
+use App\controllers\UsersController;
 use App\Models\DatabaseSeeder;
 
 
@@ -20,10 +21,12 @@ $seeder->createAllTables();*/
 class App
 {
     private $controller;
+    private $UsersController;
 
     public function __construct()
     {
         $this->controller = new MovieController();
+        $this->UsersController = new UsersController();
     }
 
     public function run($action)
@@ -79,6 +82,9 @@ class App
                        
             case 'recapCommande':
                     $this->controller->showRecapCommande();
+                break;        
+            case 'myAccount':
+                $this->UsersController->showAccountPage();
                 break;        
 
             default:

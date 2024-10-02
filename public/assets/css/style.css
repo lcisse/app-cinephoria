@@ -474,27 +474,27 @@ L.star-rating {
     margin-bottom: 10px;
 }
       /* ************ section log ********* */
-#log .btn-row {
+#log .btn-row, #logs .btn-row {
     border-bottom: 2px solid var(--cn-color-grey-2);
     max-width: 800px;
     margin: 0 auto;
 }      
-#log .btn.group {
+#log .btn.group, #logs .btn.group {
     background: none;
     border: none;
 }
 
-#log .btn.active {
+#log .btn.active, #logs .btn.active {
     border: none;
     color: var(--cn-color-orange-1);
 }
 
-#log .form-row {
+#log .form-row, #logs .form-row {
     max-width: 800px;
     margin: 0 auto;
 }
 
-#log .form-row input{
+#log .form-row input, #logs .form-row input{
     border: 2px solid var(--cn-color-grey-2);
     font-size: 24px;
 }
@@ -504,22 +504,22 @@ L.star-rating {
     box-shadow: 0 0 0 .1rem rgb(222 116 32 / 67%);
 }
 
-#log button a{
+#log button a, #logs button a {
     text-decoration: none;
     color: var(--cn-color-green-1);
 }
-      /* ************ fin section log ********* */
 
-      .section-transition {
-        opacity: 0;
-        transition: opacity 0.5s ease-in-out;
-        display: none;
-    }
+.section-transition {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    display: none;
+}
     
-    .section-transition.active {
-        opacity: 1;
-        display: block;
-    }
+.section-transition.active {
+    opacity: 1;
+    display: block;
+}
+      /* ************ fin section log ********* */
 /* ************ fin page réservation siége ********* */
 
 /* ********** page récapitulatif commande **************** */
