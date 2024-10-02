@@ -55,7 +55,7 @@
                     <div class="mb-3">
                         <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Mot de passe*">
                     </div>
-                    <button type="submit" class="btn mt-3">Je me connecte</button>
+                    <button type="submit" class="btn mt-3"><a class="" href="<?= BASE_URL ?>/index.php?action=recapCommande">Je me connecte</a></button>
                 </form>
             </div>
             <div class="col" id="createAccountForm">
@@ -80,7 +80,7 @@
                             <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Confirmer votre mot de passe*">
                         </div>
                     </div>
-                    <button type="submit" class="btn mt-3">Je me connecte</button>
+                    <button type="submit" class="btn mt-3"><a class="" href="<?= BASE_URL ?>/index.php?action=recapCommande">Je me connecte</a></button>
                 </form>
             </div>
         </div>

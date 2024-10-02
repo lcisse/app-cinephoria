@@ -28,18 +28,49 @@
             <div class="row text-center title1">
                 <h1>Récapitulatif de ma commade</h1>
             </div>
-            <div class="row">
-                <div class="col-md-6" style="height: 350px;">
-                    <img src="https://m.media-amazon.com/images/M/MV5BMzNiMGViZGQtNTliNS00MjE5LWE5N2EtZDQwMmQwOTVkYjA3XkEyXkFqcGc@._V1_.jpg" class="img-fluid rounded-start" alt="..." width="70%">
+            <div class="row mt-5 pt-5 order-infos">
+                <div class="col-md-6 pe-5 text-end recap-img-container" >
+                    <div class="recap-img text-end">
+                        <img src="https://m.media-amazon.com/images/M/MV5BMzNiMGViZGQtNTliNS00MjE5LWE5N2EtZDQwMmQwOTVkYjA3XkEyXkFqcGc@._V1_.jpg" class="img-fluid rounded-start" alt="...">
+                    </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6 ps-5 mt-2">
                     <h2>Titre du film</h2>
                     <p>Paris</p>
                     <p>Lundi 30 septembre</p>
-                    <p>20:10 (fin 22:22)</p>
+                    <p><span class="h-start">20:10</span> <small>(fin <span class="h-end">22:22</span>)</small></p>
                 </div>
-                <div class="col"></div>
-                <div class="col"></div>
+                <div class="col-md-12 places mt-4 mb-3 pt-3">
+                    <div class="row">
+                        <div class="col-md-6 text-center">
+                            <h3>Mes places</h3>
+                        </div>
+                        <div class="row">
+                            <div class="col text-center">
+                                <p><span>1</span> places</p>
+                            </div>
+                            <div class="col text-center">
+                                <p>15.5€</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 text-center">
+                    <h2>Total à régler : <span>15.5€</span></h2>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-md-12">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            J’accepte les Conditions générales de réservation
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-12 text-center mt-5 mb-5">
+                    <button class="btn">Valider ma commande</button>
+                </div>
             </div>
         </div>
     </section>

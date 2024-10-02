@@ -503,6 +503,11 @@ L.star-rating {
     border-color: var(--cn-color-orange-2) !important;
     box-shadow: 0 0 0 .1rem rgb(222 116 32 / 67%);
 }
+
+#log button a{
+    text-decoration: none;
+    color: var(--cn-color-green-1);
+}
       /* ************ fin section log ********* */
 
       .section-transition {
@@ -518,8 +523,60 @@ L.star-rating {
 /* ************ fin page réservation siége ********* */
 
 /* ********** page récapitulatif commande **************** */
+#section-recap {
+    max-width: 800px;
+    margin: 0 auto;
+    color: var(--cn-color-green-1);
+}
+
 #section-recap .title1 {
     border-bottom: 2px solid var(--cn-color-green-1);
+}
+
+#section-recap .order-infos {
+    border: 2px solid var(--cn-color-green-1);
+    border-radius: 10px;
+}
+
+#section-recap .recap-img-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#section-recap .recap-img {
+    width: 55%;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 15px;
+}
+
+#section-recap .recap-img  img {
+    height: 200px;
+    object-fit: cover;
+    width: 100%;
+}
+
+#section-recap .order-infos .h-start {
+    font-weight: 600;
+}
+
+#section-recap .order-infos .places {
+    background: var(--cn-color-green-1);
+    color: var(--cn-color-white-1);
+}
+
+#section-recap .form-check  {
+    font-size: 20px;
+}
+
+
+#section-recap .form-check input{
+    border: 2px solid var(--cn-color-grey-2);
+}
+
+#section-recap .form-check input:focus {
+    border-color: var(--cn-color-orange-2) !important;
+    box-shadow: none;
 }
 
 /* ********** page récapitulatif commande **************** */
@@ -559,6 +616,11 @@ footer {
     }
     .heauder-funnel .container .hero-funnel .card .col-md-3 img {
         height: 400px;
+    }
+
+    #section-recap .recap-img-container {
+        display: flex;
+        justify-content: center;
     }
 
 }
