@@ -6,14 +6,17 @@ use App\models\MovieManager;
 use App\models\ScreeningManager;
 use App\Models\ReservationManager;
 use App\Models\SeatManager;
+use App\controllers\UsersController;
 
 class MovieController
 {
     private $moviesManager;
+    private $usersController;
 
     public function __construct()
     {
         $this->moviesManager = new MovieManager();
+        $this->usersController = new UsersController();
     }
 
     private function convertDayToFrench($englishDays) {
@@ -131,6 +134,7 @@ class MovieController
 
     public function reservationsSeats($screening_id) {
         $screenings = $this->moviesManager->getScreeningDetails($screening_id);
+        $usersController = $this->usersController->isAuthenticated();
         //var_dump($screenings);
 
        if (!empty($screenings)) {

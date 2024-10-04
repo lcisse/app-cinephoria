@@ -39,6 +39,8 @@ p{
     font-size: 22px;
     text-transform: uppercase;
     font-weight: 600;
+    text-decoration: none;
+    border: none;
 }
 
 .btn:hover {
@@ -96,7 +98,6 @@ h.navbar-toggler-icon {
     right: 0;
     bottom: 0;
     background: rgba(0, 0, 0, 0.5); 
-    uz-index: 1;
 }
 
 #header-home .container {
@@ -106,6 +107,10 @@ h.navbar-toggler-icon {
 
 #header-home .text-hero {
     height: 60vh;
+    color: var(--cn-color-white-1);
+}
+
+#header-home .text-hero h1 {
     color: var(--cn-color-white-1);
 }
 
@@ -135,7 +140,7 @@ h.navbar-toggler-icon {
     opacity: 1;
 }
  
-.btn.primary {
+.btn.prim {
     width: 100%;
  }
 
@@ -478,7 +483,14 @@ L.star-rating {
     border-bottom: 2px solid var(--cn-color-grey-2);
     max-width: 800px;
     margin: 0 auto;
-}      
+} 
+
+#logs {
+    margin-top: 80px;
+    margin-bottom: 100px;
+    min-height: 66vh;
+}
+
 #log .btn.group, #logs .btn.group {
     background: none;
     border: none;
@@ -504,10 +516,8 @@ L.star-rating {
     box-shadow: 0 0 0 .1rem rgb(222 116 32 / 67%);
 }
 
-#log button a, #logs button a {
-    text-decoration: none;
-    color: var(--cn-color-green-1);
-}
+
+
 
 .section-transition {
     opacity: 0;

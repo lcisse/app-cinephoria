@@ -1,16 +1,19 @@
 <?php
 namespace App\Models;
 
+use PDO;
+use PDOException;
+
 class UsersManager extends BaseManager
 {
     public function createUsersTable()
     {
         $sql = "CREATE TABLE IF NOT EXISTS users (
             id INT PRIMARY KEY AUTO_INCREMENT,
-            first_name VARCHAR(255) NOT NULL,
-            last_name VARCHAR(255) NOT NULL,
-            username VARCHAR(255) NOT NULL UNIQUE,
-            email VARCHAR(255) NOT NULL UNIQUE,
+            first_name VARCHAR(100) NOT NULL,
+            last_name VARCHAR(100) NOT NULL,
+            username VARCHAR(100) NOT NULL UNIQUE,
+            email VARCHAR(100) NOT NULL UNIQUE,
             password VARCHAR(255) NOT NULL,
             role ENUM('administrator', 'employee', 'user') NOT NULL
         )";
@@ -20,22 +23,35 @@ class UsersManager extends BaseManager
 
     public function addUser($firstName, $lastName, $username, $email, $password, $role)
     {
-        $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+        try {
+            $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
-        $sql = "INSERT INTO users (first_name, last_name, username, email, password, role) 
-                VALUES (:first_name, :last_name, :username, :email, :password, :role)";
-        
+            $sql = "INSERT INTO users (first_name, last_name, username, email, password, role) 
+                    VALUES (:first_name, :last_name, :username, :email, :password, :role)";
+
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute([
+                ':first_name' => $firstName,
+                ':last_name' => $lastName,
+                ':username' => $username,
+                ':email' => $email,
+                ':password' => $hashedPassword,
+                ':role' => $role
+            ]);
+
+            echo "Utilisateur ajouté avec succès.";
+        } catch (PDOException $e) {
+            echo "Erreur lors de l'ajout de l'utilisateur : " . $e->getMessage();
+        }
+    }
+
+    public function getUserByEmail($email)
+    {
+        $sql = "SELECT * FROM users WHERE email = :email LIMIT 1";
         $stmt = $this->pdo->prepare($sql);
-        $stmt->execute([
-            ':first_name' => $firstName,
-            ':last_name' => $lastName,
-            ':username' => $username,
-            ':email' => $email,
-            ':password' => $hashedPassword,
-            ':role' => $role
-        ]);
-        
-        echo "Utilisateur ajouté avec succès.";
+        $stmt->execute([':email' => $email]);
+
+        return $stmt->fetch(PDO::FETCH_ASSOC); // Renvoie l'utilisateur correspondant
     }
 
     public function getAllUsers()

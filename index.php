@@ -34,6 +34,7 @@ class App
         switch ($action) {
             case 'home':
                 $this->controller->showHome();
+                //$this->UsersController->logout();
                 break;
 
             case 'films':
@@ -81,11 +82,46 @@ class App
                 break; 
                        
             case 'recapCommande':
+                if ($this->UsersController->isAuthenticated()) {
                     $this->controller->showRecapCommande();
-                break;        
+                } else {
+                    //header("Location: index.php?action=myAccount");
+                }
+                break; 
+
             case 'myAccount':
-                $this->UsersController->showAccountPage();
-                break;        
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                    if (isset($_POST['action'])) {
+                        if ($_POST['action'] === 'createAccount') {
+                            $this->UsersController->createAccount();  
+                        } elseif ($_POST['action'] === 'login') {
+                            $this->UsersController->login(); 
+                        }
+                    }
+                } else {
+                    $this->UsersController->showAccountPage();  
+                }
+                break;
+
+            case 'reservationCreateAccount':
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                    $this->UsersController->createAccount('recapCommande');
+                }
+                break;
+
+            case 'reservationLogin':
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                    $this->UsersController->login('recapCommande');
+                }
+                break;    
+                
+            case 'logout':
+                $this->UsersController->logout();
+                break;  
+
+            case 'checkAuthentication':
+                $this->UsersController->checkAuthentication();
+                break;    
 
             default:
                 // Par défaut, afficher la page d'accueil

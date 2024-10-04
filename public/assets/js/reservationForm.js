@@ -1,39 +1,36 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Sélection des éléments
     const loginForm = document.getElementById("loginForm");
     const createAccountForm = document.getElementById("createAccountForm");
     const loginBtn = document.getElementById("loginBtn");
     const createAccountBtn = document.getElementById("createAccountBtn");
 
 
-    // Fonction pour afficher le formulaire de connexion et masquer celui de création
+    
     function showLoginForm() {
-        loginForm.style.display = "block"; // Affiche le formulaire de connexion
-        createAccountForm.style.display = "none"; // Masque le formulaire de création
-        loginBtn.classList.add("active"); // Active le bouton de connexion
-        createAccountBtn.classList.remove("active"); // Désactive le bouton de création
+        loginForm.style.display = "block"; 
+        createAccountForm.style.display = "none"; 
+        loginBtn.classList.add("active"); 
+        createAccountBtn.classList.remove("active"); 
     }
 
-    // Fonction pour afficher le formulaire de création et masquer celui de connexion
     function showCreateAccountForm() {
-        loginForm.style.display = "none"; // Masque le formulaire de connexion
-        createAccountForm.style.display = "block"; // Affiche le formulaire de création
-        loginBtn.classList.remove("active"); // Désactive le bouton de connexion
-        createAccountBtn.classList.add("active"); // Active le bouton de création
+        loginForm.style.display = "none"; 
+        createAccountForm.style.display = "block"; 
+        loginBtn.classList.remove("active"); 
+        createAccountBtn.classList.add("active"); 
     }
 
-    // Ajouter les événements de clic aux boutons
+ 
     loginBtn.addEventListener("click", function (event) {
-        event.preventDefault(); // Empêche le rechargement de la page
-        showLoginForm(); // Affiche le formulaire de connexion
+        event.preventDefault(); 
+        showLoginForm(); 
     });
 
     createAccountBtn.addEventListener("click", function (event) {
-        event.preventDefault(); // Empêche le rechargement de la page
-        showCreateAccountForm(); // Affiche le formulaire de création
+        event.preventDefault(); 
+        showCreateAccountForm(); 
     });
 
-    // Afficher le formulaire de connexion par défaut
     showLoginForm();
 
     /* **************************Section plan and log************************ */
@@ -46,12 +43,24 @@ document.addEventListener("DOMContentLoaded", function () {
         seatsSection.classList.remove("active");
         logSection.classList.add("active");
 
-        // Faire défiler jusqu'au formulaire "log"
+      
         logSection.scrollIntoView({ behavior: 'smooth' });
     }
 
-    // Écouter le clic sur le bouton "Réserver ma place"
+
     reserveBtn.addEventListener("click", function () {
-        switchSection();
+        fetch("index.php?action=checkAuthentication") 
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                if (data.isAuthenticated) {
+                    window.location.href = "index.php?action=recapCommande";
+                } else {
+                    switchSection();
+                }
+            })
+            .catch(error => {
+                console.error('Erreur:', error);
+            });
     });
 });

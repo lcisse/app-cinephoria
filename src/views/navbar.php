@@ -30,6 +30,9 @@
               <li class="nav-item">
                 <a class="nav-link" href="<?= BASE_URL ?>/index.php?action=myAccount">MON COMPTE</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" href="<?= BASE_URL ?>/index.php?action=logout">DECONNECTION</a>
+              </li>
             </ul>
           </div>
         </div>

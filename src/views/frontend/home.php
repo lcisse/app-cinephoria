@@ -33,7 +33,7 @@
                         <h5 class="card-title"><?= htmlspecialchars($movie['title']) ?></h5>
                     </div>
                     <div class="btn-session">
-                        <button type="button" class="btn primary">Séances</button>
+                        <button type="button" class="btn prim">Séances</button>
                     </div>
                     </div>
                 </div>

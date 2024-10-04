@@ -135,10 +135,7 @@
                     </li>
                 </ul>
                 <div class="card-body mt-auto flex-grow-0">
-                <button type="button" class="btn primary">
-                <a href="<?= BASE_URL ?>/index.php?action=seances&movie_id=<?= htmlspecialchars($movie['id']) ?>" class="btn btn-primary">Séances</a>
-
-                </button>
+                    <a type="button" class="btn prim" href="<?= BASE_URL ?>/index.php?action=seances&movie_id=<?= htmlspecialchars($movie['id']) ?>" class="btn btn-prim">Séances</a>
                 </div>
                 <?= $movie['favorite'] !== 0 ? '<span class="position-absolute top-0 end-0 badge rounded-0 mt-1 me-1 ps-2 p-1 fs-6 cine-heart">Coup de coeur ❤️</span>' : '' ?>
             </div>
