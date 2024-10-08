@@ -19,7 +19,8 @@ class MovieController
         $this->usersController = new UsersController();
     }
 
-    private function convertDayToFrench($englishDays) {
+    private function convertDayToFrench($englishDays) 
+    {
         $days = [
             'Monday' => 'lundi',
             'Tuesday' => 'mardi',
@@ -69,9 +70,86 @@ class MovieController
 
     public function showRecapCommande()
     {
-        //$movies = $this->moviesManager->getAllMovies();
+        // Vérifier si des données sont envoyées via POST (utilisateur connecté) ou si elles sont en session temporaire
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' || isset($_SESSION['temp_reservation'])) {
+            
+            // Si les données sont en POST
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $selectedSeats = $_POST['seats'];
+                $screeningId = $_POST['screeningId'];
+                $totalSeats = count(explode(', ', $selectedSeats)); // Calculer le nombre de sièges à partir de la chaîne de sièges
+                $totalPrice = $_POST['totalPrice'];  // Le prix est calculé côté client dans ce cas
+            }
+            // Si les données sont en session temporaire
+            else if (isset($_SESSION['temp_reservation'])) {
+                $reservationData = $_SESSION['temp_reservation'];
+                unset($_SESSION['temp_reservation']); // Supprimer les données temporaires après utilisation
 
-        require __DIR__ . '/../views/frontend/reservation-commande-recap.php';
+                $selectedSeats = $reservationData['seats'];
+                $screeningId = $reservationData['screeningId'];
+                $totalSeats = $reservationData['totalSeats'];
+
+                // Calculer le prix total en fonction des sièges
+                $screeningDetails = $this->moviesManager->getScreeningDetails($screeningId);
+                $projectionQuality = $screeningDetails['projection_quality'];
+
+                $qualityPrices = [
+                    "2D" => 10.0,
+                    "3D" => 12.5,
+                    "IMAX" => 15.0,
+                    "4DX" => 18.0,
+                    "MX4D" => 20.0,
+                    "D-BOX" => 22.0
+                ];
+                $pricePerSeat = $qualityPrices[$projectionQuality] ?? 10.0;
+                $totalPrice = $totalSeats * $pricePerSeat;
+            }
+
+            // Récupérer les informations sur la projection et le film
+            $screeningDetails = $this->moviesManager->getScreeningDetails($screeningId);
+            $movieTitle = $screeningDetails['title'];
+            $cinema = $screeningDetails['cinema'];
+            $startTime = $screeningDetails['start_time'];
+            $endTime = $screeningDetails['end_time'];
+            $screeningDay = $screeningDetails['screening_day'];
+            $formattedDate = $this->convertDayToFrench($screeningDay);
+
+            // Afficher la vue avec toutes les informations
+            require __DIR__ . '/../views/frontend/reservation-commande-recap.php';
+        } else {
+            // Rediriger vers la page d'accueil si aucune donnée n'est disponible
+            header("Location: index.php?action=home");
+            exit();
+        }
+    }
+
+    public function confirmReservation()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $userId = $_SESSION['user_id'];
+            $screeningId = $_POST['screeningId'];
+            $seats = $_POST['seats'];  
+            $totalPrice = $_POST['totalPrice'];
+
+            // Récupérer les détails de la projection pour obtenir l'ID du film
+            $screeningDetails = $this->moviesManager->getScreeningDetails($screeningId);
+            $movieId = $screeningDetails['movie_id'];
+
+            // Générer un QR code (simple texte ici, vous pouvez utiliser une bibliothèque pour générer un vrai QR code)
+            $qrCode = 'QR_' . uniqid();
+
+            // Enregistrer la réservation dans la base de données
+            $this->moviesManager->createReservation($userId, $movieId, $screeningId, $seats, $totalPrice, $qrCode);
+
+            $_SESSION['reservation_confirmed'] = true;
+
+            unset($_SESSION['temp_reservation']);
+
+            // Rediriger vers une page de confirmation ou d'affichage du QR code
+            //header("Location: index.php?action=confirmPage");
+            $this->showConfirmPage();
+            exit();
+        }
     }
 
     public function showMoviesByCinema($cinema)
@@ -161,5 +239,16 @@ class MovieController
         // Renvoyer les sièges sous format JSON pour être utilisés par AJAX
         echo json_encode($seats);
         exit;
+    }
+
+    public function showConfirmPage()
+    {
+        if (isset($_SESSION['reservation_confirmed']) && $_SESSION['reservation_confirmed'] === true) {
+            unset($_SESSION['reservation_confirmed']); 
+            require __DIR__ . '/../views/frontend/reservation-confirmee.php'; 
+        } else {
+            header("Location: index.php?action=home");
+            exit();
+        }
     }
 }

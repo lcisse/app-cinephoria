@@ -111,10 +111,12 @@ class MovieManager extends BaseManager
     public function getScreeningDetails($screening_id)
     {
         $sql = "SELECT 
+                    movies.id AS movie_id,
                     movies.title,
                     movies.description,
                     movies.poster,
                     cinemas.cinema_name AS cinema,
+                    rooms.id AS room_id,
                     rooms.room_number,
                     TIME_FORMAT(screenings.start_time, '%H:%i') AS start_time,
                     TIME_FORMAT(screenings.end_time, '%H:%i') AS end_time,
@@ -175,6 +177,84 @@ class MovieManager extends BaseManager
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC); // Renvoie les résultats des sièges
+    }
+
+    /*public function createReservation($userId, $movieId, $screeningId, $seats, $price, $qrCode)
+    {
+        var_dump($userId, $movieId, $screeningId, $seats, $price, $qrCode);
+
+        if (is_array($seats)) {
+            $seats = implode(', ', $seats); 
+        }
+
+        $sql = "INSERT INTO reservations (user_id, movie_id, screening_id, seats, price, status, qr_code, scanned) 
+                VALUES (:user_id, :movie_id, :screening_id, :seats, :price, 'confirmed', :qr_code, 0)";
+        
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([
+            ':user_id' => $userId,
+            ':movie_id' => $movieId,
+            ':screening_id' => $screeningId,
+            ':seats' => $seats,
+            ':price' => $price,
+            ':qr_code' => $qrCode
+        ]);
+    }*/
+
+    public function createReservation($userId, $movieId, $screeningId, $seats, $price, $qrCode)
+    {
+        // Convertir les sièges en tableau si c'est une chaîne
+        if (!is_array($seats)) {
+            $seats = explode(', ', $seats); 
+        }
+
+        // Récupérer l'ID de la salle associée à la projection (screening)
+        $screeningDetails = $this->getScreeningDetails($screeningId);
+        
+        $roomId = $screeningDetails['room_id']; // Assurez-vous que la méthode getScreeningDetails renvoie le room_id
+
+        // Commencer la transaction pour assurer l'intégrité des opérations
+        $this->pdo->beginTransaction();
+
+        try {
+            // Insérer la réservation
+            $sql = "INSERT INTO reservations (user_id, movie_id, screening_id, seats, price, status, qr_code, scanned) 
+                    VALUES (:user_id, :movie_id, :screening_id, :seats, :price, 'confirmed', :qr_code, 0)";
+            
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute([
+                ':user_id' => $userId,
+                ':movie_id' => $movieId,
+                ':screening_id' => $screeningId,
+                ':seats' => implode(', ', $seats), // Reconvertir les sièges en chaîne pour la base de données
+                ':price' => $price,
+                ':qr_code' => $qrCode
+            ]);
+
+            // Mettre à jour les sièges comme réservés dans la table seats
+            $this->updateSeatsAsReserved($seats, $roomId);
+
+            // Confirmer la transaction
+            $this->pdo->commit();
+        } catch (Exception $e) {
+            // En cas d'erreur, annuler la transaction
+            $this->pdo->rollBack();
+            throw $e; // Relancer l'exception pour la gérer ailleurs
+        }
+    }
+
+    public function updateSeatsAsReserved(array $seats, $roomId)
+    {
+        // Construire la requête pour mettre à jour plusieurs sièges dans une salle spécifique
+        $placeholders = implode(',', array_fill(0, count($seats), '?')); // Crée un nombre de placeholders égaux au nombre de sièges
+
+        // Requête SQL pour mettre à jour les sièges sélectionnés pour une salle spécifique
+        $sql = "UPDATE seats SET reserved = 1 WHERE seat_number IN ($placeholders) AND room_id = ?";
+
+        $stmt = $this->pdo->prepare($sql);
+
+        // Exécuter la requête en passant tous les numéros de sièges, suivis du room_id
+        $stmt->execute(array_merge($seats, [$roomId]));
     }
 
 }

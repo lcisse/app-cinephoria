@@ -5,6 +5,12 @@ document.addEventListener("DOMContentLoaded", function () {
     const screeningId = document.querySelector(".rooms-seats").getAttribute("data-screening-id");
     const counterSelectedBtn = document.getElementById("counter-selected-btn");
 
+
+    const loginForm = document.getElementById("loginForm");
+    const createAccountForm = document.getElementById("createAccountForm");
+    const loginBtn = document.getElementById("loginBtn");
+    const createAccountBtn = document.getElementById("createAccountBtn");
+
     let totalSeats = 0;
     let selectedSeatNumbers = [];
 
@@ -97,6 +103,131 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Charger les sièges lors du chargement de la page
     loadSeats(screeningId);
+
+
+    // ------------------------- gestion form reservation ------------------//
+    function showLoginForm() {
+        loginForm.style.display = "block"; 
+        createAccountForm.style.display = "none"; 
+        loginBtn.classList.add("active"); 
+        createAccountBtn.classList.remove("active"); 
+    }
+
+    function showCreateAccountForm() {
+        loginForm.style.display = "none"; 
+        createAccountForm.style.display = "block"; 
+        loginBtn.classList.remove("active"); 
+        createAccountBtn.classList.add("active"); 
+    }
+
+ 
+    loginBtn.addEventListener("click", function (event) {
+        event.preventDefault(); 
+        showLoginForm(); 
+    });
+
+    createAccountBtn.addEventListener("click", function (event) {
+        event.preventDefault(); 
+        showCreateAccountForm(); 
+    });
+
+    showLoginForm();
+
+    // ----------------------------Section plan and log ------------------------------- //
+    const seatsSection = document.getElementById("seats-section");
+    const logSection = document.getElementById("log");
+    const reserveBtn = document.getElementById("reserveBtn");
+    console.log(reserveBtn);
+
+    // Fonction pour basculer entre les sections avec une transition fluide
+    function switchSection() {
+        seatsSection.classList.remove("active");
+        logSection.classList.add("active");
+
+      
+        logSection.scrollIntoView({ behavior: 'smooth' });
+    }
+
+
+    reserveBtn.addEventListener("click", function (e) {
+        fetch("index.php?action=checkAuthentication") 
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                if (data.isAuthenticated) {
+                    if (totalSeats > 0) {
+                        const projectionQuality = document.querySelector(".rooms-seats").getAttribute("data-projection-quality");
+                        
+                        const qualityPrices = {
+                            "2D": 10.0, 
+                            "3D": 12.5, 
+                            "IMAX": 15.0, 
+                            "4DX": 18.0, 
+                            "MX4D": 20.0, 
+                            "D-BOX": 22.0
+                        };
+                        const pricePerSeat = qualityPrices[projectionQuality] || 10;
+                        const totalPrice = totalSeats * pricePerSeat;
+                        
+                        // Créer un objet de données
+                        const reservationData = {
+                            seats: selectedSeatNumbers.join(', '),  
+                            screeningId: screeningId,
+                            totalPrice: totalPrice
+                        };
+    
+                        // Créer un formulaire caché pour envoyer les données via POST
+                        const form = document.createElement("form");
+                        form.method = "POST";
+                        form.action = "index.php?action=recapCommande"; // URL de la page de récapitulatif
+    
+                        for (const key in reservationData) {
+                            console.log(key);
+                            if (reservationData.hasOwnProperty(key)) {
+                                const input = document.createElement("input");
+                                input.type = "hidden";
+                                input.name = key;
+                                input.value = reservationData[key];
+                                console.log(input.value);
+                                form.appendChild(input);
+                            }
+                        }
+                        document.body.appendChild(form);
+                        
+                        form.submit(); // Soumettre les données
+                    } else {
+                        alert("Veuillez sélectionner des sièges avant de réserver.");
+                    }
+                } else {
+                    console.log('noooooooooooooo');
+                    // Si l'utilisateur n'est pas authentifié, on stocke les données en session
+                    const reservationData = {
+                        seats: selectedSeatNumbers.join(', '),  
+                        screeningId: screeningId,
+                        totalSeats: totalSeats
+                    };
+    
+                    // Sauvegarder ces données en session via une requête fetch
+                    fetch("index.php?action=storeTempReservation", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(reservationData)
+                    })
+                    .then(() => {
+                        // Après stockage, rediriger vers la section de connexion
+                        switchSection();
+                    })
+                    .catch(error => {
+                        console.error("Erreur lors de la sauvegarde des données temporaires:", error);
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Erreur:', error);
+            });
+    });
 });
 
 // Icône SVG pour un siège normal

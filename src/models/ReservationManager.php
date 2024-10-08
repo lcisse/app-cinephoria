@@ -13,7 +13,7 @@ class ReservationManager extends BaseManager
             user_id INT,  
             movie_id INT, 
             screening_id INT, 
-            seats INT,  -- Nombre de sièges réservés
+            seats VARCHAR(255),  
             price DECIMAL(10, 2), -- Le prix total
             reservation_date DATETIME DEFAULT CURRENT_TIMESTAMP, 
             status ENUM('confirmed', 'pending', 'cancelled') DEFAULT 'pending', 

@@ -86,6 +86,13 @@ class UsersController
                 $_SESSION['username'] = $user['username'];
                 $_SESSION['role'] = $user['role'];
 
+            // Vérifier s'il y a des données de réservation en session
+            if (isset($_SESSION['temp_reservation'])) {
+                // Rediriger vers la page de récapitulatif des commandes
+                header("Location: index.php?action=recapCommande");
+                exit();
+            }
+
                 header("Location: index.php?action=$redirectPage");
                 exit();
             } else {

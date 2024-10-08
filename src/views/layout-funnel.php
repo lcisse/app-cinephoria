@@ -21,6 +21,6 @@
     <script src="<?= BASE_URL ?>/public/assets/js/filmsFilter"></script>
     <script src="<?= BASE_URL ?>/public/assets/js/screenings"></script>
     <script src="<?= BASE_URL ?>/public/assets/js/roomSeats"></script>
-    <script src="<?= BASE_URL ?>/public/assets/js/reservationForm"></script>
+    <!-- <script src="/public/assets/js/reservationForm"></script> -->
 </body>
 </html>

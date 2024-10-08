@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     showLoginForm();
 
-    /* **************************Section plan and log************************ */
+    // ----------------------------Section plan and log ------------------------------- //
     const seatsSection = document.getElementById("seats-section");
     const logSection = document.getElementById("log");
     const reserveBtn = document.getElementById("reserveBtn");

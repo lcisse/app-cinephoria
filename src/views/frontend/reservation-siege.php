@@ -14,7 +14,7 @@
 
         <!-- Plan de salle généré par JavaScript -->
         <div class="row">
-            <div class="col rooms-seats text-center" data-seat-capacity="<?= $seat_capacity ?>" data-screening-id="<?= $screening_id ?>">
+            <div class="col rooms-seats text-center" data-seat-capacity="<?= $seat_capacity ?>" data-screening-id="<?= $screening_id ?>" data-projection-quality="<?= $projection_quality ?>">
                 <div>
                     <h5>Ecran</h5>
                 </div>
