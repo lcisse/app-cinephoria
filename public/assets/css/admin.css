@@ -1,0 +1,129 @@
+:root {
+    --cn-color-green-1: #0F3C44;
+    --cn-color-green-2: #035f70;
+    --cn-color-green-3: #D2E8E3;
+    --cn-color-blue-1: #00C7F8;
+    --cn-color-grey-1: #F1F2F7;
+    --cn-color-grey-2: #d4d5da;
+    --cn-color-white-1: #F1F2F7;
+    --cn-color-orange-1: #DE7420;
+    --cn-color-orange-2: #FD8F3B;
+}
+
+
+@font-face {
+    font-family: 'Roboto-Italic';
+    src: url('public/assets/fonts/Roboto-Italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body{
+    font-family: 'Sofia Sans Extra Condensed', sans-serif !important;
+}
+
+a {
+    text-decoration: none;
+}
+
+input, select {
+    border: 2px solid var(--cn-color-grey-2) !important;
+}
+
+select option:hover {
+    background: var(--cn-color-green-3) !important;
+}
+
+#admin-container {
+    margin-top: 70px;
+    width: 100%;
+}
+
+#admin-container .form-control:focus, .form-select:focus {
+    border-color: var(--cn-color-green-3) !important;
+    box-shadow: 0 0 0 .1rem rgb(210 232 227 / 67%);
+}
+
+.admin-right-container {
+    width: 90%;
+    margin-left: auto;
+    padding: 10px 20px;
+}
+
+.create-form {
+    width: 70%;
+}
+
+.admin-title {
+   display: flex;
+}
+
+#admin-container .btn {
+    background: var(--cn-color-grey-1);
+    text-transform: capitalize;
+    padding: 4px 16px;
+    margin-left: 10px;
+} 
+
+#admin-container .btn:hover {
+    background: var(--cn-color-green-3);
+}
+
+#navAdmin {
+    min-height: 93vh;
+    width: 9.9%;
+    background: var(--cn-color-green-2);
+    position: fixed;
+}
+
+#navAdmin .nav-link {
+    text-align: left;
+    color: var(--cn-color-white-1);
+}
+
+#navAdmin .nav-link.active {
+    background-color: var(--cn-color-green-3);
+    color: var(--cn-color-green-1);
+    border-radius: 0;
+}
+
+.btn-delete {
+    color: rgb(218, 36, 36);
+}
+
+.btn-delete:hover {
+    color: rgb(243, 106, 14);
+}
+
+/* page salle*/
+#toggleFilmButton {
+    transition: transform 0.3s ease-in-out;
+}
+
+#toggleFilmButton i {
+    font-size: 16px;
+    margin-left: 10px;
+}
+
+tr {
+    
+}
+
+td {
+    position: relative; 
+    padding-bottom: 20px !important;
+}
+
+.action-buttons {
+    position: absolute;
+    bottom: -10px;
+    left: 15px;
+    transform: translateY(-50%);
+    display: none;
+    z-index: 10;
+}
+
+.room-row:hover .action-buttons {
+    display: inline-block;
+    font-size: 14px;
+}

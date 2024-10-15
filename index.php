@@ -7,6 +7,7 @@ require_once __DIR__ . '/config.php';
 
 use App\controllers\MovieController;
 use App\controllers\UsersController;
+use App\controllers\backend\BmovieController;
 use App\Models\DatabaseSeeder;
 
 
@@ -22,11 +23,13 @@ class App
 {
     private $controller;
     private $UsersController;
+    private $bmovieController;
 
     public function __construct()
     {
         $this->controller = new MovieController();
         $this->UsersController = new UsersController();
+        $this->bmovieController = new BmovieController();
     }
 
     public function run($action)
@@ -144,12 +147,23 @@ class App
                 }
                 break;
 
-            /*case 'confirmPage':
-                $this->controller->showConfirmPage();
-                break;*/
+            case 'espace-admin':
+                $this->bmovieController->showDasboard();
+                break;
+                
+            case 'salles':
+                $this->bmovieController->showRooms();
+                break;
+
+            case 'createRoom':
+                $this->bmovieController->createRoom();
+                break;
+
+            case 'deleteRoom':   
+                $this->bmovieController->deleteRoom();
+                break;
 
             default:
-                // Par défaut, afficher la page d'accueil
                 $this->controller->showHome();
                 break;
         }

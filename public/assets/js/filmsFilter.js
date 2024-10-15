@@ -53,24 +53,26 @@
         // Appliquer les filtres une fois au chargement
         applyFilters();
 
-
-        function toggltButtonFilter () {
-            const toggleButton = document.getElementById('toggleButton');
-            const icon = toggleButton.querySelector('#toggleButton i'); // Sélectionner l'icône
+        function toggltButtonFilter() {
+            const toggleButtons = document.querySelectorAll('.toggleButton'); 
         
-            toggleButton.addEventListener('click', function() {
-                // Vérifier quelle icône est actuellement affichée
-                if (icon.classList.contains('fa-chevron-down')) {
+            toggleButtons.forEach(button => {
+                const icon = button.querySelector('i'); 
+                const target = document.querySelector(button.getAttribute('data-bs-target'));
+        
+                target.addEventListener('shown.bs.collapse', function () {
                     icon.classList.remove('fa-chevron-down');
                     icon.classList.add('fa-chevron-up');
-                    icon.classList.add('icon-rotate'); 
-                } else {
+                });
+        
+                target.addEventListener('hidden.bs.collapse', function () {
                     icon.classList.remove('fa-chevron-up');
                     icon.classList.add('fa-chevron-down');
-                    icon.classList.remove('icon-rotate');
-                }
+                });
             });
         }
-        toggltButtonFilter ();
+        
+        // Appliquer la fonction
+        toggltButtonFilter();
         
     });

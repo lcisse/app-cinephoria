@@ -1,13 +1,11 @@
 <?php
 namespace App\Models;
 
-//use App\Models\BaseManager;
 use PDO;
 use App\Models\BaseManager;
 
 class MovieManager extends BaseManager
 {
-    // Méthode pour créer la table "movies"
     public function createMoviesTable()
     {
         $sql = "CREATE TABLE IF NOT EXISTS movies (
@@ -22,7 +20,6 @@ class MovieManager extends BaseManager
         $this->executeQuery($sql, 'Table "movies" créée avec succès.');
     }
 
-    // Méthode pour récupérer tous les films
     public function getAllMovies()
     {
         $sql = "SELECT 
@@ -33,7 +30,7 @@ class MovieManager extends BaseManager
                     movies.favorite,
                     movies.poster,
                     GROUP_CONCAT(DISTINCT genres.genre_name SEPARATOR ', ') AS genre,  -- Agrégation des genres
-                    cinemas.cinema_name AS cinema,  -- Nom du cinéma
+                    cinemas.cinema_name AS cinema, 
                     GROUP_CONCAT(DISTINCT DATE_FORMAT(movie_schedule.screening_day, '%W') SEPARATOR ', ') AS screening_days  -- Agrégation des jours de projection
                 FROM movies
                 LEFT JOIN movie_genres ON movies.id = movie_genres.movie_id
@@ -146,7 +143,7 @@ class MovieManager extends BaseManager
                     movies.favorite,
                     movies.poster,
                     GROUP_CONCAT(DISTINCT genres.genre_name SEPARATOR ', ') AS genre,  -- Agrégation des genres
-                    cinemas.cinema_name AS cinema,  -- Nom du cinéma
+                    cinemas.cinema_name AS cinema, 
                     GROUP_CONCAT(DISTINCT DATE_FORMAT(movie_schedule.screening_day, '%W') SEPARATOR ', ') AS screening_days  -- Agrégation des jours de projection
                 FROM movies
                 JOIN movie_schedule ON movies.id = movie_schedule.movie_id  -- INNER JOIN pour forcer la relation
@@ -179,45 +176,21 @@ class MovieManager extends BaseManager
         return $stmt->fetchAll(PDO::FETCH_ASSOC); // Renvoie les résultats des sièges
     }
 
-    /*public function createReservation($userId, $movieId, $screeningId, $seats, $price, $qrCode)
-    {
-        var_dump($userId, $movieId, $screeningId, $seats, $price, $qrCode);
-
-        if (is_array($seats)) {
-            $seats = implode(', ', $seats); 
-        }
-
-        $sql = "INSERT INTO reservations (user_id, movie_id, screening_id, seats, price, status, qr_code, scanned) 
-                VALUES (:user_id, :movie_id, :screening_id, :seats, :price, 'confirmed', :qr_code, 0)";
-        
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->execute([
-            ':user_id' => $userId,
-            ':movie_id' => $movieId,
-            ':screening_id' => $screeningId,
-            ':seats' => $seats,
-            ':price' => $price,
-            ':qr_code' => $qrCode
-        ]);
-    }*/
-
     public function createReservation($userId, $movieId, $screeningId, $seats, $price, $qrCode)
     {
-        // Convertir les sièges en tableau si c'est une chaîne
+        // Convertir les sièges en tableau
         if (!is_array($seats)) {
             $seats = explode(', ', $seats); 
         }
 
-        // Récupérer l'ID de la salle associée à la projection (screening)
         $screeningDetails = $this->getScreeningDetails($screeningId);
         
-        $roomId = $screeningDetails['room_id']; // Assurez-vous que la méthode getScreeningDetails renvoie le room_id
+        $roomId = $screeningDetails['room_id']; 
 
-        // Commencer la transaction pour assurer l'intégrité des opérations
+        // Commencer la transaction 
         $this->pdo->beginTransaction();
 
         try {
-            // Insérer la réservation
             $sql = "INSERT INTO reservations (user_id, movie_id, screening_id, seats, price, status, qr_code, scanned) 
                     VALUES (:user_id, :movie_id, :screening_id, :seats, :price, 'confirmed', :qr_code, 0)";
             
@@ -226,20 +199,18 @@ class MovieManager extends BaseManager
                 ':user_id' => $userId,
                 ':movie_id' => $movieId,
                 ':screening_id' => $screeningId,
-                ':seats' => implode(', ', $seats), // Reconvertir les sièges en chaîne pour la base de données
+                ':seats' => implode(', ', $seats), 
                 ':price' => $price,
                 ':qr_code' => $qrCode
             ]);
 
-            // Mettre à jour les sièges comme réservés dans la table seats
             $this->updateSeatsAsReserved($seats, $roomId);
 
             // Confirmer la transaction
             $this->pdo->commit();
         } catch (Exception $e) {
-            // En cas d'erreur, annuler la transaction
             $this->pdo->rollBack();
-            throw $e; // Relancer l'exception pour la gérer ailleurs
+            throw $e; 
         }
     }
 
@@ -248,13 +219,17 @@ class MovieManager extends BaseManager
         // Construire la requête pour mettre à jour plusieurs sièges dans une salle spécifique
         $placeholders = implode(',', array_fill(0, count($seats), '?')); // Crée un nombre de placeholders égaux au nombre de sièges
 
-        // Requête SQL pour mettre à jour les sièges sélectionnés pour une salle spécifique
         $sql = "UPDATE seats SET reserved = 1 WHERE seat_number IN ($placeholders) AND room_id = ?";
 
         $stmt = $this->pdo->prepare($sql);
 
-        // Exécuter la requête en passant tous les numéros de sièges, suivis du room_id
         $stmt->execute(array_merge($seats, [$roomId]));
+    }
+
+    public function getAllCinemas()
+    {
+        $sql = "SELECT * FROM cinemas";
+        return $this->fetchAll($sql);
     }
 
 }
