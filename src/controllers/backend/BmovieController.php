@@ -78,4 +78,50 @@ class BmovieController
         }
     }*/
 
+    public function showRoomEdit($roomId)
+    {
+        $room = $this->roomManager->getRoomById($roomId); 
+        $cinemas = $this->moviesManager->getAllCinemas(); 
+
+        session_start();
+        $successMessage = '';
+        if (isset($_SESSION['success_message'])) {
+            $successMessage = $_SESSION['success_message'];
+            unset($_SESSION['success_message']);
+        }
+
+        require __DIR__ . '/../../views/backend/salle-edit.php';
+    }
+
+    public function updateRoom()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $roomId = $_POST['room_id']; 
+            $cinemaId = $_POST['cinema_id'];
+            $roomNumber = $_POST['room_number'];
+            $seatCapacity = $_POST['seat_capacity'];
+            $projectionQuality = $_POST['projection_quality'];
+            $incidentNotes = $_POST['incident_notes'] ?? '';
+
+            $this->roomManager->updateRoom($roomId, $cinemaId, $roomNumber, $seatCapacity, $projectionQuality, $incidentNotes);
+
+            session_start();
+            $_SESSION['success_message'] = 'La salle a été mise à jour avec succès.';
+
+            header("Location: index.php?action=salles&id=$roomId");
+            exit();
+        } else {
+            header('Location: index.php?action=salles');
+            exit();
+        }
+    }
+
+
+    public function showGestionFilms()
+    {
+        //$movies = $this->moviesManager->getAllMovies();
+
+        require __DIR__ . '/../../views/backend/gestion-films.php';
+    }
+
 }

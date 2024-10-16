@@ -152,7 +152,12 @@ class App
                 break;
                 
             case 'salles':
-                $this->bmovieController->showRooms();
+                if (isset($_GET['id'])) {
+                    $roomId = (int)$_GET['id'];
+                    $this->bmovieController->showRoomEdit($roomId);
+                } else {
+                    $this->bmovieController->showRooms();
+                }
                 break;
 
             case 'createRoom':
@@ -161,6 +166,10 @@ class App
 
             case 'deleteRoom':   
                 $this->bmovieController->deleteRoom();
+                break;
+
+            case 'updateRoom':
+                $this->bmovieController->updateRoom();
                 break;
 
             default:

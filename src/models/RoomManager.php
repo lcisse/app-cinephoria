@@ -56,4 +56,34 @@ class RoomManager extends BaseManager
         $stmt->execute();
     }
 
+    public function getRoomById($roomId)
+    {
+        $sql = "SELECT * FROM rooms WHERE id = :room_id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':room_id', $roomId, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function updateRoom($roomId, $cinemaId, $roomNumber, $seatCapacity, $projectionQuality, $incidentNotes)
+    {
+        $sql = "UPDATE rooms SET 
+                    cinema_id = :cinema_id, 
+                    room_number = :room_number, 
+                    seat_capacity = :seat_capacity, 
+                    projection_quality = :projection_quality, 
+                    incident_notes = :incident_notes
+                WHERE id = :room_id";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([
+            ':cinema_id' => $cinemaId,
+            ':room_number' => $roomNumber,
+            ':seat_capacity' => $seatCapacity,
+            ':projection_quality' => $projectionQuality,
+            ':incident_notes' => $incidentNotes,
+            ':room_id' => $roomId
+        ]);
+    }
+
 }

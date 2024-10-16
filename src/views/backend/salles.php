@@ -1,4 +1,4 @@
-<?php $title = "Cinéphoria - Tous les films"; ?>
+<?php $title = "Cinéphoria - Gestion des salles"; ?>
 <?php ob_start(); ?>
 <div class="admin-right-container" id="rooms-container">
     <div class=" admin-title">
@@ -19,7 +19,7 @@
                 ' . $_SESSION['message'] . '
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>';
-            unset($_SESSION['message']); // Supprimer message
+            unset($_SESSION['message']); 
         }
     ?>   
 
@@ -78,7 +78,7 @@
                                 <tr class="room-row">
                                     <td><?= $room['cinema_name']; ?>
                                         <div class=" action-buttons" >
-                                            <a href="" class="">Modifier |</a> 
+                                            <a href="index.php?action=salles&id=<?= $room['id']; ?>" class="">Modifier |</a> 
                                             <a href="index.php?action=deleteRoom&id=<?= $room['id']; ?>" class="btn-delete" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette salle ?');">Supprimer</a>
                                         </div>
                                     </td>

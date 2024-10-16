@@ -43,11 +43,11 @@
         <div class="col cinemas-genres-jours">
         <h5>Genres</h5>
         <div>
-            <input type="checkbox" id="comedie" class="genre-checkbox" value="comedie">
+            <input type="checkbox" id="comedie" class="genre-checkbox" value="comédie">
             <label for="comedie">Comédie</label><br>
             <input type="checkbox" id="drame" class="genre-checkbox" value="drame">
             <label for="drame">Drame</label><br>
-            <input type="checkbox" id="comedie-dramatique" class="genre-checkbox" value="comedie-dramatique">
+            <input type="checkbox" id="comedie-dramatique" class="genre-checkbox" value="comédie-dramatique">
             <label for="comedie-dramatique">Comédie dramatique</label><br>
             <input type="checkbox" id="thriller" class="genre-checkbox" value="thriller">
             <label for="thriller">Thriller</label><br>
@@ -75,7 +75,7 @@
             <label for="vendredi">Vendredi</label><br>
             <input type="checkbox" id="samedi" class="day-checkbox" value="samedi">
             <label for="samedi">Samedi</label><br>
-            <input type="checkbox" id="Dimanche" class="day-checkbox" value="Dimanche">
+            <input type="checkbox" id="Dimanche" class="day-checkbox" value="dimanche">
             <label for="Dimanche">Dimanche</label><br>
         </div>
         </div>
