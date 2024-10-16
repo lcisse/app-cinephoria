@@ -19,7 +19,7 @@
                 ' . $_SESSION['message'] . '
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>';
-            unset($_SESSION['message']); // Supprimer le message après l'affichage
+            unset($_SESSION['message']); // Supprimer message
         }
     ?>   
 
