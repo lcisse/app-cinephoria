@@ -4,7 +4,7 @@
     <div class=" admin-title">
         <h2>Gestion des salles</h2>
         <p class="d-inline-flex">
-                <button id="toggleFilmButton" class="btn toggleButton" type="button" data-bs-toggle="collapse" data-bs-target="#formFimlCollapse" aria-expanded="false" aria-controls="formFimlCollapse">Ajouter un film
+                <button id="toggleRoomBtn" class="btn toggleButton toggleAdminBtn" type="button" data-bs-toggle="collapse" data-bs-target="#formRoomCollapse" aria-expanded="false" aria-controls="formRoomCollapse">Ajouter un film
                     <span class="toggle-icon">
                         <i class="fa-solid fa-chevron-down"></i>
                     </span> 
@@ -27,10 +27,10 @@
         <div class="">
             <div class="row">
                 <div class="col">
-                    <div class="collapse multi-collapse" id="formFimlCollapse">
+                    <div class="collapse" id="formRoomCollapse">
                         <div class="card card-body">
                             <form method="POST" action="index.php?action=createRoom" class="text-center">
-                                <input type="hidden" name="action" value="createRoom">
+                                <!-- <input type="hidden" name="action" value="createRoom"> -->
                                 <div class="row g-3">
                                     <div class="col-md-6">
                                         <select class="form-select" name="cinema_id" aria-label="Select cinema" required>

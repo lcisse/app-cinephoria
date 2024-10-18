@@ -15,6 +15,19 @@ class MovieGenreManager extends BaseManager
         $this->executeQuery($sql, 'Table "movie_genres" créée avec succès.');
     }
 
+    public function addGenresToMovie($movieId, $genres)
+    {
+        $sql = "INSERT INTO movie_genres (movie_id, genre_id) VALUES (:movie_id, :genre_id)";
+        $stmt = $this->pdo->prepare($sql);
+
+        foreach ($genres as $genreId) {
+            $stmt->execute([
+                ':movie_id' => $movieId,
+                ':genre_id' => $genreId
+            ]);
+        }
+    }
+
     public function getAllMovieGenres()
     {
         $sql = "SELECT * FROM movie_genres";

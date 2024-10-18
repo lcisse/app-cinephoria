@@ -13,10 +13,11 @@ class GenreManager extends BaseManager
         $this->executeQuery($sql, 'Table "genres" créée avec succès.');
     }
 
-    // Méthode pour récupérer tous les genres
     public function getAllGenres()
     {
         $sql = "SELECT * FROM genres";
         return $this->fetchAll($sql);
     }
+
+    
 }

@@ -232,4 +232,21 @@ class MovieManager extends BaseManager
         return $this->fetchAll($sql);
     }
 
+    public function createMovie($title, $description, $ageMinimum, $favorite, $poster)
+    {
+        $sql = "INSERT INTO movies (title, description, age_minimum, favorite, poster) 
+                VALUES (:title, :description, :age_minimum, :favorite, :poster)";
+        
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([
+            ':title' => $title,
+            ':description' => $description,
+            ':age_minimum' => $ageMinimum,
+            ':favorite' => $favorite,
+            ':poster' => $poster
+        ]);
+
+        return $this->pdo->lastInsertId(); // Retourner l'ID du film créé
+    }
+
 }

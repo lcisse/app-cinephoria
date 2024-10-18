@@ -172,6 +172,14 @@ class App
                 $this->bmovieController->updateRoom();
                 break;
 
+            case 'admin-film':
+                $this->bmovieController->showGestionFilms();
+                break;
+
+            case 'createMovie':
+                $this->bmovieController->createMovie();
+                break;
+
             default:
                 $this->controller->showHome();
                 break;
