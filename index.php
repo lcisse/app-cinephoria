@@ -173,12 +173,33 @@ class App
                 break;
 
             case 'admin-film':
-                $this->bmovieController->showGestionFilms();
+                if (isset($_GET['id'])) {
+                    $filmId = (int)$_GET['id'];
+                    $this->bmovieController->showEditFilm($filmId);
+                } else if (isset($_GET['idFilm'])) {
+                    //$this->bmovieController->showRooms();
+                } else {
+                    $this->bmovieController->showGestionFilms();
+                }
                 break;
 
             case 'createMovie':
                 $this->bmovieController->createMovie();
                 break;
+
+            case 'deleteFilm':
+                $this->bmovieController->deleteFilm();
+                break;
+
+            case 'updateFilm':
+                $this->bmovieController->updateFilm();
+                break;
+
+            case 'admin-seances':
+                $this->bmovieController->showGestionSeances();
+                break;
+
+            
 
             default:
                 $this->controller->showHome();

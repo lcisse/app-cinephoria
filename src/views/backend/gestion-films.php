@@ -1,4 +1,4 @@
-<?php $title = "Cinéphoria - Gestion des salles"; ?>
+<?php $title = "Cinéphoria - Gestion des films"; ?>
 <?php ob_start(); ?>
 <div class="admin-right-container" id="movies-container">
     <div class="admin-title">
@@ -67,6 +67,36 @@
                             </form>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="cinemas_list" class="mt-5 table-list">
+        <div class="">
+            <div class="row">
+                <div class="col">
+                    <h2>Liste des films</h2>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Titres</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($films as $film): ?>
+                                <tr class="room-row">
+                                    <td><?= htmlspecialchars($film['title']); ?>
+                                        <div class=" action-buttons" >
+                                            <a href="#" class="">Séances |</a> 
+                                            <a href="index.php?action=admin-film&id=<?= $film['id']; ?>" class="">Modifier |</a> 
+                                            <a href="index.php?action=deleteFilm&id=<?= $film['id']; ?>" class="btn-delete" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette salle ?');">Supprimer</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

@@ -93,9 +93,9 @@
 
     <?php foreach ($movies as $movie): ?>
         <?php $movie['screening_days'] = $this->convertDayToFrench($movie['screening_days']);?>
-                <div class="col movie-card" data-cinema="<?= htmlspecialchars($movie['cinema']) ?>" data-genre="<?= htmlspecialchars($movie['genre']) ?>" data-day="<?= isset($movie['screening_days']) ? htmlspecialchars($movie['screening_days']) : '' ?>">
+                <div class="col movie-card" data-cinema="<?= htmlspecialchars($movie['cinema'] ?? '') ?>" data-genre="<?= htmlspecialchars($movie['genre'] ?? '') ?>" data-day="<?= isset($movie['screening_days']) ? htmlspecialchars($movie['screening_days']) : '' ?>">
             <div class="card h-100 d-flex flex-column position-relative">
-                <img src="<?= htmlspecialchars($movie['poster']) ?>" class="card-img-top" alt="...">
+                <img src="<?= BASE_URL ?>/public/<?= htmlspecialchars($movie['poster']) ?>" class="card-img-top" alt="...">
                 <div class="card-body flex-grow-1 position-relative">
                     <h3 class="card-title"><?= htmlspecialchars($movie['title']) ?> </h3>
                     <p class="card-text"><?= htmlspecialchars($movie['description']) ?></p> 

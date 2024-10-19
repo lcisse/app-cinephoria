@@ -1,6 +1,8 @@
 <?php
 namespace App\Models;
 
+use PDO;
+
 class MovieGenreManager extends BaseManager
 {
     public function createMovieGenresTable()
@@ -28,9 +30,42 @@ class MovieGenreManager extends BaseManager
         }
     }
 
+    public function deleteGenresByMovieId($filmId)
+    {
+        $sql = "DELETE FROM movie_genres WHERE movie_id = :movie_id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':movie_id', $filmId, PDO::PARAM_INT);
+        $stmt->execute();
+    }
+
     public function getAllMovieGenres()
     {
         $sql = "SELECT * FROM movie_genres";
         return $this->fetchAll($sql);
+    }
+
+    public function updateGenresForMovie($movieId, array $genres)
+    {
+        $sql = "DELETE FROM movie_genres WHERE movie_id = :movie_id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([':movie_id' => $movieId]);
+
+        $sql = "INSERT INTO movie_genres (movie_id, genre_id) VALUES (:movie_id, :genre_id)";
+        $stmt = $this->pdo->prepare($sql);
+
+        foreach ($genres as $genreId) {
+            $stmt->execute([':movie_id' => $movieId, ':genre_id' => $genreId]);
+        }
+    }
+
+    public function getGenresByMovieId($filmId)
+    {
+        $sql = "SELECT genre_id FROM movie_genres WHERE movie_id = :movie_id";
+        
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':movie_id', $filmId, PDO::PARAM_INT);
+        $stmt->execute();
+        
+        return $stmt->fetchAll(PDO::FETCH_COLUMN); 
     }
 }

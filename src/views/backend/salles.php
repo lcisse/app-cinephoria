@@ -58,7 +58,7 @@
         </div>
     </section>
 
-    <section id="cinemas_list" class="mt-5">
+    <section id="cinemas_list" class="mt-5 table-list">
         <div class="">
             <div class="row">
                 <div class="col">

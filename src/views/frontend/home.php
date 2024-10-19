@@ -28,7 +28,7 @@
                 ?>
                 <div class="col">
                     <div class="card">
-                    <img src="<?= htmlspecialchars($movie['poster']) ?>" class="card-img-top" alt="...">
+                    <img src="<?= BASE_URL ?>/public/<?= htmlspecialchars($movie['poster']) ?>" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title"><?= htmlspecialchars($movie['title']) ?></h5>
                     </div>

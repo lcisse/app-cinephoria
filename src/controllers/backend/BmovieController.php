@@ -116,6 +116,7 @@ class BmovieController
     public function showGestionFilms()
     {
         $genres = $this->genresManager->getAllGenres();
+        $films = $this->moviesManager->getAllMovies();
 
         session_start();
         $successMessage = '';
@@ -194,6 +195,71 @@ class BmovieController
             header('Location: index.php?action=admin-film');
             exit();
         }
+    }
+
+    public function deleteFilm()
+    {
+        if (isset($_GET['id'])) {
+            $filmId = (int)$_GET['id'];
+
+            $this->moviesGenresManager->deleteGenresByMovieId($filmId);
+            $this->moviesManager->deleteFilm($filmId);
+
+            session_start();
+            $_SESSION['message'] = "Film supprimé avec succès !";
+            header('Location: index.php?action=admin-film');
+            exit();
+        }
+    }
+
+    public function showEditFilm($filmId)
+    {
+        $film = $this->moviesManager->getFilmById($filmId); 
+        $genres = $this->genresManager->getAllGenres(); 
+
+        $filmGenres = $this->moviesGenresManager->getGenresByMovieId($filmId);
+
+        require __DIR__ . '/../../views/backend/film-edit.php';
+    }
+
+    public function updateFilm()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $filmId = $_POST['film_id'];
+            $movieTitle = $_POST['movie_title'];
+            $description = $_POST['movie_description'];
+            $ageMinimum = $_POST['age_minimum'];
+            $favorite = isset($_POST['favorite']) ? 1 : 0;
+            $genres = $_POST['genres'];
+
+            // Gestion de l'upload de l'affiche (optionnel)
+            $posterPath = null;
+            if (isset($_FILES['poster']) && $_FILES['poster']['error'] === UPLOAD_ERR_OK) {
+                $uploadDir = __DIR__ . '/../../../public/uploads/';
+                $fileExtension = strtolower(pathinfo($_FILES['poster']['name'], PATHINFO_EXTENSION));
+                $newFileName = uniqid() . '.' . $fileExtension;
+                $posterPath = $uploadDir . $newFileName;
+                move_uploaded_file($_FILES['poster']['tmp_name'], $posterPath);
+                $posterPath = 'uploads/' . $newFileName; // Pour la base de données
+            }
+
+            // Mise à jour du film
+            $this->moviesManager->updateFilm($filmId, $movieTitle, $description, $ageMinimum, $favorite, $posterPath);
+
+            // Mise à jour des genres associés
+            $this->moviesGenresManager->updateGenresForMovie($filmId, $genres);
+
+            session_start();
+            $_SESSION['message'] = "Film modifié avec succès !";
+            header("Location: index.php?action=admin-film");
+            exit();
+        }
+    }
+
+    public function showGestionSeances()
+    {
+
+        require __DIR__ . '/../../views/backend/gestion-seances.php';
     }
 
 }

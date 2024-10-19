@@ -21,6 +21,10 @@ class MovieController
 
     private function convertDayToFrench($englishDays) 
     {
+        if (empty($englishDays)) {
+            return '';  // 
+        }
+        
         $days = [
             'Monday' => 'lundi',
             'Tuesday' => 'mardi',

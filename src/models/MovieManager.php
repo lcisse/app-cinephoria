@@ -37,7 +37,8 @@ class MovieManager extends BaseManager
                 LEFT JOIN genres ON movie_genres.genre_id = genres.id
                 LEFT JOIN movie_schedule ON movies.id = movie_schedule.movie_id
                 LEFT JOIN cinemas ON movie_schedule.cinema_id = cinemas.id
-                GROUP BY movies.id";  // Groupement par film
+                GROUP BY movies.id  
+                ORDER BY movies.id DESC";  // Groupement par film
 
         return $this->fetchAll($sql);
     }
@@ -247,6 +248,51 @@ class MovieManager extends BaseManager
         ]);
 
         return $this->pdo->lastInsertId(); // Retourner l'ID du film créé
+    }
+
+    public function deleteFilm($filmId)
+    {
+        $sql = "DELETE FROM movies WHERE id = :id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':id', $filmId, PDO::PARAM_INT);
+        $stmt->execute();
+    }
+
+    public function updateFilm($filmId, $title, $description, $ageMinimum, $favorite, $poster = null)
+    {
+        $sql = "UPDATE movies SET title = :title, description = :description, age_minimum = :age_minimum, favorite = :favorite";
+        
+        if ($poster !== null) {
+            $sql .= ", poster = :poster";
+        }
+
+        $sql .= " WHERE id = :id";
+
+        $stmt = $this->pdo->prepare($sql);
+        $params = [
+            ':title' => $title,
+            ':description' => $description,
+            ':age_minimum' => $ageMinimum,
+            ':favorite' => $favorite,
+            ':id' => $filmId
+        ];
+
+        if ($poster !== null) {
+            $params[':poster'] = $poster;
+        }
+
+        $stmt->execute($params);
+    }
+
+    public function getFilmById($filmId)
+    {
+        $sql = "SELECT id, title, description, age_minimum, favorite, poster FROM movies WHERE id = :id";
+        
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':id', $filmId, PDO::PARAM_INT);
+        $stmt->execute();
+        
+        return $stmt->fetch(PDO::FETCH_ASSOC); 
     }
 
 }
