@@ -88,7 +88,7 @@
                                 <tr class="room-row">
                                     <td><?= htmlspecialchars($film['title']); ?>
                                         <div class=" action-buttons" >
-                                            <a href="#" class="">Séances |</a> 
+                                            <a href="index.php?action=admin-film&filmId-seance=<?= $film['id']; ?>" class="">Séances |</a> 
                                             <a href="index.php?action=admin-film&id=<?= $film['id']; ?>" class="">Modifier |</a> 
                                             <a href="index.php?action=deleteFilm&id=<?= $film['id']; ?>" class="btn-delete" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette salle ?');">Supprimer</a>
                                         </div>

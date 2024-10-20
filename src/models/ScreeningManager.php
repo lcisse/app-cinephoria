@@ -21,17 +21,19 @@ class ScreeningManager extends BaseManager
         $this->executeQuery($sql, 'Table "screenings" créée avec succès.');
     }
 
-    /*public function dropProjectionQualityColumn()
+    public function createScreening($movieId, $roomId, $screeningDate, $startTime, $endTime)
     {
-        $sql = "ALTER TABLE screenings DROP COLUMN projection_quality";
-        $this->executeQuery($sql, 'Colonne "projection_quality" supprimée avec succès de la table "screenings".');
-    }*/
-
-    /*public function addScreeningDayColumn()
-    {
-        $sql = "ALTER TABLE screenings ADD COLUMN screening_day DATE";
-        $this->executeQuery($sql, 'Colonne "screening_day" ajoutée avec succès à la table "screenings".');
-    }*/
+        $sql = "INSERT INTO screenings (movie_id, room_id, screening_day, start_time, end_time)
+                VALUES (:movie_id, :room_id, :screening_day, :start_time, :end_time)";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([
+            ':movie_id' => $movieId,
+            ':room_id' => $roomId,
+            ':screening_day' => $screeningDate,
+            ':start_time' => $startTime,
+            ':end_time' => $endTime
+        ]);
+    }
 
     public function getAllScreenings()
     {
@@ -39,6 +41,3 @@ class ScreeningManager extends BaseManager
         return $this->fetchAll($sql);
     }
 }
-
-$test = new ScreeningManager();
-$test->createScreeningsTable();

@@ -34,16 +34,23 @@
                 <div class="col">
                     <div class="collapse multi-collapse" id="formScreeninglCollapse">
                         <div class="card card-body">
-                            <form method="POST" action="index.php?action=createMovie" class="text-start" enctype="multipart/form-data">
+                            <form method="POST" action="index.php?action=createScreening&filmId-seance=<?= $filmId ?>" class="text-start" enctype="multipart/form-data">
                                 <div class="row g-3">
                                     <div class="col-md-6">
-                                    <label for="room-number" class="form-label">Numéro de salle</label>
-                                        <select class="form-select" id="room-number" name="room_id" aria-label="Select rooms" required>
-                                            <?php foreach ($rooms as $room): ?>
-                                                <option value="<?= $room['id']; ?>"><?= $room['room_number']; ?></option>
+                                        <label for="cinema">Cinéma</label>
+                                        <select id="cinema" class="form-select" name="cinema_id" aria-label="Select cinema" data-cinemas='<?= htmlspecialchars(json_encode($cinemaRooms), ENT_QUOTES, 'UTF-8'); ?>' required>
+                                            <option value="">Sélectionnez un cinéma</option>
+                                            <?php foreach ($cinemas as $cinemaId => $cinema): ?>
+                                                <option value="<?= $cinemaId; ?>"><?= $cinema['cinema_name']; ?></option>
                                             <?php endforeach; ?>
                                         </select>
-                                    </div>
+                                    </div>                                   
+                                    <div class="col-md-6">
+                                        <label for="room-number">Salle</label>
+                                        <select id="room-number" class="form-select" name="room_id" required>
+                                            <option value="">Sélectionnez d'abord un cinéma</option>
+                                        </select>
+                                    </div>           
                                     <div class="col-md-6">
                                         <label for="screening-date" class="form-label">Date de projection</label>
                                         <input type="date" name="screening_date" id="screening-date" class="form-control"aria-label="Screening date" required>

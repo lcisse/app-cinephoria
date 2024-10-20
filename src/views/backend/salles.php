@@ -34,6 +34,7 @@
                                 <div class="row g-3">
                                     <div class="col-md-6">
                                         <select class="form-select" name="cinema_id" aria-label="Select cinema" required>
+                                            <option value="">Sélectionnez un cinéma</option>
                                             <?php foreach ($cinemas as $cinema): ?>
                                                 <option value="<?= $cinema['id']; ?>"><?= $cinema['cinema_name']; ?></option>
                                             <?php endforeach; ?>

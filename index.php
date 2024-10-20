@@ -176,8 +176,9 @@ class App
                 if (isset($_GET['id'])) {
                     $filmId = (int)$_GET['id'];
                     $this->bmovieController->showEditFilm($filmId);
-                } else if (isset($_GET['idFilm'])) {
-                    //$this->bmovieController->showRooms();
+                } else if (isset($_GET['filmId-seance'])) {
+                    $filmId = (int)$_GET['filmId-seance'];
+                    $this->bmovieController->showGestionSeances($filmId);
                 } else {
                     $this->bmovieController->showGestionFilms();
                 }
@@ -197,6 +198,10 @@ class App
 
             case 'admin-seances':
                 $this->bmovieController->showGestionSeances();
+                break;
+
+            case 'createScreening':
+                $this->bmovieController->createScreening();
                 break;
 
             

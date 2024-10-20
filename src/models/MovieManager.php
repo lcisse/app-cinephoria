@@ -104,6 +104,8 @@ class MovieManager extends BaseManager
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        //$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
     }
 
     public function getScreeningDetails($screening_id)

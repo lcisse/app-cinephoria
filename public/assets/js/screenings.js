@@ -64,7 +64,6 @@ document.addEventListener("DOMContentLoaded", function () {
             .then((data) => {
                 // Vider le conteneur des séances avant d'en insérer de nouvelles
                 screeningsContainer.innerHTML = "";
-                console.log(data);
 
                 // Insérer les nouvelles séances
                 data.forEach((screening) => {

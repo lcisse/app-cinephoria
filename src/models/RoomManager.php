@@ -86,4 +86,28 @@ class RoomManager extends BaseManager
         ]);
     }
 
+    public function getAllCinemasWithRooms()
+    {
+        $sql = "SELECT 
+                    cinemas.id AS cinema_id, 
+                    cinemas.cinema_name, 
+                    rooms.id AS room_id, 
+                    rooms.room_number 
+                FROM cinemas
+                LEFT JOIN rooms ON rooms.cinema_id = cinemas.id";
+        
+        $results = $this->fetchAll($sql);
+
+        $cinemas = [];
+        foreach ($results as $row) {
+            $cinemas[$row['cinema_id']]['cinema_name'] = $row['cinema_name'];
+            $cinemas[$row['cinema_id']]['rooms'][] = [
+                'id' => $row['room_id'],
+                'room_number' => $row['room_number']
+            ];
+        }
+
+        return $cinemas;  // Retourner les cinémas avec les salles associées
+    }
+
 }

@@ -16,6 +16,19 @@ class MovieScheduleManager extends BaseManager
         $this->executeQuery($sql, 'Table "movie_schedule" créée avec succès.');
     }
 
+    public function addMovieSchedule($movieId, $cinemaId, $screeningDate)
+    {
+        $sql = "INSERT INTO movie_schedule (movie_id, cinema_id, screening_day)
+                VALUES (:movie_id, :cinema_id, :screening_day)
+                ON DUPLICATE KEY UPDATE screening_day = :screening_day";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([
+            ':movie_id' => $movieId,
+            ':cinema_id' => $cinemaId,
+            ':screening_day' => $screeningDate
+        ]);
+    }
+
     public function getAllMovieSchedules()
     {
         $sql = "SELECT * FROM movie_schedule";

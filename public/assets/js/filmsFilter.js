@@ -9,17 +9,12 @@
             const selectedCinemas = getSelectedValues('cinema-checkbox');
             const selectedGenres = getSelectedValues('genre-checkbox');
             const selectedDays = getSelectedValues('day-checkbox');
-
-            console.log('Selected Cinemas:', selectedCinemas);
-            console.log('Selected Genres:', selectedGenres);
-            console.log('Selected Days:', selectedDays);
     
             movieCards.forEach(movie => {
                 const movieCinema = movie.getAttribute('data-cinema').toLowerCase();
                 const movieGenre = movie.getAttribute('data-genre').toLowerCase().split(', ');
                 const movieDay = movie.getAttribute('data-day').toLowerCase().split(', ');
 
-                console.log('Movie Cinema:', movieCinema, 'Movie Genre:', movieGenre, 'Movie Day:', movieDay);
             
                 // Vérifier les conditions des filtres
                 const matchesCinema = selectedCinemas.length === 0 || selectedCinemas.includes(movieCinema);
@@ -41,7 +36,6 @@
             document.querySelectorAll(`.${className}:checked`).forEach(checkbox => {
                 selected.push(checkbox.value);
             });
-            console.log(`Selected values for ${className}:`, selected);
             return selected;
         }
     

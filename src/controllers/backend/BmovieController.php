@@ -7,6 +7,8 @@ use App\models\MovieManager;
 use App\models\RoomManager;
 use App\models\GenreManager;
 use App\models\MovieGenreManager;
+use App\models\ScreeningManager;
+use App\models\MovieScheduleManager;
 
 
 
@@ -17,6 +19,8 @@ class BmovieController
     private $roomManager;
     private $genresManager;
     private $moviesGenresManager;
+    private $screeningManager;
+    private $movieScheduleManager;
 
     public function __construct()
     {
@@ -25,6 +29,8 @@ class BmovieController
         $this->roomManager = new RoomManager();
         $this->genresManager = new GenreManager();
         $this->moviesGenresManager = new MovieGenreManager();
+        $this->screeningManager = new ScreeningManager();
+        $this->movieScheduleManager = new MovieScheduleManager();
     }
 
     public function showDasboard()
@@ -256,10 +262,44 @@ class BmovieController
         }
     }
 
-    public function showGestionSeances()
+    public function showGestionSeances($filmId)
     {
+        //$film = $this->moviesManager->getFilmById($filmId);
+        $cinemas = $this->roomManager->getAllCinemasWithRooms(); 
+
+        $cinemaRooms = [];
+        foreach ($cinemas as $cinemaId => $cinema) {
+            $cinemaRooms[$cinemaId] = [];
+            foreach ($cinema['rooms'] as $room) {
+                $cinemaRooms[$cinemaId][] = [
+                    'id' => $room['id'],
+                    'number' => $room['room_number']
+                ];
+            }
+        }
 
         require __DIR__ . '/../../views/backend/gestion-seances.php';
+    }
+
+    public function createScreening()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $movieId = $_GET['filmId-seance']; 
+            $cinemaId = $_POST['cinema_id'];
+            $roomId = $_POST['room_id'];
+            $screeningDate = $_POST['screening_date'];
+            $startTime = $_POST['start_time'];
+            $endTime = $_POST['end_time'];
+
+            $this->screeningManager->createScreening($movieId, $roomId, $screeningDate, $startTime, $endTime);
+
+            $this->movieScheduleManager->addMovieSchedule($movieId, $cinemaId, $screeningDate);
+
+            session_start();
+            $_SESSION['message'] = "Séance créée avec succès !";
+            header('Location: index.php?action=admin-film&filmId-seance=' . $movieId);
+            exit();
+        }
     }
 
 }

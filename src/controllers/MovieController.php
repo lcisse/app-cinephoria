@@ -208,7 +208,6 @@ class MovieController
 
             $screenings = $this->moviesManager->getScreeningsByDate($movieId, $date);
 
-            // Retourner les séances en format JSON
             echo json_encode($screenings);
             exit;
         }
@@ -238,7 +237,7 @@ class MovieController
 
     public function handleSeatsRequest($screening_id)
     {
-        $seats = $this->moviesManager->getSeatsByScreening($screening_id); // Appel au modèle pour récupérer les sièges
+        $seats = $this->moviesManager->getSeatsByScreening($screening_id); 
 
         // Renvoyer les sièges sous format JSON pour être utilisés par AJAX
         echo json_encode($seats);
