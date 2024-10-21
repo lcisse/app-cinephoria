@@ -264,7 +264,7 @@ class BmovieController
 
     public function showGestionSeances($filmId)
     {
-        //$film = $this->moviesManager->getFilmById($filmId);
+        $screenings = $this->moviesManager->getMovieScreenings($filmId);
         $cinemas = $this->roomManager->getAllCinemasWithRooms(); 
 
         $cinemaRooms = [];

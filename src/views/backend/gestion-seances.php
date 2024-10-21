@@ -12,20 +12,11 @@
         </p>
     </div>
 
-    <?php if (isset($_SESSION['message'])): ?>
+    <?php if (!empty($successMessage)): ?>
         <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <?= $_SESSION['message']; ?>
+            <?= $successMessage; ?>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-        <?php unset($_SESSION['message']); ?>
-    <?php endif; ?> 
-
-    <?php if (isset($_SESSION['error'])): ?>
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <?= $_SESSION['error']; ?>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        <?php unset($_SESSION['error']); ?>
     <?php endif; ?>
 
     <section class="create-form">
@@ -68,6 +59,38 @@
                             </form>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="screenings_list" class="mt-5 table-list">
+        <div class="">
+            <div class="row">
+                <div class="col">
+                    <h2>Liste des séances</h2>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Cinéma</th>
+                                <th scope="col">Salle</th>
+                                <th scope="col">Dates</th>
+                                <th scope="col">Heures de début</th>
+                                <th scope="col">Heures de fin</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($screenings as $screening): ?>
+                                <tr class="room-row">
+                                    <td><?= htmlspecialchars($screening['cinema_name']); ?></td>
+                                    <td><?= htmlspecialchars($screening['room_number']); ?></td>
+                                    <td><?= htmlspecialchars($screening['screening_day']); ?></td>
+                                    <td><?= htmlspecialchars($screening['start_time']); ?></td>
+                                    <td><?= htmlspecialchars($screening['end_time']); ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
