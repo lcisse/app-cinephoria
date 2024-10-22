@@ -56,7 +56,7 @@ class MovieManager extends BaseManager
 
     public function getMovieScreenings($movieId)
     {
-        $sql = "SELECT 
+        $sql = "SELECT
                     movies.title,
                     movies.description, 
                     movies.poster,
@@ -72,7 +72,6 @@ class MovieManager extends BaseManager
                 JOIN movie_schedule ON screenings.movie_id = movie_schedule.movie_id 
                 JOIN cinemas ON movie_schedule.cinema_id = cinemas.id
                 WHERE movies.id = :movie_id
-                GROUP BY screenings.screening_day, screenings.start_time, rooms.room_number
                 ORDER BY screenings.screening_day DESC, screenings.start_time DESC";
 
         $stmt = $this->pdo->prepare($sql);

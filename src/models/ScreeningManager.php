@@ -35,6 +35,29 @@ class ScreeningManager extends BaseManager
         ]);
     }
 
+    public function getScreeningsByMovie($movieId)
+    {
+        $sql = "SELECT 
+            screenings.screening_day,
+            TIME_FORMAT(screenings.start_time, '%H:%i') AS start_time, 
+            TIME_FORMAT(screenings.end_time, '%H:%i') AS end_time,  
+            rooms.room_number, 
+            rooms.projection_quality,
+            cinemas.cinema_name
+        FROM screenings
+        JOIN rooms ON screenings.room_id = rooms.id 
+        JOIN cinemas ON rooms.cinema_id = cinemas.id
+        WHERE screenings.movie_id = :movie_id
+        GROUP BY screenings.screening_day, screenings.start_time, rooms.room_number
+        ORDER BY screenings.screening_day DESC, screenings.start_time DESC";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':movie_id', $movieId, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function getAllScreenings()
     {
         $sql = "SELECT * FROM screenings";

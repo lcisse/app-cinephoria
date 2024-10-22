@@ -12,12 +12,13 @@
         </p>
     </div>
 
-    <?php if (!empty($successMessage)): ?>
+    <?php if (isset($_SESSION['messageScreening'])): ?>
         <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <?= $successMessage; ?>
+            <?= $_SESSION['message']; ?>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-    <?php endif; ?>
+        <?php unset($_SESSION['message']); ?>
+    <?php endif; ?> 
 
     <section class="create-form">
         <div class="">

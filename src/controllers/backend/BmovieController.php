@@ -264,7 +264,7 @@ class BmovieController
 
     public function showGestionSeances($filmId)
     {
-        $screenings = $this->moviesManager->getMovieScreenings($filmId);
+        $screenings = $this->screeningManager->getScreeningsByMovie($filmId);
         $cinemas = $this->roomManager->getAllCinemasWithRooms(); 
 
         $cinemaRooms = [];
@@ -296,7 +296,7 @@ class BmovieController
             $this->movieScheduleManager->addMovieSchedule($movieId, $cinemaId, $screeningDate);
 
             session_start();
-            $_SESSION['message'] = "Séance créée avec succès !";
+            $_SESSION['messageScreening'] = "Séance créée avec succès !";
             header('Location: index.php?action=admin-film&filmId-seance=' . $movieId);
             exit();
         }
