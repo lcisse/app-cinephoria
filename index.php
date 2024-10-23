@@ -173,7 +173,9 @@ class App
                 break;
 
             case 'admin-film':
-                if (isset($_GET['id'])) {
+                if (isset($_GET['screening_id']) && isset($_GET['filmId-seance'])) {
+                    $this->bmovieController->showEditScreening();
+                } else if (isset($_GET['id'])) {
                     $filmId = (int)$_GET['id'];
                     $this->bmovieController->showEditFilm($filmId);
                 } else if (isset($_GET['filmId-seance'])) {
@@ -204,7 +206,13 @@ class App
                 $this->bmovieController->createScreening();
                 break;
 
-            
+            case 'deleteScreening':
+                $this->bmovieController->deleteScreening();
+                break;
+
+            case 'updateScreening':
+                $this->bmovieController->updateScreening();
+                break;
 
             default:
                 $this->controller->showHome();

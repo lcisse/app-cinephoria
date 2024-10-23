@@ -71,8 +71,7 @@ class MovieManager extends BaseManager
                 JOIN rooms ON screenings.room_id = rooms.id 
                 JOIN movie_schedule ON screenings.movie_id = movie_schedule.movie_id 
                 JOIN cinemas ON movie_schedule.cinema_id = cinemas.id
-                WHERE movies.id = :movie_id
-                ORDER BY screenings.screening_day DESC, screenings.start_time DESC";
+                WHERE movies.id = :movie_id";
 
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindParam(':movie_id', $movieId, PDO::PARAM_INT);
@@ -112,10 +111,12 @@ class MovieManager extends BaseManager
     public function getScreeningDetails($screening_id)
     {
         $sql = "SELECT 
+                    screenings.id,
                     movies.id AS movie_id,
                     movies.title,
                     movies.description,
                     movies.poster,
+                    cinemas.id AS cinema_id,
                     cinemas.cinema_name AS cinema,
                     rooms.id AS room_id,
                     rooms.room_number,

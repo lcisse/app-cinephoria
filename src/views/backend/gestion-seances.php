@@ -12,12 +12,12 @@
         </p>
     </div>
 
-    <?php if (isset($_SESSION['messageScreening'])): ?>
+    <?php if (isset($_SESSION['messageScreenings'])): ?>
         <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <?= $_SESSION['message']; ?>
+            <?= $_SESSION['messageScreenings']; ?>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-        <?php unset($_SESSION['message']); ?>
+        <?php unset($_SESSION['messageScreenings']); ?>
     <?php endif; ?> 
 
     <section class="create-form">
@@ -83,7 +83,12 @@
                         <tbody>
                             <?php foreach ($screenings as $screening): ?>
                                 <tr class="room-row">
-                                    <td><?= htmlspecialchars($screening['cinema_name']); ?></td>
+                                    <td><?= htmlspecialchars($screening['cinema_name']); ?>
+                                        <div class=" action-buttons" > 
+                                            <a href="index.php?action=admin-film&screening_id=<?= $screening['id'] ?>&filmId-seance=<?= $movieId ?>" class="">Modifier |</a> 
+                                            <a href="index.php?action=deleteScreening&screening_id=<?= $screening['id'] ?>&filmId-seance=<?= $movieId ?>" class="btn-delete" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette salle ?');">Supprimer</a>
+                                        </div>
+                                    </td>
                                     <td><?= htmlspecialchars($screening['room_number']); ?></td>
                                     <td><?= htmlspecialchars($screening['screening_day']); ?></td>
                                     <td><?= htmlspecialchars($screening['start_time']); ?></td>

@@ -225,6 +225,13 @@ class BmovieController
 
         $filmGenres = $this->moviesGenresManager->getGenresByMovieId($filmId);
 
+        session_start();
+        $successMessage = '';
+        if (isset($_SESSION['success_message'])) {
+            $successMessage = $_SESSION['success_message'];
+            unset($_SESSION['success_message']);
+        }
+
         require __DIR__ . '/../../views/backend/film-edit.php';
     }
 
@@ -256,8 +263,8 @@ class BmovieController
             $this->moviesGenresManager->updateGenresForMovie($filmId, $genres);
 
             session_start();
-            $_SESSION['message'] = "Film modifié avec succès !";
-            header("Location: index.php?action=admin-film");
+            $_SESSION['message'] = "Film a été mise à jour avec succès.";
+            header("Location: index.php?action=admin-film&id=$filmId");
             exit();
         }
     }
@@ -265,7 +272,11 @@ class BmovieController
     public function showGestionSeances($filmId)
     {
         $screenings = $this->screeningManager->getScreeningsByMovie($filmId);
-        $cinemas = $this->roomManager->getAllCinemasWithRooms(); 
+        $cinemas = $this->roomManager->getAllCinemasWithRooms();
+
+        if($_GET['filmId-seance']) {
+            $movieId = $_GET['filmId-seance'];  
+        }
 
         $cinemaRooms = [];
         foreach ($cinemas as $cinemaId => $cinema) {
@@ -276,6 +287,11 @@ class BmovieController
                     'number' => $room['room_number']
                 ];
             }
+        }
+        session_start();
+        if(isset($_SESSION['messageScreenings'])){
+
+            $_SESSION['messageScreenings'] = $_SESSION['messageScreenings'];
         }
 
         require __DIR__ . '/../../views/backend/gestion-seances.php';
@@ -296,8 +312,71 @@ class BmovieController
             $this->movieScheduleManager->addMovieSchedule($movieId, $cinemaId, $screeningDate);
 
             session_start();
-            $_SESSION['messageScreening'] = "Séance créée avec succès !";
-            header('Location: index.php?action=admin-film&filmId-seance=' . $movieId);
+            $_SESSION['messageScreenings'] = "Séance créée avec succès !";
+            header("Location: index.php?action=admin-film&filmId-seance=$movieId");
+            exit();
+        }
+    }
+
+    public function deleteScreening()
+    {
+        if (isset($_GET['screening_id'])) {
+            $screeningId = (int)$_GET['screening_id'];
+            $filmId = $_GET['filmId-seance'];
+
+            $this->screeningManager->deleteScreening($screeningId);
+
+            session_start();
+            $_SESSION['messageScreenings'] = "Séance supprimée avec succès !";
+
+            header("Location: index.php?action=admin-film&filmId-seance=$filmId");
+            //var_dump($_GET['filmId-seance']);
+            exit();
+        }
+    }
+
+    public function showEditScreening()
+    {
+        $screeningId = isset($_GET['screening_id']) ? (int)$_GET['screening_id'] : null;
+
+        if ($screeningId) {
+            $screeningDetails = $this->moviesManager->getScreeningDetails($screeningId);
+          // var_dump($screeningDetails);
+           $cinemas = $this->roomManager->getAllCinemasWithRooms();
+           //var_dump($cinemas);
+           //exit();
+            $cinemaRooms = [];
+            foreach ($cinemas as $cinemaId => $cinema) {
+                $cinemaRooms[$cinemaId] = [];
+                foreach ($cinema['rooms'] as $room) {
+                    $cinemaRooms[$cinemaId][] = [
+                        'id' => $room['id'],
+                        'number' => $room['room_number']
+                    ];
+                }
+            }
+
+            require __DIR__ . '/../../views/backend/seance-edit.php';
+        }
+    }
+
+    public function updateScreening()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $screeningId = (int)$_GET['screening_id'];
+            $movieId = (int)$_GET['filmId-seance'];
+            $cinemaId = $_POST['cinema_id'];
+            $roomId = $_POST['room_id'];
+            $screeningDate = $_POST['screening_date'];
+            $startTime = $_POST['start_time'];
+            $endTime = $_POST['end_time'];
+
+            $this->screeningManager->updateScreening($screeningId, $movieId, $roomId, $screeningDate, $startTime, $endTime);
+            $this->movieScheduleManager->updateMovieSchedule($movieId, $cinemaId, $screeningDate);
+
+            session_start();
+            $_SESSION['messageScreenings'] = "Séance mise à jour avec succès !";
+            header("Location: index.php?action=admin-film&filmId-seance=$movieId");
             exit();
         }
     }

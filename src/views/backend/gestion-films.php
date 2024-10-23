@@ -2,7 +2,7 @@
 <?php ob_start(); ?>
 <div class="admin-right-container" id="movies-container">
     <div class="admin-title">
-        <h2>Gestion des salles</h2>
+        <h2>Gestion des films</h2>
         <p class="d-inline-flex">
             <button id="toggleMovieBtn" class="btn toggleButton toggleAdminBtn" type="button" data-bs-toggle="collapse" data-bs-target="#formFimlCollapse" aria-expanded="false" aria-controls="formFimlCollapse">Ajouter un film
                 <span class="toggle-icon">
