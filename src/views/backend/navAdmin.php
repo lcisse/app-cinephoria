@@ -10,6 +10,6 @@
             <a class="nav-link" href="<?= BASE_URL ?>/index.php?action=salles">Gestion salles</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">Employés</a>
+            <a class="nav-link" href="<?= BASE_URL ?>/index.php?action=admin-employes">Employés</a>
         </li>
     </ul>

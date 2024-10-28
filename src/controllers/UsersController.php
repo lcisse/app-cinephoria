@@ -101,7 +101,7 @@ class UsersController
         }
     }
 
-    private function isValidPassword($password)
+    public function isValidPassword($password)
     {
         $pattern = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/';
         return preg_match($pattern, $password);

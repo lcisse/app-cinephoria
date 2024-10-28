@@ -8,6 +8,7 @@ require_once __DIR__ . '/config.php';
 use App\controllers\MovieController;
 use App\controllers\UsersController;
 use App\controllers\backend\BmovieController;
+use App\controllers\backend\BusersController;
 use App\Models\DatabaseSeeder;
 
 
@@ -24,12 +25,14 @@ class App
     private $controller;
     private $UsersController;
     private $bmovieController;
+    private $busersController;
 
     public function __construct()
     {
         $this->controller = new MovieController();
         $this->UsersController = new UsersController();
         $this->bmovieController = new BmovieController();
+        $this->busersController = new BusersController();
     }
 
     public function run($action)
@@ -214,6 +217,14 @@ class App
                 $this->bmovieController->updateScreening();
                 break;
 
+            case 'admin-employes':
+                $this->busersController->showGestionEmployes();
+                break;
+
+            case 'createEmployeeAccount':
+                $this->busersController->createEmployeeAccount();
+                break;
+
             default:
                 $this->controller->showHome();
                 break;
@@ -221,7 +232,6 @@ class App
     }
 }
 
-//use App\App;
 
 $app = new App();
 $action = isset($_GET['action']) ? $_GET['action'] : 'home';

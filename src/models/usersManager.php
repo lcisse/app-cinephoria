@@ -54,6 +54,14 @@ class UsersManager extends BaseManager
         return $stmt->fetch(PDO::FETCH_ASSOC); // Renvoie l'utilisateur correspondant
     }
 
+    public function getEmployees()
+    {
+        $sql = "SELECT id, first_name, last_name, email FROM users WHERE role = 'employee'";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function getAllUsers()
     {
         $sql = "SELECT id, first_name, last_name, username, email, role FROM users";

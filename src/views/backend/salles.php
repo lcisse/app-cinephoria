@@ -4,7 +4,7 @@
     <div class=" admin-title">
         <h2>Gestion des salles</h2>
         <p class="d-inline-flex">
-                <button id="toggleRoomBtn" class="btn toggleButton toggleAdminBtn" type="button" data-bs-toggle="collapse" data-bs-target="#formRoomCollapse" aria-expanded="false" aria-controls="formRoomCollapse">Ajouter un film
+                <button id="toggleRoomBtn" class="btn toggleButton toggleAdminBtn" type="button" data-bs-toggle="collapse" data-bs-target="#formRoomCollapse" aria-expanded="false" aria-controls="formRoomCollapse">Ajouter une salles
                     <span class="toggle-icon">
                         <i class="fa-solid fa-chevron-down"></i>
                     </span> 

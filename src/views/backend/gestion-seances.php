@@ -4,7 +4,7 @@
     <div class="admin-title">
         <h2>Gestion des séances</h2>
         <p class="d-inline-flex">
-            <button id="toggleScreenindBtn" class="btn toggleButton toggleAdminBtn" type="button" data-bs-toggle="collapse" data-bs-target="#formScreeninglCollapse" aria-expanded="false" aria-controls="formScreeninglCollapse">Ajouter un film
+            <button id="toggleScreenindBtn" class="btn toggleButton toggleAdminBtn" type="button" data-bs-toggle="collapse" data-bs-target="#formScreeninglCollapse" aria-expanded="false" aria-controls="formScreeninglCollapse">Ajouter une séance
                 <span class="toggle-icon">
                     <i class="fa-solid fa-chevron-down"></i>
                 </span> 
