@@ -12,6 +12,22 @@
         </p>
     </div>
 
+    <?php if (isset($_SESSION['messageEmploye'])): ?>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <?= $_SESSION['messageEmploye']; ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <?php unset($_SESSION['messageEmploye']); ?>
+    <?php endif; ?> 
+
+    <?php if (isset($_SESSION['errorEm'])): ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <?= $_SESSION['errorEm']; ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <?php unset($_SESSION['errorEm']); ?>
+    <?php endif; ?>
+
     <section class="create-form">
         <div class="">
             <div class="row">
@@ -58,16 +74,23 @@
                         <thead>
                             <tr>
                                 <th scope="col">Nom</th>
+                                <th scope="col">Prénom</th>
+                                <th scope="col">Pseudo</th>
                                 <th scope="col">Email</th>
-                                <th scope="col">Mot de passe</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php foreach ($employes as $employe): ?>
                                 <tr class="room-row">
-                                    <td><?= htmlspecialchars($employe['first_name']); ?> <?= htmlspecialchars($employe['last_name']); ?></td>
+                                    <td><?= htmlspecialchars($employe['last_name']); ?>
+                                        <div class="action-buttons">
+                                            <a href="#" data-id="<?= $employe['id']; ?>" data-bs-toggle="modal" data-bs-target="#modalMdp" class="reset-password-link">réinitialiser le mot de passe |</a> 
+                                            <a href="index.php?action=deleteEmployee&id=<?= $employe['id']; ?>" class="btn-delete" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet employé ?');">Supprimer</a>
+                                        </div>
+                                    </td>
+                                    <td><?= htmlspecialchars($employe['first_name']); ?></td>
+                                    <td><?= htmlspecialchars($employe['username']); ?></td>
                                     <td><?= htmlspecialchars($employe['email']); ?></td>
-                                    <td><button class="btn">réunitialiser le mot de passe</button></td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
@@ -76,6 +99,40 @@
             </div>
         </div>
     </section>
+
+    <!-- Modal pour réinitialiser le mot de passe -->
+    <div class="modal fade" id="modalMdp" tabindex="-1" aria-labelledby="modalLabelMdp" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="modalLabelMdp">Réinitialiser le mot de passe</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!--<form id="resetPasswordForm">
+                        <input type="hidden" name="employee_id" id="employeeId">
+                        <div class="mb-3">
+                            <label for="newPassword" class="col-form-label">Nouveau mot de passe :</label>
+                            <input type="password" class="form-control" id="newPassword" name="new_password" required>
+                        </div>
+                    </form>-->
+                    <form method="POST" action="index.php?action=resetEmployeePassword">
+                        <input type="hidden" name="employee_id" value="<?= $employe['id']; ?>">
+                        <div class="mb-3">
+                            <label for="new-password" class="col-form-label">Nouveau mot de passe :</label>
+                            <input type="password" class="form-control" name="new_password" id="new-password" required>
+                        </div>
+                        <div class="modal-footer">
+                        <button type="submit" class="btn">Réinitialiser</button>
+                        </div>
+                    </form>
+                </div>
+                <!--<div class="modal-footer">
+                    <button type="button" class="btn" id="submitResetPassword">Réinitialiser</button>
+                </div>-->
+            </div>
+        </div>
+    </div>
 
 
 </div>

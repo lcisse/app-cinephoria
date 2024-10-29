@@ -17,6 +17,15 @@ class BusersController
      
     }
 
+    public function showGestionEmployes()
+    {
+        $employes = $this->usersManager->getEmployees();
+
+        session_start();
+
+        require __DIR__ . '/../../views/backend/gestion-employes.php';
+    }
+
     public function createEmployeeAccount()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -28,19 +37,22 @@ class BusersController
             $confirmPassword = $_POST['confirm_password'];
 
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                $_SESSION['error'] = "Email invalide.";
+                session_start();
+                $_SESSION['errorEm'] = "Email invalide.";
                 header('Location: index.php?action=admin-employes');
                 exit();
             }
 
             if (!$this->usersController->isValidPassword($password)) {
-                $_SESSION['error'] = "Le mot de passe doit comporter au moins 8 caractères, avec une majuscule, une minuscule, un chiffre et un caractère spécial.";
+                session_start();
+                $_SESSION['errorEm'] = "Le mot de passe doit comporter au moins 8 caractères, avec une majuscule, une minuscule, un chiffre et un caractère spécial.";
                 header('Location: index.php?action=admin-employes');
                 exit();
             }
 
             if ($password !== $confirmPassword) {
-                $_SESSION['error'] = "Les mots de passe ne correspondent pas.";
+                session_start();
+                $_SESSION['errorEm'] = "Les mots de passe ne correspondent pas.";
                 header('Location: index.php?action=admin-employes');
                 exit();
             }
@@ -51,22 +63,86 @@ class BusersController
                 $this->usersManager->addUser($firstName, $lastName, $username, $email, $password, $role);
 
                 session_start();
-                $_SESSION['message'] = "Compte employé créé avec succès !";
+                $_SESSION['messageEmploye'] = "Compte employé créé avec succès !";
 
                 header('Location: index.php?action=admin-employes');
                 exit();
             } catch (\Exception $e) {
-                $_SESSION['error'] = "Erreur lors de la création du compte employé : " . $e->getMessage();
+                session_start();
+                $_SESSION['errorEm'] = "Erreur lors de la création du compte employé : " . $e->getMessage();
                 header('Location: index.php?action=admin-employes');
                 exit();
             }
         }
     }
 
-    public function showGestionEmployes()
+    public function deleteEmployee()
     {
-        $employes = $this->usersManager->getEmployees();
-        require __DIR__ . '/../../views/backend/gestion-employes.php';
+        if (isset($_GET['id'])) {
+            $employeeId = (int)$_GET['id'];
+
+            try {
+                $this->usersManager->deleteEmployee($employeeId);
+                session_start();
+                $_SESSION['messageEmploye'] = "Employé supprimé avec succès !";
+            } catch (\Exception $e) {
+                $_SESSION['errorEm'] = "Erreur lors de la suppression de l'employé : " . $e->getMessage();
+            }
+
+            header('Location: index.php?action=admin-employes');
+            exit();
+        }
+    }
+
+    /*public function resetEmployeePassword()
+    {
+        $data = json_decode(file_get_contents('php://input'), true);
+        $employeeId = $data['employee_id'];
+        $newPassword = $data['new_password'];
+
+        // Vérification de la force du mot de passe
+        if (!$this->usersController->isValidPassword($newPassword)) {
+            echo json_encode([
+                'success' => false,
+                'message' => "Le mot de passe doit comporter au moins 8 caractères, avec une majuscule, une minuscule, un chiffre et un caractère spécial."
+            ]);
+            return;
+        }
+
+        try {
+            $this->usersManager->resetEmployeePassword($employeeId, $newPassword);
+            echo json_encode(['success' => true]);
+        } catch (Exception $e) {
+            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+        }
+    }*/
+
+    public function resetEmployeePassword()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $employeeId = $_POST['employee_id'];
+            $newPassword = $_POST['new_password'];
+
+            if (!$this->usersController->isValidPassword($newPassword)) {
+                session_start();
+                $_SESSION['errorEm'] = "Le mot de passe doit comporter au moins 8 caractères, avec une majuscule, une minuscule, un chiffre et un caractère spécial.";
+                header('Location: index.php?action=admin-employes');
+                exit();
+            }
+
+            try {
+                $this->usersManager->resetEmployeePassword($employeeId, $newPassword);
+                session_start();
+                $_SESSION['messageEmploye'] = "Mot de passe réinitialisé avec succès !";
+                header('Location: index.php?action=admin-employes');
+                exit();
+            } catch (\Exception $e) {
+                session_start();
+                $_SESSION['errorEm'] = "Erreur lors de la réinitialisation du mot de passe : " . $e->getMessage();
+                header('Location: index.php?action=admin-employes');
+                exit();
+            }
+        }
     }
 
 }

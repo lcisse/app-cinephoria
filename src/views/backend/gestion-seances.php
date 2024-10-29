@@ -86,7 +86,7 @@
                                     <td><?= htmlspecialchars($screening['cinema_name']); ?>
                                         <div class=" action-buttons" > 
                                             <a href="index.php?action=admin-film&screening_id=<?= $screening['id'] ?>&filmId-seance=<?= $movieId ?>" class="">Modifier |</a> 
-                                            <a href="index.php?action=deleteScreening&screening_id=<?= $screening['id'] ?>&filmId-seance=<?= $movieId ?>" class="btn-delete" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette salle ?');">Supprimer</a>
+                                            <a href="index.php?action=deleteScreening&screening_id=<?= $screening['id'] ?>&filmId-seance=<?= $movieId ?>" class="btn-delete" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette séance ?');">Supprimer</a>
                                         </div>
                                     </td>
                                     <td><?= htmlspecialchars($screening['room_number']); ?></td>

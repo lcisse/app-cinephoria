@@ -25,5 +25,6 @@
     <script src="<?= BASE_URL ?>/public/assets/js/filmsFilter"></script>
     <script src="<?= BASE_URL ?>/public/assets/js/backend/index.js"></script>
     <script src="<?= BASE_URL ?>/public/assets/js/backend/adminScreening.js"></script>
+    <script src="<?= BASE_URL ?>/public/assets/js/backend/employes.js"></script>
 </body>
 </html>

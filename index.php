@@ -225,6 +225,14 @@ class App
                 $this->busersController->createEmployeeAccount();
                 break;
 
+            case 'deleteEmployee':
+                $this->busersController->deleteEmployee();
+                break;
+                
+            case 'resetEmployeePassword':
+                $this->busersController->resetEmployeePassword();
+                break;
+
             default:
                 $this->controller->showHome();
                 break;

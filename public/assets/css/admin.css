@@ -136,3 +136,15 @@ td {
     display: inline-block;
     font-size: 14px;
 }
+
+/* page employee */
+.btn.mdp {
+    font-size: 16px;
+    background: var(--cn-color-green-3) !important;
+}
+
+.btn.mdp:hover {
+    background: var(--cn-color-white-1) !important; 
+}
+
+/* fin page employee */

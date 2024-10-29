@@ -56,7 +56,7 @@ class UsersManager extends BaseManager
 
     public function getEmployees()
     {
-        $sql = "SELECT id, first_name, last_name, email FROM users WHERE role = 'employee'";
+        $sql = "SELECT id, first_name, last_name, username, email FROM users WHERE role = 'employee'";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -66,5 +66,24 @@ class UsersManager extends BaseManager
     {
         $sql = "SELECT id, first_name, last_name, username, email, role FROM users";
         return $this->fetchAll($sql);
+    }
+
+    public function deleteEmployee($employeeId)
+    {
+        $sql = "DELETE FROM users WHERE id = :id AND role = 'employee'";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':id', $employeeId, PDO::PARAM_INT);
+        $stmt->execute();
+    }
+
+    public function resetEmployeePassword($employeeId, $newPassword)
+    {
+        $hashedPassword = password_hash($newPassword, PASSWORD_BCRYPT);
+
+        $sql = "UPDATE users SET password = :password WHERE id = :id AND role = 'employee'";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':password', $hashedPassword);
+        $stmt->bindParam(':id', $employeeId, PDO::PARAM_INT);
+        $stmt->execute();
     }
 }
