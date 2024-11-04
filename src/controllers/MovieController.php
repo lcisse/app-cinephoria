@@ -7,16 +7,19 @@ use App\models\ScreeningManager;
 use App\Models\ReservationManager;
 use App\Models\SeatManager;
 use App\controllers\UsersController;
+use App\models\mongodb\ReservationMongoManager;
 
 class MovieController
 {
     private $moviesManager;
     private $usersController;
+    private $reservationMongoManager;
 
     public function __construct()
     {
         $this->moviesManager = new MovieManager();
         $this->usersController = new UsersController();
+        $this->reservationMongoManager = new ReservationMongoManager();
     }
 
     private function convertDayToFrench($englishDays) 
@@ -138,12 +141,15 @@ class MovieController
             // Récupérer les détails de la projection pour obtenir l'ID du film
             $screeningDetails = $this->moviesManager->getScreeningDetails($screeningId);
             $movieId = $screeningDetails['movie_id'];
+            $movieTitle = $screeningDetails['title'];
 
             // Générer un QR code (simple texte ici, vous pouvez utiliser une bibliothèque pour générer un vrai QR code)
             $qrCode = 'QR_' . uniqid();
 
             // Enregistrer la réservation dans la base de données
             $this->moviesManager->createReservation($userId, $movieId, $screeningId, $seats, $totalPrice, $qrCode);
+
+            $this->reservationMongoManager->addReservation($movieTitle, $userId, $seats, $totalPrice, 'confirmed');
 
             $_SESSION['reservation_confirmed'] = true;
 
