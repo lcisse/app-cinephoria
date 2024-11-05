@@ -1,5 +1,5 @@
 <?php
-namespace App\Models;
+namespace App\models;
 
 class ReviewManager extends BaseManager
 {
@@ -20,10 +20,37 @@ class ReviewManager extends BaseManager
         $this->executeQuery($sql, 'Table "reviews" créée avec succès.');
     }
 
-    // Méthode pour récupérer tous les avis
     public function getAllReviews()
     {
-        $sql = "SELECT * FROM reviews";
+        $sql = "
+            SELECT 
+                reviews.id, 
+                reviews.review_text, 
+                reviews.status,
+                reviews.submission_date,
+                movies.title AS movie_title,
+                users.email AS author_email
+            FROM reviews
+            JOIN movies ON reviews.movie_id = movies.id
+            JOIN users ON reviews.customer_id = users.id
+        ";
         return $this->fetchAll($sql);
+    }
+
+    public function updateReviewStatus($reviewId, $status)
+    {
+        $sql = "UPDATE reviews SET status = :status WHERE id = :id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([
+            ':status' => $status,
+            ':id' => $reviewId
+        ]);
+    }
+
+    public function deleteReview($reviewId)
+    {
+        $sql = "DELETE FROM reviews WHERE id = :id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([':id' => $reviewId]);
     }
 }

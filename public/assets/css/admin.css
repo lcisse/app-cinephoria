@@ -39,6 +39,12 @@ select option:hover {
     width: 100%;
 }
 
+.table-list h2 {
+    display: inline;
+    background: var(--cn-color-green-3);
+    padding: 2px 4px;
+}
+
 #admin-container .form-control:focus, .form-select:focus, .form-check-input:focus {
     border-color: var(--cn-color-green-3) !important;
     box-shadow: 0 0 0 .1rem rgb(210 232 227 / 67%);
@@ -148,3 +154,27 @@ td {
 }
 
 /* fin page employee */
+
+
+/* page dashboard */
+#dashboard_list h2 {
+    display: inline;
+    background: var(--cn-color-green-3);
+    padding: 2px 4px;
+}
+
+.pending {
+    color: orange;
+    font-weight: bold;
+}
+.approved {
+    color: green;
+    font-weight: bold;
+}
+
+.disabled-link {
+    color: grey;
+    cursor: not-allowed;
+    text-decoration: none;
+}
+/* fin page dashboard */

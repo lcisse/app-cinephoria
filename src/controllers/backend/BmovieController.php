@@ -9,6 +9,8 @@ use App\models\GenreManager;
 use App\models\MovieGenreManager;
 use App\models\ScreeningManager;
 use App\models\MovieScheduleManager;
+use App\models\mongodb\ReservationMongoManager;
+use App\models\ReviewManager;
 
 
 
@@ -21,6 +23,8 @@ class BmovieController
     private $moviesGenresManager;
     private $screeningManager;
     private $movieScheduleManager;
+    private $reservationMongoManager;
+    private $reviewManager;
 
     public function __construct()
     {
@@ -31,13 +35,17 @@ class BmovieController
         $this->moviesGenresManager = new MovieGenreManager();
         $this->screeningManager = new ScreeningManager();
         $this->movieScheduleManager = new MovieScheduleManager();
+        $this->reservationMongoManager = new ReservationMongoManager();
+        $this->reviewManager = new ReviewManager();
     }
 
     public function showDasboard()
     {
-        //$movies = $this->moviesManager->getAllMovies();
+        $reservations = $this->reservationMongoManager->getReservationsLast7Days();
+        //var_dump($reservations);
+       // exit();
 
-        require __DIR__ . '/../../views/backend/salles.php';
+        require __DIR__ . '/../../views/backend/tableau-de-bord.php';
     }
 
     public function showRooms()
@@ -379,6 +387,29 @@ class BmovieController
             header("Location: index.php?action=admin-film&filmId-seance=$movieId");
             exit();
         }
+    }
+
+    public function showReviews()
+    {
+        $reviews = $this->reviewManager->getAllReviews();
+       
+        require __DIR__ . '/../../views/backend/avis.php';
+    }
+
+    public function approveReview($reviewId)
+    {
+        $this->reviewManager->updateReviewStatus($reviewId, 'approved');
+        $_SESSION['messageReview'] = "Avis validé avec succès !";
+        header('Location: index.php?action=avis');
+        exit();
+    }
+
+    public function deleteReview($reviewId)
+    {
+        $this->reviewManager->deleteReview($reviewId);
+        $_SESSION['messageReview'] = "Avis supprimé avec succès !";
+        header('Location: index.php?action=avis'); 
+        exit();
     }
 
 }

@@ -233,6 +233,22 @@ class App
                 $this->busersController->resetEmployeePassword();
                 break;
 
+            case 'avis':
+                $this->bmovieController->showReviews();
+                break;
+
+            case 'approveReview':
+                if (isset($_GET['id'])) {
+                    $this->bmovieController->approveReview((int)$_GET['id']);
+                }
+                break;
+
+            case 'deleteReview':
+                if (isset($_GET['id'])) {
+                    $this->bmovieController->deleteReview((int)$_GET['id']);
+                }
+                break;
+
             default:
                 $this->controller->showHome();
                 break;

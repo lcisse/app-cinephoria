@@ -12,15 +12,19 @@ class ReservationMongoManager extends MongoDBConnection {
 
     public function __construct($dbName = "cinephoriadb") {
         $mongoDBConnection = MongoDBConnection::getInstance($dbName);
-        $this->collection = $mongoDBConnection->getCollection('reservations'); // Accède à la collection `reservations`
+        $this->collection = $mongoDBConnection->getCollection('reservations'); 
     }
 
-    // Ajouter une nouvelle réservation
     public function addReservation($movieTitle, $userId, $seats, $price, $status) {
-        
+        $dateTime = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
+
+        // Ajuste la date au format UTC pour MongoDB, en tenant compte de l'heure locale
+        $utcTimestamp = ($dateTime->getTimestamp() + $dateTime->getOffset()) * 1000;
+        $utcDateTime = new UTCDateTime($utcTimestamp);
+
         $document = [
             'movie_title' => $movieTitle,
-            'reservation_date' => new UTCDateTime(),  // Date actuelle
+            'reservation_date' => $utcDateTime,  
             'user_id' => $userId,
             'seats_reserved' => $seats,
             'total_price' => $price,
@@ -29,16 +33,25 @@ class ReservationMongoManager extends MongoDBConnection {
         $this->collection->insertOne($document);
     }
     
-    // Récupérer les réservations des 7 derniers jours par film
     public function getReservationsLast7Days() {
         $oneWeekAgo = new UTCDateTime((new \DateTime('-7 days'))->getTimestamp() * 1000);
         
         $pipeline = [
             ['$match' => ['reservation_date' => ['$gte' => $oneWeekAgo]]],
-            ['$group' => [
-                '_id' => '$movie_title',
-                'reservation_count' => ['$sum' => 1]
-            ]],
+            [
+                '$addFields' => [
+                    'seats_reserved_array' => [
+                        '$split' => ['$seats_reserved', ', ']  // Divise le champ seats_reserved en un tableau
+                    ]
+                ]
+            ],
+            [
+                '$group' => [
+                    '_id' => '$movie_title',
+                    'reservation_count' => ['$sum' => 1],  // Compte le nombre de réservations
+                    'total_seats_reserved' => ['$sum' => ['$size' => '$seats_reserved_array']]  // Somme du nombre de sièges réservés
+                ]
+            ],
             ['$sort' => ['reservation_count' => -1]]
         ];
 
