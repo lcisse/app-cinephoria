@@ -1,6 +1,8 @@
 <?php
 namespace App\Models;
 
+use PDO;
+
 class ReservationManager extends BaseManager
 {
     public function createReservationsTable()
@@ -32,5 +34,28 @@ class ReservationManager extends BaseManager
     {
         $sql = "SELECT * FROM reservations";
         return $this->fetchAll($sql);
+    }
+
+    public function getUserReservations($userId)
+    {
+        $sql = "SELECT 
+                movies.id AS movie_id, 
+                movies.title AS movie_title, 
+                screenings.screening_day, 
+                screenings.start_time, 
+                screenings.end_time, 
+                reservations.price, 
+                reservations.seats 
+                FROM reservations
+                JOIN screenings ON reservations.screening_id = screenings.id
+                JOIN movies ON reservations.movie_id = movies.id
+                WHERE reservations.user_id = :user_id
+                ORDER BY reservations.reservation_date DESC";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }

@@ -53,4 +53,17 @@ class ReviewManager extends BaseManager
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([':id' => $reviewId]);
     }
+
+    public function addReview($userId, $movieId, $reviewText, $rating)
+    {
+        $sql = "INSERT INTO reviews (movie_id, customer_id, review_text, rating, status, submission_date)
+                VALUES (:movie_id, :customer_id, :review_text, :rating, 'pending', NOW())";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([
+            ':movie_id' => $movieId,
+            ':customer_id' => $userId,
+            ':review_text' => $reviewText,
+            ':rating' => $rating
+        ]);
+    }
 }

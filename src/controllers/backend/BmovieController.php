@@ -11,6 +11,7 @@ use App\models\ScreeningManager;
 use App\models\MovieScheduleManager;
 use App\models\mongodb\ReservationMongoManager;
 use App\models\ReviewManager;
+use App\models\ReservationManager;
 
 
 
@@ -25,6 +26,7 @@ class BmovieController
     private $movieScheduleManager;
     private $reservationMongoManager;
     private $reviewManager;
+    private $reservationManager;
 
     public function __construct()
     {
@@ -37,6 +39,7 @@ class BmovieController
         $this->movieScheduleManager = new MovieScheduleManager();
         $this->reservationMongoManager = new ReservationMongoManager();
         $this->reviewManager = new ReviewManager();
+        $this->reservationManager = new ReservationManager();
     }
 
     public function showDasboard()
@@ -410,6 +413,37 @@ class BmovieController
         $_SESSION['messageReview'] = "Avis supprimé avec succès !";
         header('Location: index.php?action=avis'); 
         exit();
+    }
+
+    public function showUserSpace()
+    {
+        session_start();
+        $userId = $_SESSION['user_id'] ?? null; 
+
+        if ($userId) {
+            $orders = $this->reservationManager->getUserReservations($userId); 
+        } else {
+            $orders = [];
+        }
+       
+        require __DIR__ . '/../../views/backend/espace-utilisateur.php';
+    }
+
+    public function addReview()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            session_start();
+            $userId = $_SESSION['user_id'];
+            $movieId = $_POST['movie_id'];
+            $rating = $_POST['rating'];
+            $reviewText = htmlspecialchars($_POST['text_review']);
+
+            $this->reviewManager->addReview($userId, $movieId, $reviewText, $rating);
+
+            $_SESSION['messageNote'] = "Votre avis a été enregistré avec succès et est en attente de validation.";
+            header('Location: index.php?action=espace-utilisateur');
+            exit();
+        }
     }
 
 }

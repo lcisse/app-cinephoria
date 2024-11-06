@@ -2,7 +2,7 @@
 <?php ob_start(); ?>
 <div class="admin-right-container" id="dashboard-container">
     <div class="admin-title">
-        <h2>Bienvenue dans votre tableaud de bord</h2>
+        <h2>Bienvenue sur votre tableaud de bord</h2>
     </div>
 
     <section id="dashboard_list" class="mt-5 table-list">

@@ -109,13 +109,6 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <!--<form id="resetPasswordForm">
-                        <input type="hidden" name="employee_id" id="employeeId">
-                        <div class="mb-3">
-                            <label for="newPassword" class="col-form-label">Nouveau mot de passe :</label>
-                            <input type="password" class="form-control" id="newPassword" name="new_password" required>
-                        </div>
-                    </form>-->
                     <form method="POST" action="index.php?action=resetEmployeePassword">
                         <input type="hidden" name="employee_id" value="<?= $employe['id']; ?>">
                         <div class="mb-3">
@@ -127,9 +120,6 @@
                         </div>
                     </form>
                 </div>
-                <!--<div class="modal-footer">
-                    <button type="button" class="btn" id="submitResetPassword">Réinitialiser</button>
-                </div>-->
             </div>
         </div>
     </div>

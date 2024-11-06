@@ -1,180 +1,207 @@
 :root {
-    --cn-color-green-1: #0F3C44;
-    --cn-color-green-2: #035f70;
-    --cn-color-green-3: #D2E8E3;
-    --cn-color-blue-1: #00C7F8;
-    --cn-color-grey-1: #F1F2F7;
-    --cn-color-grey-2: #d4d5da;
-    --cn-color-white-1: #F1F2F7;
-    --cn-color-orange-1: #DE7420;
-    --cn-color-orange-2: #FD8F3B;
+  --cn-color-green-1: #0f3c44;
+  --cn-color-green-2: #035f70;
+  --cn-color-green-3: #d2e8e3;
+  --cn-color-blue-1: #00c7f8;
+  --cn-color-grey-1: #f1f2f7;
+  --cn-color-grey-2: #d4d5da;
+  --cn-color-white-1: #f1f2f7;
+  --cn-color-orange-1: #de7420;
+  --cn-color-orange-2: #fd8f3b;
 }
-
 
 @font-face {
-    font-family: 'Roboto-Italic';
-    src: url('public/assets/fonts/Roboto-Italic.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
+  font-family: "Roboto-Italic";
+  src: url("public/assets/fonts/Roboto-Italic.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
 }
 
-body{
-    font-family: 'Sofia Sans Extra Condensed', sans-serif !important;
+body {
+  font-family: "Sofia Sans Extra Condensed", sans-serif !important;
 }
 
 a {
-    text-decoration: none;
+  text-decoration: none;
 }
 
-input, select, textarea {
-    border: 2px solid var(--cn-color-grey-2) !important;
+input,
+select,
+textarea {
+  border: 2px solid var(--cn-color-grey-2) !important;
 }
 
 select option:hover {
-    background: var(--cn-color-green-3) !important;
+  background: var(--cn-color-green-3) !important;
 }
 
 #admin-container {
-    margin-top: 70px;
-    width: 100%;
+  margin-top: 70px;
+  width: 100%;
 }
 
 .table-list h2 {
-    display: inline;
-    background: var(--cn-color-green-3);
-    padding: 2px 4px;
+  display: inline;
+  background: var(--cn-color-green-3);
+  padding: 2px 4px;
 }
 
-#admin-container .form-control:focus, .form-select:focus, .form-check-input:focus {
-    border-color: var(--cn-color-green-3) !important;
-    box-shadow: 0 0 0 .1rem rgb(210 232 227 / 67%);
+#admin-container .form-control:focus,
+.form-select:focus,
+.form-check-input:focus {
+  border-color: var(--cn-color-green-3) !important;
+  box-shadow: 0 0 0 0.1rem rgb(210 232 227 / 67%);
 }
 
 .admin-right-container {
-    width: 90%;
-    margin-left: auto;
-    padding: 10px 20px;
+  width: 90%;
+  margin-left: auto;
+  padding: 10px 20px;
 }
 
 .create-form {
-    width: 70%;
+  width: 70%;
 }
 
 .admin-title {
-   display: flex;
+  display: flex;
 }
 
 #admin-container .btn {
-    background: var(--cn-color-grey-1);
-    text-transform: capitalize;
-    padding: 4px 16px;
-    margin-left: 10px;
-} 
+  background: var(--cn-color-grey-1);
+  text-transform: capitalize;
+  padding: 4px 16px;
+  margin-left: 10px;
+}
 
 #admin-container .btn:hover {
-    background: var(--cn-color-green-3);
+  background: var(--cn-color-green-3);
 }
 
 #navAdmin {
-    min-height: 93vh;
-    width: 9.9%;
-    background: var(--cn-color-green-2);
-    position: fixed;
+  min-height: 93vh;
+  width: 9.9%;
+  background: var(--cn-color-green-2);
+  position: fixed;
 }
 
 #navAdmin .nav-link {
-    text-align: left;
-    color: var(--cn-color-white-1);
+  text-align: left;
+  color: var(--cn-color-white-1);
 }
 
 #navAdmin .nav-link.active {
-    background-color: var(--cn-color-green-3);
-    color: var(--cn-color-green-1);
-    border-radius: 0;
+  background-color: var(--cn-color-green-3);
+  color: var(--cn-color-green-1);
+  border-radius: 0;
 }
 
 .btn-delete {
-    color: rgb(218, 36, 36);
+  color: rgb(218, 36, 36);
 }
 
 .btn-delete:hover {
-    color: rgb(243, 106, 14);
+  color: rgb(243, 106, 14);
 }
 
 .form-check {
-    display: flex;
-    align-items: center;
-    white-space: nowrap;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
 }
 
 .form-check-input {
-    margin-left: 5px !important;
+  margin-left: 5px !important;
 }
 /* page salle*/
 .toggleAdminBtn {
-    transition: transform 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out;
 }
 
 .toggleAdminBtn i {
-    font-size: 16px;
-    margin-left: 10px;
+  font-size: 16px;
+  margin-left: 10px;
 }
 
 tr {
-    
 }
 
 td {
-    position: relative; 
-    padding-bottom: 20px !important;
+  position: relative;
+  padding-bottom: 20px !important;
 }
 
 .action-buttons {
-    position: absolute;
-    bottom: -10px;
-    left: 15px;
-    transform: translateY(-50%);
-    display: none;
-    z-index: 10;
+  position: absolute;
+  bottom: -10px;
+  left: 15px;
+  transform: translateY(-50%);
+  display: none;
+  z-index: 10;
 }
 
 .room-row:hover .action-buttons {
-    display: inline-block;
-    font-size: 14px;
+  display: inline-block;
+  font-size: 14px;
 }
 
 /* page employee */
 .btn.mdp {
-    font-size: 16px;
-    background: var(--cn-color-green-3) !important;
+  font-size: 16px;
+  background: var(--cn-color-green-3) !important;
 }
 
 .btn.mdp:hover {
-    background: var(--cn-color-white-1) !important; 
+  background: var(--cn-color-white-1) !important;
 }
 
 /* fin page employee */
 
-
 /* page dashboard */
 #dashboard_list h2 {
-    display: inline;
-    background: var(--cn-color-green-3);
-    padding: 2px 4px;
+  display: inline;
+  background: var(--cn-color-green-3);
+  padding: 2px 4px;
 }
 
 .pending {
-    color: orange;
-    font-weight: bold;
+  color: orange;
+  font-weight: bold;
 }
 .approved {
-    color: green;
-    font-weight: bold;
+  color: green;
+  font-weight: bold;
 }
 
 .disabled-link {
-    color: grey;
-    cursor: not-allowed;
-    text-decoration: none;
+  color: grey;
+  cursor: not-allowed;
+  text-decoration: none;
 }
 /* fin page dashboard */
+
+/* Users space */
+.btn.note {
+  background: var(--cn-color-green-3) !important;
+  text-transform: capitalize;
+  padding: 4px 8px !important;
+  margin-left: 0px !important;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.btn.note:hover {
+  background: var(--cn-color-grey-1) !important;
+}
+
+.btn.note.unclick { 
+  opacity: 0.5 !important;
+  cursor: not-allowed;
+}
+
+.btn.note.unclick:hover { 
+    background: var(--cn-color-green-3) !important;
+    opacity: 0.5 !important;
+  }
+
+/* fin users space */

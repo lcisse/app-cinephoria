@@ -249,6 +249,14 @@ class App
                 }
                 break;
 
+            case 'espace-utilisateur':
+                $this->bmovieController->showUserSpace();
+                break;
+
+            case 'AddReview':
+                $this->bmovieController->addReview();
+                break;
+
             default:
                 $this->controller->showHome();
                 break;

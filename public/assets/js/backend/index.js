@@ -23,3 +23,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+//modal form review and rating
+document.querySelectorAll('.note').forEach(button => {
+    button.addEventListener('click', () => {
+        const movieId = button.getAttribute('data-movie-id');
+        document.getElementById('review-movie-id').value = movieId;
+    });
+});
