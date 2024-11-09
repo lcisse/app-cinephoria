@@ -33,6 +33,7 @@ class ReviewManager extends BaseManager
             FROM reviews
             JOIN movies ON reviews.movie_id = movies.id
             JOIN users ON reviews.customer_id = users.id
+            ORDER BY reviews.submission_date DESC
         ";
         return $this->fetchAll($sql);
     }

@@ -19,9 +19,14 @@ class BusersController
 
     public function showGestionEmployes()
     {
-        $employes = $this->usersManager->getEmployees();
-
         session_start();
+        $employes = $this->usersManager->getEmployees();
+        $userRole = $_SESSION['role'] ?? null; 
+
+        if ($userRole !== 'administrator') {
+            header("Location: index.php?action=home");
+            exit();
+        } 
 
         require __DIR__ . '/../../views/backend/gestion-employes.php';
     }

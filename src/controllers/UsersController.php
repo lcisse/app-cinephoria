@@ -68,7 +68,6 @@ class UsersController
 
     public function login($redirectPage = 'myAccount')
     {
-        var_dump('biennnnnnnnnnnnnnnn');
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
             $password = $_POST['password'];
@@ -85,11 +84,25 @@ class UsersController
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['username'] = $user['username'];
                 $_SESSION['role'] = $user['role'];
-
-            // Vérifier s'il y a des données de réservation en session
+            
             if (isset($_SESSION['temp_reservation'])) {
                 // Rediriger vers la page de récapitulatif des commandes
                 header("Location: index.php?action=recapCommande");
+                exit();
+            }
+            
+            if ($_SESSION['role'] == 'user') {
+                header("Location: index.php?action=espace-utilisateur");
+                exit();
+            }
+
+            if ($_SESSION['role'] == 'administrator') {
+                header("Location: index.php?action=espace-admin");
+                exit();
+            }
+
+            if ($_SESSION['role'] == 'employee') {
+                header("Location: index.php?action=admin-film");
                 exit();
             }
 

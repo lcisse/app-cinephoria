@@ -25,7 +25,7 @@
                         <thead>
                             <tr>
                                 <th scope="col">Films</th>
-                                <th scope="col" style="width:10%;">Dates</th>
+                                <th scope="col" style="width:10%;">Dates de diffusion</th>
                                 <th scope="col" style="width:10%;">Séances</th>
                                 <th scope="col" style="width:10%;">Prix</th>
                                 <th scope="col" style="width:10%;">Actions</th>
@@ -47,7 +47,7 @@
                                         <td><?= htmlspecialchars($order['price']) . '€ pour ' . count(explode(', ', $order['seats'])) . ' place(s)'; ?></td>
                                         <td>
                                             <?php if ($isPastScreening): ?>
-                                                <button title="Noter ce film après votre séance" class="btn note" data-bs-toggle="modal" data-bs-target="#modalReview" data-movie-id="<?= $order['movie_id']; ?>">Noter ce film</button>
+                                                <button class="btn note" data-bs-toggle="modal" data-bs-target="#modalReview" data-movie-id="<?= $order['movie_id']; ?>">Noter ce film</button>
                                             <?php else: ?>
                                                 <button class="btn note unclick" title="Noter ce film après votre séance">Noter ce film</button>
                                             <?php endif; ?>

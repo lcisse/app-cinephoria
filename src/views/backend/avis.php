@@ -6,7 +6,6 @@
     </div>
 
     <?php
-        session_start();
         if (isset($_SESSION['messageReview'])) {
             echo '
             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -45,8 +44,8 @@
                                         <a href="index.php?action=deleteReview&id=<?= $review['id']; ?>" class="btn-delete" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet avis ?');">Supprimer</a>
                                     </div>
                                 </td>
-                                <td><?= htmlspecialchars($review['review_text']); ?></td>
-                                <td><?= htmlspecialchars($review['movie_title']); ?></td>
+                                <td><?= htmlspecialchars_decode(htmlspecialchars($review['review_text'])) ?></td>
+                                <td><?= htmlspecialchars_decode(htmlspecialchars($review['movie_title'])) ?></td>
                                 <td>
                                     <?php if ($review['status'] === 'pending'): ?>
                                         <span class="pending">En attente</span>

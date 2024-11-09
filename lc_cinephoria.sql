@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mer. 06 nov. 2024 à 22:17
+-- Généré le : sam. 09 nov. 2024 à 17:45
 -- Version du serveur : 8.2.0
 -- Version de PHP : 8.2.13
 
@@ -312,6 +312,7 @@ INSERT INTO `movie_schedule` (`movie_id`, `cinema_id`, `screening_day`) VALUES
 (36, 2, '2024-11-06'),
 (38, 1, '2024-10-20'),
 (38, 2, '2024-10-23'),
+(38, 2, '2024-11-06'),
 (38, 3, '2024-10-23'),
 (38, 4, '2024-10-23');
 
@@ -448,7 +449,7 @@ CREATE TABLE IF NOT EXISTS `reviews` (
   PRIMARY KEY (`id`),
   KEY `movie_id` (`movie_id`),
   KEY `customer_id` (`customer_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `reviews`
@@ -456,14 +457,16 @@ CREATE TABLE IF NOT EXISTS `reviews` (
 
 INSERT INTO `reviews` (`id`, `movie_id`, `customer_id`, `review_text`, `rating`, `status`, `submission_date`) VALUES
 (1, 6, 1, 'Qui molestiae asperiores dolores consectetur omnis. Quia modi est eos aut atque et minima nesciunt. Aut provident consequuntur odit earum. Iure voluptatem quibusdam voluptatem minus eos deleniti.', 2, 'approved', '2024-07-05 16:13:03'),
-(2, 2, 2, 'Autem blanditiis velit ipsa et rerum ipsa. In quam natus sed.', 3, 'pending', '2024-01-19 18:15:17'),
+(2, 2, 2, 'Autem blanditiis velit ipsa et rerum ipsa. In quam natus sed.', 3, 'approved', '2024-01-19 18:15:17'),
 (3, 9, 3, 'Non quo ipsa facilis ut qui. Quidem vel aut autem. Explicabo iure vero repellendus.', 1, 'approved', '2024-03-15 11:05:18'),
 (4, 6, 4, 'Rem porro saepe voluptatem ducimus omnis. Porro reiciendis et non aspernatur velit. Qui odio alias autem et qui accusantium.', 3, 'pending', '2024-08-29 03:59:09'),
 (5, 10, 5, 'Eos omnis tempora assumenda sapiente perspiciatis esse. Sunt blanditiis aliquid aspernatur voluptatem. Fuga neque corporis consequuntur consequuntur eaque delectus.', 5, 'approved', '2024-07-20 06:26:06'),
 (6, 10, 5, 'Saepe facere beatae ut fuga repellendus. Culpa laudantium impedit beatae est id quis sequi. Illum consequatur harum labore accusamus est ea neque.', 2, 'pending', '2024-06-06 18:14:30'),
 (7, 7, 6, 'Similique expedita a ab ab. Ut ut nihil dolore.', 2, 'approved', '2024-01-03 14:40:18'),
+(20, 38, 2, 'Cool !!!', 4, 'pending', '2024-11-09 15:24:40'),
 (9, 10, 8, 'Harum dolore commodi molestias dolore non et. Neque vitae voluptas dolorem veniam impedit vel id. Ea expedita adipisci dolore excepturi suscipit atque odit.', 2, 'approved', '2024-07-09 09:48:08'),
-(10, 7, 9, 'Enim error sed tempore aliquid unde. Deserunt eum aliquid facere perferendis et possimus voluptatum. Et laborum facere delectus. Qui nulla voluptatem excepturi perspiciatis.', 2, 'approved', '2024-08-19 21:24:46');
+(10, 7, 9, 'Enim error sed tempore aliquid unde. Deserunt eum aliquid facere perferendis et possimus voluptatum. Et laborum facere delectus. Qui nulla voluptatem excepturi perspiciatis.', 2, 'approved', '2024-08-19 21:24:46'),
+(19, 38, 2, 'Super film !!!', 4, 'pending', '2024-11-09 15:24:21');
 
 -- --------------------------------------------------------
 
@@ -497,7 +500,7 @@ INSERT INTO `rooms` (`id`, `cinema_id`, `room_number`, `seat_capacity`, `project
 (7, 2, '1', 133, '3D', 'Modi magnam suscipit rerum repellendus.'),
 (8, 5, '1', 124, '3D', 'Distinctio est eligendi iure esse sunt.'),
 (9, 4, '4', 50, 'IMAX', 'Fugiat voluptates consequatur ducimus laborum et qui.'),
-(10, 5, '1', 66, 'IMAX', 'Ducimus qui consequatur quasi sint....');
+(10, 5, '1', 66, 'IMAX', 'Ducimus qui consequatur quasi sint..');
 
 -- --------------------------------------------------------
 
@@ -533,7 +536,7 @@ INSERT INTO `screenings` (`id`, `movie_id`, `room_id`, `start_time`, `end_time`,
 (8, 6, 7, '19:41:53', '23:03:17', '2024-11-06'),
 (9, 6, 9, '16:45:04', '14:10:05', '2024-11-05'),
 (10, 6, 8, '16:17:22', '21:01:58', '2024-11-06'),
-(43, 38, 5, '15:13:00', '16:13:00', '2024-11-09'),
+(43, 38, 5, '15:13:00', '16:13:00', '2024-11-04'),
 (16, 38, 6, '20:12:00', '22:12:00', '2024-11-05'),
 (44, 38, 4, '12:33:00', '13:30:00', '2024-11-06'),
 (45, 36, 4, '15:01:00', '16:01:00', '2024-11-06');
@@ -791,7 +794,7 @@ INSERT INTO `users` (`id`, `first_name`, `last_name`, `username`, `email`, `pass
 (3, 'lami', 'lami', 'lami67', 'lami67@gmail.com', '$2y$10$MqKKND7eAH.dpC8FJUbqY.eDPo5MLVNQOu9PzSdVO1ZEL81MgfDVq', 'user'),
 (4, 'lamin', 'lamin', 'lamin67', 'lamin67@gmail.com', '$2y$10$YbNBI78WIM1vw6ouzLefb.vIUAbDl2kAfLd2CEu45asoAihmJbnKe', 'user'),
 (5, 'test2', 'test2', 'test2', 'test2@gmail.com', '$2y$10$DBLaVhteSWClauOrvfouIezZWf/Gv8Yn8dXMoljy7/qfGZ0B6Z4hG', 'user'),
-(7, 'Sam', 'SAMO', 'sam67', 'sam67@gmail.com', '$2y$10$YCchpCcbgg17BIfBLa48TuAxycJwon7XRIUAtUi5hDFY41JcT7hLC', 'employee'),
+(7, 'Sam', 'SAMO', 'sam67', 'sam67@gmail.com', '$2y$10$YCchpCcbgg17BIfBLa48TuAxycJwon7XRIUAtUi5hDFY41JcT7hLC', 'administrator'),
 (8, 'Eric', 'ERICO', 'eric68', 'eric68@gmail.com', '$2y$10$NsP0GLt/yVBukoyEhvbcAOEmpdOpmTv02wBjgyvNfL6EANgfnqca2', 'employee'),
 (11, 'Thomas', 'SABO', 'thomas23', 'thomas23@gmail.com', '$2y$10$suarCCzowuw/nfOqfoOmvevaqaRpunChq2nbNQwFvIdKP9CJCpPPa', 'employee');
 COMMIT;

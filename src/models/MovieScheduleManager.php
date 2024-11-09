@@ -46,7 +46,7 @@ class MovieScheduleManager extends BaseManager
         if ($exists > 0) {
             $sql = "UPDATE movie_schedule 
                     SET screening_day = :screening_day
-                    WHERE movie_id = :movie_id AND cinema_id = :cinema_id";
+                    WHERE movie_id = :movie_id AND cinema_id = :cinema_id AND screening_day = :screening_day";
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute([
                 ':screening_day' => $screeningDate,

@@ -12,7 +12,6 @@
             </p>
     </div>
     <?php
-        session_start();
         if (isset($_SESSION['message'])) {
             echo '
             <div class="alert alert-success alert-dismissible fade show" role="alert">

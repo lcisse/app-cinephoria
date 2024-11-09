@@ -44,17 +44,30 @@ class BmovieController
 
     public function showDasboard()
     {
+        session_start(); 
+        
         $reservations = $this->reservationMongoManager->getReservationsLast7Days();
-        //var_dump($reservations);
-       // exit();
+        $userRole = $_SESSION['role'] ?? null; 
 
+        if ($userRole !== 'administrator') {
+            header("Location: index.php?action=home");
+            exit();
+        }
+        
         require __DIR__ . '/../../views/backend/tableau-de-bord.php';
     }
 
     public function showRooms()
     {
+        session_start();
         $rooms = $this->roomManager->getAllRoomsWithCinemas();
         $cinemas = $this->moviesManager->getAllCinemas();
+        $userRole = $_SESSION['role'] ?? null; 
+
+        if ($userRole !== 'administrator' && $userRole !== 'employee') {
+            header("Location: index.php?action=home");
+            exit();
+        } 
 
         require __DIR__ . '/../../views/backend/salles.php';
     }
@@ -93,15 +106,22 @@ class BmovieController
 
     public function showRoomEdit($roomId)
     {
+        session_start();
         $room = $this->roomManager->getRoomById($roomId); 
         $cinemas = $this->moviesManager->getAllCinemas(); 
+        $userRole = $_SESSION['role'] ?? null; 
 
-        session_start();
         $successMessage = '';
         if (isset($_SESSION['success_message'])) {
             $successMessage = $_SESSION['success_message'];
             unset($_SESSION['success_message']);
         }
+
+
+        if ($userRole !== 'administrator' && $userRole !== 'employee') {
+            header("Location: index.php?action=home");
+            exit();
+        } 
 
         require __DIR__ . '/../../views/backend/salle-edit.php';
     }
@@ -132,15 +152,22 @@ class BmovieController
 
     public function showGestionFilms()
     {
+        session_start();
         $genres = $this->genresManager->getAllGenres();
         $films = $this->moviesManager->getAllMovies();
+        $userRole = $_SESSION['role'] ?? null; 
 
-        session_start();
         $successMessage = '';
         if (isset($_SESSION['success_message'])) {
             $successMessage = $_SESSION['success_message'];
             unset($_SESSION['success_message']);
         }
+
+
+        if ($userRole !== 'administrator' && $userRole !== 'employee') {
+            header("Location: index.php?action=home");
+            exit();
+        } 
 
         require __DIR__ . '/../../views/backend/gestion-films.php';
     }
@@ -231,17 +258,24 @@ class BmovieController
 
     public function showEditFilm($filmId)
     {
+        session_start();
         $film = $this->moviesManager->getFilmById($filmId); 
         $genres = $this->genresManager->getAllGenres(); 
+        $userRole = $_SESSION['role'] ?? null; 
 
         $filmGenres = $this->moviesGenresManager->getGenresByMovieId($filmId);
 
-        session_start();
         $successMessage = '';
         if (isset($_SESSION['success_message'])) {
             $successMessage = $_SESSION['success_message'];
             unset($_SESSION['success_message']);
         }
+
+
+        if ($userRole !== 'administrator' && $userRole !== 'employee') {
+            header("Location: index.php?action=home");
+            exit();
+        } 
 
         require __DIR__ . '/../../views/backend/film-edit.php';
     }
@@ -282,8 +316,10 @@ class BmovieController
 
     public function showGestionSeances($filmId)
     {
+        session_start();
         $screenings = $this->screeningManager->getScreeningsByMovie($filmId);
         $cinemas = $this->roomManager->getAllCinemasWithRooms();
+        $userRole = $_SESSION['role'] ?? null; 
 
         if($_GET['filmId-seance']) {
             $movieId = $_GET['filmId-seance'];  
@@ -299,11 +335,16 @@ class BmovieController
                 ];
             }
         }
-        session_start();
         if(isset($_SESSION['messageScreenings'])){
 
             $_SESSION['messageScreenings'] = $_SESSION['messageScreenings'];
         }
+
+
+        if ($userRole !== 'administrator' && $userRole !== 'employee') {
+            header("Location: index.php?action=home");
+            exit();
+        } 
 
         require __DIR__ . '/../../views/backend/gestion-seances.php';
     }
@@ -348,14 +389,15 @@ class BmovieController
 
     public function showEditScreening()
     {
+        session_start();
         $screeningId = isset($_GET['screening_id']) ? (int)$_GET['screening_id'] : null;
+        $userRole = $_SESSION['role'] ?? null; 
 
         if ($screeningId) {
             $screeningDetails = $this->moviesManager->getScreeningDetails($screeningId);
-          // var_dump($screeningDetails);
-           $cinemas = $this->roomManager->getAllCinemasWithRooms();
-           //var_dump($cinemas);
-           //exit();
+          
+            $cinemas = $this->roomManager->getAllCinemasWithRooms();
+          
             $cinemaRooms = [];
             foreach ($cinemas as $cinemaId => $cinema) {
                 $cinemaRooms[$cinemaId] = [];
@@ -366,6 +408,12 @@ class BmovieController
                     ];
                 }
             }
+
+
+            if ($userRole !== 'administrator' && $userRole !== 'employee') {
+                header("Location: index.php?action=home");
+                exit();
+            } 
 
             require __DIR__ . '/../../views/backend/seance-edit.php';
         }
@@ -394,14 +442,21 @@ class BmovieController
 
     public function showReviews()
     {
+        session_start();
         $reviews = $this->reviewManager->getAllReviews();
-       
+        $userRole = $_SESSION['role'] ?? null; 
+
+        if ($userRole !== 'employee') {
+            header("Location: index.php?action=home");
+            exit();
+        } 
         require __DIR__ . '/../../views/backend/avis.php';
     }
 
     public function approveReview($reviewId)
     {
         $this->reviewManager->updateReviewStatus($reviewId, 'approved');
+        session_start();
         $_SESSION['messageReview'] = "Avis validé avec succès !";
         header('Location: index.php?action=avis');
         exit();
@@ -410,6 +465,7 @@ class BmovieController
     public function deleteReview($reviewId)
     {
         $this->reviewManager->deleteReview($reviewId);
+        session_start();
         $_SESSION['messageReview'] = "Avis supprimé avec succès !";
         header('Location: index.php?action=avis'); 
         exit();
@@ -418,7 +474,13 @@ class BmovieController
     public function showUserSpace()
     {
         session_start();
-        $userId = $_SESSION['user_id'] ?? null; 
+        $userId = $_SESSION['user_id'] ?? null;
+        $userRole = $_SESSION['role'] ?? null; 
+
+        if ($userRole !== 'user') {
+            header("Location: index.php?action=home");
+            exit();
+        }
 
         if ($userId) {
             $orders = $this->reservationManager->getUserReservations($userId); 

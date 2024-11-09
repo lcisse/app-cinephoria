@@ -9,7 +9,7 @@
         <div class="">
             <div class="row">
                 <div class="col">
-                    <h2>Réservation - vue d'ensemble des 7 derniers jours</h2>
+                    <h2>Réservations - vue d'ensemble des 7 derniers jours</h2>
                     <table class="table table-striped">
                         <thead>
                             <tr>
