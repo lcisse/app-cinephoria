@@ -289,6 +289,7 @@ class BmovieController
             $ageMinimum = $_POST['age_minimum'];
             $favorite = isset($_POST['favorite']) ? 1 : 0;
             $genres = $_POST['genres'];
+            $publicationDate = $_POST['publication_date'];
 
             // Gestion de l'upload de l'affiche (optionnel)
             $posterPath = null;
@@ -302,7 +303,7 @@ class BmovieController
             }
 
             // Mise à jour du film
-            $this->moviesManager->updateFilm($filmId, $movieTitle, $description, $ageMinimum, $favorite, $posterPath);
+            $this->moviesManager->updateFilm($filmId, $movieTitle, $description, $ageMinimum, $favorite, $posterPath, $publicationDate);
 
             // Mise à jour des genres associés
             $this->moviesGenresManager->updateGenresForMovie($filmId, $genres);

@@ -33,7 +33,7 @@
                         <h5 class="card-title"><?= htmlspecialchars($movie['title']) ?></h5>
                     </div>
                     <div class="btn-session">
-                        <button type="button" class="btn prim">Séances</button>
+                        <a href="<?= BASE_URL ?>/index.php?action=seances&movie_id=<?= htmlspecialchars($movie['id']) ?>" type="button" class="btn prim">Séances</a>
                     </div>
                     </div>
                 </div>

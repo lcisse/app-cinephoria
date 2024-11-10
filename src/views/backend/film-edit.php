@@ -60,6 +60,11 @@
                                 <small class="form-text text-muted">Vous pouvez sélectionner plusieurs genres en maintenant la touche Ctrl.</small>
                             </div>
 
+                            <div class="mb-3">
+                                <label for="publication-date">Date de publication</label>
+                                <input type="date" id="publication-date" name="publication_date" class="form-control" value="<?= $film['publication_date']; ?>" required>
+                            </div>
+
                             <!-- Affiche du film -->
                             <div class="mb-3">
                                 <label for="formFile" class="form-label">Affiche du film</label>

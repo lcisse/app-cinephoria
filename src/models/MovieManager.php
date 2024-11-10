@@ -15,7 +15,8 @@ class MovieManager extends BaseManager
             age_minimum INT,
             favorite BOOLEAN DEFAULT 0,
             poster VARCHAR(255),
-            rating FLOAT
+            rating FLOAT,
+            publication_date DATE
         )";
         $this->executeQuery($sql, 'Table "movies" créée avec succès.');
     }
@@ -41,6 +42,22 @@ class MovieManager extends BaseManager
                 ORDER BY movies.id DESC";  // Groupement par film
 
         return $this->fetchAll($sql);
+    }
+
+    public function getMoviesSinceLastWednesday()
+    {
+        $lastWednesday = new \DateTime('last Wednesday');
+        $formattedDate = $lastWednesday->format('Y-m-d');
+
+        $sql = "SELECT id, title, poster 
+                FROM movies 
+                WHERE publication_date >= :lastWednesday 
+                ORDER BY publication_date DESC";
+        
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([':lastWednesday' => $formattedDate]);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function getMovieAverageRating($movieId)
@@ -239,8 +256,8 @@ class MovieManager extends BaseManager
 
     public function createMovie($title, $description, $ageMinimum, $favorite, $poster)
     {
-        $sql = "INSERT INTO movies (title, description, age_minimum, favorite, poster) 
-                VALUES (:title, :description, :age_minimum, :favorite, :poster)";
+        $sql = "INSERT INTO movies (title, description, age_minimum, favorite, poster, publication_date) 
+                VALUES (:title, :description, :age_minimum, :favorite, :poster, NOW())";
         
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([
@@ -262,9 +279,9 @@ class MovieManager extends BaseManager
         $stmt->execute();
     }
 
-    public function updateFilm($filmId, $title, $description, $ageMinimum, $favorite, $poster = null)
+    public function updateFilm($filmId, $title, $description, $ageMinimum, $favorite, $poster = null, $publicationDate)
     {
-        $sql = "UPDATE movies SET title = :title, description = :description, age_minimum = :age_minimum, favorite = :favorite";
+        $sql = "UPDATE movies SET title = :title, description = :description, age_minimum = :age_minimum, favorite = :favorite, publication_date = :publication_date";
         
         if ($poster !== null) {
             $sql .= ", poster = :poster";
@@ -278,7 +295,8 @@ class MovieManager extends BaseManager
             ':description' => $description,
             ':age_minimum' => $ageMinimum,
             ':favorite' => $favorite,
-            ':id' => $filmId
+            ':id' => $filmId,
+            'publication_date' => $publicationDate
         ];
 
         if ($poster !== null) {
@@ -290,7 +308,7 @@ class MovieManager extends BaseManager
 
     public function getFilmById($filmId)
     {
-        $sql = "SELECT id, title, description, age_minimum, favorite, poster FROM movies WHERE id = :id";
+        $sql = "SELECT id, title, description, age_minimum, favorite, poster, publication_date FROM movies WHERE id = :id";
         
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindParam(':id', $filmId, PDO::PARAM_INT);

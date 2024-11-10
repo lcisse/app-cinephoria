@@ -40,11 +40,9 @@ class App
         switch ($action) {
             case 'home':
                 $this->controller->showHome();
-                //$this->UsersController->logout();
                 break;
 
             case 'films':
-                // Si vous souhaitez passer un paramètre (par exemple l'ID du film)
                 $movieId = isset($_GET['id']) ? (int)$_GET['id'] : null;
                 $this->controller->showFimsPage($movieId);
                 break;

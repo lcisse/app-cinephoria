@@ -52,7 +52,7 @@ class MovieController
 
     public function showHome()
     {
-        $movies = $this->moviesManager->getAllMovies();
+        $movies = $this->moviesManager->getMoviesSinceLastWednesday();
 
         require __DIR__ . '/../views/frontend/home.php';
     }
