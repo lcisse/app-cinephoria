@@ -41,7 +41,6 @@
 
     </div>
     <div id="screenings-data" data-movie-id="<?= $movieId ?>" data-today="<?= date('Y-m-d') ?>" data-base-url="<?= BASE_URL ?>"></div> <!--div disabled-->
-</section>
 
 <section id="quality-price">
     <div class="container">
@@ -57,35 +56,35 @@
             <div class="col">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">3D : 12€</h5>
+                        <h5 class="card-title">3D : 12,5€</h5>
                     </div>
                 </div>
             </div>
             <div class="col">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">IMAX : 13€</h5>
+                        <h5 class="card-title">IMAX : 15€</h5>
                     </div>
                 </div>
             </div>
             <div class="col">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">4DX : 15€</h5>
+                        <h5 class="card-title">4DX : 18€</h5>
                     </div>
                 </div>
             </div>
             <div class="col">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">MX4D : 17€</h5>
+                        <h5 class="card-title">MX4D : 20€</h5>
                     </div>
                 </div>
             </div>
             <div class="col">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">D-BOX : 18€</h5>
+                        <h5 class="card-title">D-BOX : 22€</h5>
                     </div>
                 </div>
             </div>
