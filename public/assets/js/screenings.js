@@ -64,8 +64,21 @@ document.addEventListener("DOMContentLoaded", function () {
             .then((data) => {
                 // Vider le conteneur des séances avant d'en insérer de nouvelles
                 screeningsContainer.innerHTML = "";
-
+                
                 // Insérer les nouvelles séances
+                console.log('biennnnnn');
+                console.log(data);
+                const screeningHTMLEmpty = `
+                    <div class="col noScreening">
+                        <i class="fa-solid fa-film"></i>
+                        <p>Aucune séance pour cette date </p>
+                    </div>
+                `;
+
+                if(data.length === 0){
+                    screeningsContainer.innerHTML += screeningHTMLEmpty;
+                }
+
                 data.forEach((screening) => {
                     const screeningHTML = `
                         <div class="col">

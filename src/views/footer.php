@@ -14,8 +14,8 @@
               </div>
               <div class="col-md-4 mb-3">
                   <h5>Contact</h5>
-                  <p><strong>Adresse:</strong> 123 Rue Exemple, 75001 Paris</p>
-                  <p><strong>Téléphone:</strong> +33 1 23 45 67 89</p>
+                  <p><strong>Adresse :</strong> 123 Rue Exemple, 75001 Paris</p>
+                  <p><strong>Téléphone :</strong> +33 1 23 45 67 89</p>
               </div>
           </div>
       </div>

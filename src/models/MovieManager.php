@@ -62,7 +62,7 @@ class MovieManager extends BaseManager
 
     public function getMovieAverageRating($movieId)
     {
-        $sql = "SELECT AVG(rating) AS average_rating FROM reviews WHERE movie_id = :movie_id";
+        $sql = "SELECT AVG(rating) AS average_rating FROM reviews WHERE movie_id = :movie_id AND status = 'approved'";
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindParam(':movie_id', $movieId, PDO::PARAM_INT);
         $stmt->execute();
@@ -230,7 +230,7 @@ class MovieManager extends BaseManager
 
             // Confirmer la transaction
             $this->pdo->commit();
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->pdo->rollBack();
             throw $e; 
         }

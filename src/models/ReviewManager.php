@@ -1,6 +1,8 @@
 <?php
 namespace App\models;
 
+use PDO;
+
 class ReviewManager extends BaseManager
 {
     // Méthode pour créer la table "reviews" (avis sur les films)
@@ -66,5 +68,20 @@ class ReviewManager extends BaseManager
             ':review_text' => $reviewText,
             ':rating' => $rating
         ]);
+    }
+
+    public function getApprovedReviewCount($movieId)
+    {
+        $sql = "SELECT COUNT(*) AS approved_review_count 
+                FROM reviews 
+                WHERE movie_id = :movie_id 
+                AND status = 'approved'";
+        
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':movie_id', $movieId, PDO::PARAM_INT);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $result['approved_review_count'] ?? NULL;  // Retourner le nombre d'avis approuvés ou 0 s'il n'y en a pas
     }
 }

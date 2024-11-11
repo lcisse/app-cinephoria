@@ -31,7 +31,7 @@
         <div class="row mt-5 pt-5 order-infos">
             <div class="col-md-6 pe-5 text-end recap-img-container">
                 <div class="recap-img text-end">
-                    <img src="<?= $screeningDetails['poster']; ?>" class="img-fluid rounded-start" alt="Poster du film">
+                    <img src="<?= BASE_URL ?>/public/<?= $screeningDetails['poster']; ?>" class="img-fluid rounded-start" alt="Poster du film">
                 </div>
             </div>
             <div class="col-md-6 ps-5 mt-2">

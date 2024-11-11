@@ -129,7 +129,7 @@ h.navbar-toggler-icon {
 }
 
 #section-home-card .card img {
-    height: 350px;
+    height: 400px;
     object-fit: cover;
     width: 100%;
 }
@@ -194,7 +194,7 @@ L.star-rating {
     background-color: var(--cn-color-blue-1) !important;
     color: var(--cn-color-green-1);
 }
- /* ********** page fims end *********** */
+ /* ********** page flims end *********** */
 
  /* ************* page séances *********** */
  #screenings-section {
@@ -204,8 +204,6 @@ L.star-rating {
  #screenings-section .btn-group {
     margin-top: 20px;
     margin-bottom: 30px;
-    /*padding-left: 8%;
-    padding-right: 8%;*/
     background: var(--cn-color-grey-1);
 }
 
@@ -214,14 +212,50 @@ L.star-rating {
     border: none;
     color: var(--cn-color-green-1);
     padding: 8px 32px !important;
-    mmax-width: 250px;
 }
 
 #screenings-section .btn-group .btn.active {
     color: var(--cn-color-orange-1);
 }
+
 #screenings-section .card.movie-title-desc {
    border: none;
+}
+
+#screenings-section .card.movie-title-desc .star-rating .fas, #screenings-section .card.movie-title-desc .star-rating .far {
+   color: var(--cn-color-green-2);
+}
+
+#screenings-section .card.movie-title-desc .reviewCount {
+    color: var(--cn-color-green-2);
+    font-weight: 800;
+    cursor: pointer;
+}
+
+#screenings-section .card.movie-title-desc .reviewCount:hover {
+    color: var(--cn-color-orange-2);
+}
+
+#screenings-section .card.movie-title-desc p {
+   text-align: justify;
+}
+
+.screenings .col.noScreening {
+    text-align: center;
+}
+
+.screenings .col.noScreening i{
+    font-weight: 800;
+    color: var(--cn-color-grey-2);
+    font-size: 40px;
+    transform: rotate(45deg); 
+    margin-bottom: 10px;  
+}
+
+.screenings .col.noScreening p{
+    font-weight: 800;
+    color: var(--cn-color-grey-2);
+    font-size: 25px;   
 }
 
 .screenings .col a {
@@ -671,4 +705,19 @@ footer {
         justify-content: center;
     }
 
+    .btn-session {
+        opacity: 1;
+    }
+
+}
+
+@media (max-width: 768px) {
+    #section-home-card .card {
+        width: 94%;
+        margin: 0 auto;
+    }
+
+    #section-home-card .card img {
+        height: 500px; 
+    }
 }

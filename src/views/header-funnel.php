@@ -14,7 +14,7 @@
                 <div class="card mb-3 text-center d-flex align-item-center">
                     <div class="row row-cols-1 row-cols-sm-1 row-cols-md-1 g-0">
                         <div class="col-md-3">
-                            <img src="<?= $moviePoster ?>" class="img-fluid rounded-start" alt="...">
+                            <img src="<?= BASE_URL ?>/public/<?= $moviePoster ?>" class="img-fluid rounded-start" alt="...">
                         </div>
                         <div class="col-md-5 infos-screening">
                             <div class="card-body">

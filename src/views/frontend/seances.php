@@ -17,15 +17,41 @@
             <div class="col">
                 <div class="card mb-3 movie-title-desc">
                     <div class="row g-0">
-                        <div class="col-md-4" style="height: 350px;">
-                        <img src="<?= htmlspecialchars($moviePoster) ?>" class="img-fluid rounded-start" alt="...">
+                        <div class="col-md-4 col-sm-12" >
+                        <img src="<?= BASE_URL ?>/public/<?= htmlspecialchars($moviePoster) ?>" class="img-fluid rounded-start" alt="...">
                         </div>
-                        <div class="col-md-8">
-                        <div class="card-body">
-                            <h3 class="card-title"><?= htmlspecialchars($movieTitle) ?></h3>
-                            <p class="card-text"><?= htmlspecialchars($movieDescription) ?></p>
-                            <!--<p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>-->
-                        </div>
+                        <div class="col-md-8 col-sm-12">
+                            <div class="card-body pt-0">
+                                <span class="star-rating">
+                                    <?php if (isset($ratings)): ?>
+                                        <?php 
+                                        $fullStars = floor($ratings); 
+                                        $hasHalfStar = ($ratings - $fullStars) >= 0.5; // Vérifier s'il y a une demi-étoile
+                                        $emptyStars = 5 - ($fullStars + ($hasHalfStar ? 1 : 0)); // Calculer les étoiles vides
+                                        ?>
+
+                                        <!-- Afficher les étoiles pleines -->
+                                        <?php for ($i = 1; $i <= $fullStars; $i++): ?>
+                                            <i class="fas fa-star"></i> <!-- Étoile pleine -->
+                                        <?php endfor; ?>
+
+                                        <!-- Afficher la demi-étoile si nécessaire -->
+                                        <?php if ($hasHalfStar): ?>
+                                            <i class="fas fa-star-half-alt"></i> <!-- Demi-étoile -->
+                                        <?php endif; ?>
+
+                                        <!-- Afficher les étoiles vides -->
+                                        <?php for ($i = 1; $i <= $emptyStars; $i++): ?>
+                                            <i class="far fa-star"></i> <!-- Étoile vide -->
+                                        <?php endfor; ?>
+
+                                        <span class=reviewCount><?= $approveReviewCount ?> avis</span>
+                                    <?php endif; ?>
+                                </span>
+                                <h3 class="card-title"><?= htmlspecialchars($movieTitle) ?></h3>
+                                <p class="card-text"><?= htmlspecialchars($movieDescription) ?></p>
+                                <!--<p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>-->
+                            </div>
                         </div>
                     </div>
                 </div>

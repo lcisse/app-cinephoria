@@ -8,18 +8,21 @@ use App\Models\ReservationManager;
 use App\Models\SeatManager;
 use App\controllers\UsersController;
 use App\models\mongodb\ReservationMongoManager;
+use App\models\ReviewManager;
 
 class MovieController
 {
     private $moviesManager;
     private $usersController;
     private $reservationMongoManager;
+    private $reviewManager;
 
     public function __construct()
     {
         $this->moviesManager = new MovieManager();
         $this->usersController = new UsersController();
         $this->reservationMongoManager = new ReservationMongoManager();
+        $this->reviewManager = new ReviewManager();
     }
 
     private function convertDayToFrench($englishDays) 
@@ -190,17 +193,19 @@ class MovieController
     public function showScreenings($movieId)
     {
         $screenings = $this->moviesManager->getMovieScreenings($movieId);
-        //var_dump($screenings);
-
+        $movie  = $this->moviesManager->getFilmById($movieId);
+        $ratings = $this->moviesManager->getMovieAverageRating($movieId);
+        $approveReviewCount = $this->reviewManager->getApprovedReviewCount($movieId);
+ 
         if (!empty($screenings)) {
             $movieTitle = $screenings[0]['title'];
             $movieDescription = $screenings[0]['description'];
             $moviePoster = $screenings[0]['poster'];
-        }else {
+        } else {
             // Ajouter un message d'erreur si aucune séance n'est trouvée
-            $movieTitle = "Pas de séances disponibles pour cette date.";
-            $movieDescription = "";
-            $moviePoster = "default-image.jpg"; // Une image par défaut
+            $movieTitle = $movie['title'];
+            $movieDescription = $movie['description'];
+            $moviePoster = $movie['poster']; // Une image par défaut
         }
         
         require __DIR__ . '/../views/frontend/seances.php';
