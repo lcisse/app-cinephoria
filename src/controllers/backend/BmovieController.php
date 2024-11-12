@@ -303,7 +303,7 @@ class BmovieController
             }
 
             // Mise à jour du film
-            $this->moviesManager->updateFilm($filmId, $movieTitle, $description, $ageMinimum, $favorite, $posterPath, $publicationDate);
+            $this->moviesManager->updateFilm($filmId, $movieTitle, $description, $ageMinimum, $favorite, $publicationDate, $posterPath);
 
             // Mise à jour des genres associés
             $this->moviesGenresManager->updateGenresForMovie($filmId, $genres);

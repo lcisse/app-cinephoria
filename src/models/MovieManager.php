@@ -279,7 +279,7 @@ class MovieManager extends BaseManager
         $stmt->execute();
     }
 
-    public function updateFilm($filmId, $title, $description, $ageMinimum, $favorite, $poster = null, $publicationDate)
+    public function updateFilm($filmId, $title, $description, $ageMinimum, $favorite, $publicationDate, $poster = null)
     {
         $sql = "UPDATE movies SET title = :title, description = :description, age_minimum = :age_minimum, favorite = :favorite, publication_date = :publication_date";
         
