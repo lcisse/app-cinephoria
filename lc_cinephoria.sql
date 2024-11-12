@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : sam. 09 nov. 2024 à 17:45
+-- Généré le : mar. 12 nov. 2024 à 15:37
 -- Version du serveur : 8.2.0
 -- Version de PHP : 8.2.13
 
@@ -144,38 +144,40 @@ DROP TABLE IF EXISTS `movies`;
 CREATE TABLE IF NOT EXISTS `movies` (
   `id` int NOT NULL AUTO_INCREMENT,
   `title` varchar(255) NOT NULL,
-  `description` text,
+  `description` text NOT NULL,
   `age_minimum` int DEFAULT NULL,
   `favorite` tinyint(1) DEFAULT '0',
-  `poster` varchar(255) DEFAULT NULL,
+  `poster` varchar(255) NOT NULL,
+  `publication_date` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=46 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `movies`
 --
 
-INSERT INTO `movies` (`id`, `title`, `description`, `age_minimum`, `favorite`, `poster`) VALUES
-(1, 'Blanditiis fuga eos facilis.', 'Atque sit alias omnis et voluptatem debitis distinctio. In molestias aperiam amet corrupti aut ratione. Aliquid quo tempora saepe reiciendis at. Fugit fuga quis cumque est doloribus nisi quod.', 0, 1, 'https://via.placeholder.com/200x300.png/003355?text=movies+distinctio'),
-(2, 'Repellat molestiae ullam.', 'Quis saepe adipisci qui illum. Aperiam illum provident officiis ut. Sequi quis delectus rem possimus unde enim. Cumque dolorem quasi quia earum minus.', 18, 0, 'https://via.placeholder.com/200x300.png/00aa77?text=movies+explicabo'),
-(3, 'Aut magnam minima id.', 'Eius qui sunt qui aut nulla. Vel doloribus et quia est repellendus non sed reprehenderit. Deleniti ut possimus sed eum. Distinctio dolorum quis eveniet blanditiis quae quia vero.', 0, 0, 'https://via.placeholder.com/200x300.png/0011aa?text=movies+facilis'),
-(4, 'Sed facere eum commodi.', 'Odit dolores quibusdam sit. Aut voluptatum qui exercitationem omnis minus sint facilis. Adipisci officia ratione qui corporis ut culpa quia.', 7, 0, 'https://via.placeholder.com/200x300.png/004477?text=movies+repudiandae'),
-(5, 'Omnis quia laudantium repudiandae.', 'Id delectus ducimus illum quo numquam alias voluptas. Architecto repellendus voluptates earum reprehenderit. Illum aut quia earum magnam aut et molestiae.', 15, 0, 'https://via.placeholder.com/200x300.png/009922?text=movies+consequatur'),
-(6, 'Expedita ea sit.', 'Totam repudiandae in ut sunt cupiditate commodi. Nihil voluptatem nulla et quia nihil. Nostrum itaque quo occaecati. Ex beatae nulla sit nobis aut. Veniam necessitatibus dignissimos temporibus sint itaque quas.', 16, 1, 'https://via.placeholder.com/200x300.png/00cc55?text=movies+cupiditate'),
-(7, 'Blanditiis hic dolorem.', 'Quae dolores amet architecto ut velit ullam eveniet. Sit ipsa recusandae qui nobis nemo. Est enim tenetur ut at fugiat aliquam. Accusantium soluta repellendus repudiandae numquam.', 17, 1, 'https://via.placeholder.com/200x300.png/0099ff?text=movies+id'),
-(8, 'Sed occaecati eos omnis.', 'Omnis temporibus illo occaecati quod doloremque. Et eum ab laborum. Qui consequuntur doloribus qui ea.', 17, 0, 'https://via.placeholder.com/200x300.png/00eebb?text=movies+amet'),
-(9, 'Itaque dicta sint nam.', 'Libero quia voluptas fuga. In et error quidem hic. Suscipit sequi harum praesentium non. Hic aut voluptas alias corrupti quos qui eaque.', 15, 1, 'https://via.placeholder.com/200x300.png/0088bb?text=movies+consequatur'),
-(10, 'Molestiae iusto sit quisquam.', 'Accusantium architecto modi ut dignissimos. Fuga assumenda deserunt dolorem et aut. Possimus expedita ut suscipit nostrum.', 17, 1, 'https://via.placeholder.com/200x300.png/0033aa?text=movies+deserunt'),
-(29, 'Il était une fois... Mommy', '(Re)découvrez dans les cinémas Pathé ce grand classique Xavier Dolan : Mommy ! La séance sera présentée par le journaliste et critique de cinéma Philippe Rouyer. Synopsis : Une veuve mono-parentale hérite de la garde de son fils, un adolescent TDAH impulsif et violent. Au coeur de leurs emportements et difficultés, ils tentent de joindre les deux bouts, notamment grâce à l’aide inattendue de l’énigmatique voisine d’en face, Kyla. Tous les trois, ils retrouvent une forme d’équilibre et, bientôt, d’espoir.', 12, 0, 'uploads/6712bceb6420c.jpg'),
-(30, 'Smile 2', 'À l’aube d’une nouvelle tournée mondiale, la star de la pop Skye Riley (Naomi Scott) se met à vivre des événements aussi terrifiants qu’inexplicables. Submergée par la pression de la célébrité et devant un quotidien qui bascule de plus en plus dans l’horreur, Skye est forcée de se confronter à son passé obscur pour tenter de reprendre le contrôle de sa vie avant qu’il ne soit trop tard.', 16, 1, 'uploads/6712be0647dae.webp'),
-(31, 'L\'Amour ouf', 'Les années 80, dans le nord de la France. Jackie et Clotaire grandissent entre les bancs du lycée et les docks du port. Elle étudie, il traîne. Et puis leurs destins se croisent et c\'est l\'amour fou. La vie s\'efforcera de les séparer mais rien n\'y fait, ces deux-là sont comme les deux ventricules du même cœur...', 0, 1, 'uploads/6712bed77b0ff.webp'),
-(32, 'Grounded (Metropolitan Opera)', 'Jess est une pilote de chasse F-16 accomplie, jusqu\'à ce que sa grossesse l’oblige à faire des missions au sol : cibler les ennemis par le biais de drones depuis une caravane à Las Vegas. Cette situation semble idéale au départ car elle permet à Jess de concilier son sens du devoir et sa vie de famille. Si elle est à l’abri du danger physique, elle n’est en rien protégée du traumatisme psychologique de la guerre par procuration… ', 0, 0, 'uploads/6712bfd2387bc.webp'),
-(33, 'C\'est le monde à l\'envers !', 'C\'est la crise, tout s\'arrête : plus d\'eau, plus d\'électricité, plus de réseau... Stanislas, homme d\'affaire parisien, perd tout y compris sa fortune. Lui qui déteste la campagne est contraint de partir se réfugier avec sa femme et son fils dans une des exploitations agricoles qu\'il avait acquise dans un but spéculatif. Mais à son arrivée, il se retrouve face à Patrick et sa famille, agriculteurs exploitants des lieux, qui n\'ont pas l\'intention de quitter la ferme... ', 0, 1, 'uploads/6712c0f4b941e.webp'),
-(34, 'Barbès, Little Algérie', 'Malek, la quarantaine, célibataire, vient d’emménager à Montmartre et accueille bientôt chez lui son neveu Ryiad fraîchement arrivé d’Algérie. Ensemble ils découvrent Barbès, le quartier de la communauté algérienne, très vivant, malgré la crise sanitaire en cours. Ses rencontres avec les figures locales vont permettre à Malek de retrouver une part de lui qu’il avait enfouie, et de se réconcilier avec ses origines.', 0, 0, 'uploads/6712c185634e3.jpg'),
-(35, 'Lee Miller', 'L’incroyable vie de LEE MILLER, ex-modèle pour Vogue et muse de Man Ray devenue l’une des premières femmes photographes de guerre. Partie sur le front et prête à tout pour témoigner des horreurs de la Seconde Guerre, elle a, par son courage et son refus des conventions, changé la façon de voir le monde.', 0, 1, 'uploads/6712c25c5c90f.jpg'),
-(36, 'Transformers : le commencement', 'Le premier film d’animation Transformers depuis l’original de 1986. Ce film se déroule entièrement sur Cybertron et raconte comment deux frères d’armes, Optimus Prime et Megatron, sont devenus ennemis jurés, menant au plus grand des combats entre les Autobots et les Decepticons.', 0, 0, 'uploads/6712c3001ea04.webp'),
-(37, 'Venom: The Last Dance', 'Dans VENOM: THE LAST DANCE, ultime opus de la trilogie, Tom Hardy est de retour sous les traits de Venom, l’un des personnages le plus complexes de l’univers Marvel. Eddie et Venom sont en cavale. Chacun est traqué par ses semblables et alors que l’étau se resserre, le duo doit prendre une décision dévastatrice qui annonce la conclusion des aventures d’Eddie & Venom.', 12, 0, 'uploads/6712c3b7e10cf.jpg'),
-(38, '37 : l\'ombre et la proie', 'Le trajet anxiogène de Vincent, chauffeur-routier, menacé par une jeune femme enceinte qu’il a prise en stop. La passagère, au tempérament instable, détient un pistolet automatique et ordonne à Vincent de continuer à rouler sans s’arrêter. Quand il n’aura plus d’essence, elle le tuera.', 0, 0, 'uploads/6712c49507f24.jpg');
+INSERT INTO `movies` (`id`, `title`, `description`, `age_minimum`, `favorite`, `poster`, `publication_date`) VALUES
+(1, 'Blanditiis fuga eos facilis.', 'Atque sit alias omnis et voluptatem debitis distinctio. In molestias aperiam amet corrupti aut ratione. Aliquid quo tempora saepe reiciendis at. Fugit fuga quis cumque est doloribus nisi quod.', 0, 1, 'https://via.placeholder.com/200x300.png/003355?text=movies+distinctio', NULL),
+(2, 'Repellat molestiae ullam.', 'Quis saepe adipisci qui illum. Aperiam illum provident officiis ut. Sequi quis delectus rem possimus unde enim. Cumque dolorem quasi quia earum minus.', 18, 0, 'https://via.placeholder.com/200x300.png/00aa77?text=movies+explicabo', NULL),
+(3, 'Aut magnam minima id.', 'Eius qui sunt qui aut nulla. Vel doloribus et quia est repellendus non sed reprehenderit. Deleniti ut possimus sed eum. Distinctio dolorum quis eveniet blanditiis quae quia vero.', 0, 0, 'https://via.placeholder.com/200x300.png/0011aa?text=movies+facilis', NULL),
+(4, 'Sed facere eum commodi.', 'Odit dolores quibusdam sit. Aut voluptatum qui exercitationem omnis minus sint facilis. Adipisci officia ratione qui corporis ut culpa quia.', 7, 0, 'https://via.placeholder.com/200x300.png/004477?text=movies+repudiandae', NULL),
+(5, 'Omnis quia laudantium repudiandae.', 'Id delectus ducimus illum quo numquam alias voluptas. Architecto repellendus voluptates earum reprehenderit. Illum aut quia earum magnam aut et molestiae.', 15, 0, 'https://via.placeholder.com/200x300.png/009922?text=movies+consequatur', NULL),
+(6, 'Expedita ea sit.', 'Totam repudiandae in ut sunt cupiditate commodi. Nihil voluptatem nulla et quia nihil. Nostrum itaque quo occaecati. Ex beatae nulla sit nobis aut. Veniam necessitatibus dignissimos temporibus sint itaque quas.', 16, 1, 'https://via.placeholder.com/200x300.png/00cc55?text=movies+cupiditate', NULL),
+(7, 'Blanditiis hic dolorem.', 'Quae dolores amet architecto ut velit ullam eveniet. Sit ipsa recusandae qui nobis nemo. Est enim tenetur ut at fugiat aliquam. Accusantium soluta repellendus repudiandae numquam.', 17, 1, 'https://via.placeholder.com/200x300.png/0099ff?text=movies+id', NULL),
+(8, 'Sed occaecati eos omnis.', 'Omnis temporibus illo occaecati quod doloremque. Et eum ab laborum. Qui consequuntur doloribus qui ea.', 17, 0, 'https://via.placeholder.com/200x300.png/00eebb?text=movies+amet', NULL),
+(9, 'Itaque dicta sint nam.', 'Libero quia voluptas fuga. In et error quidem hic. Suscipit sequi harum praesentium non. Hic aut voluptas alias corrupti quos qui eaque.', 15, 1, 'https://via.placeholder.com/200x300.png/0088bb?text=movies+consequatur', NULL),
+(10, 'Molestiae iusto sit quisquam.', 'Accusantium architecto modi ut dignissimos. Fuga assumenda deserunt dolorem et aut. Possimus expedita ut suscipit nostrum.', 17, 1, 'https://via.placeholder.com/200x300.png/0033aa?text=movies+deserunt', '2024-11-01'),
+(29, 'Il était une fois... Mommy', '(Re)découvrez dans les cinémas Pathé ce grand classique Xavier Dolan : Mommy ! La séance sera présentée par le journaliste et critique de cinéma Philippe Rouyer. Synopsis : Une veuve mono-parentale hérite de la garde de son fils, un adolescent TDAH impulsif et violent. Au coeur de leurs emportements et difficultés, ils tentent de joindre les deux bouts, notamment grâce à l’aide inattendue de l’énigmatique voisine d’en face, Kyla. Tous les trois, ils retrouvent une forme d’équilibre et, bientôt, d’espoir.', 12, 0, 'uploads/6712bceb6420c.jpg', '2024-11-01'),
+(30, 'Smile 2', 'À l’aube d’une nouvelle tournée mondiale, la star de la pop Skye Riley (Naomi Scott) se met à vivre des événements aussi terrifiants qu’inexplicables. Submergée par la pression de la célébrité et devant un quotidien qui bascule de plus en plus dans l’horreur, Skye est forcée de se confronter à son passé obscur pour tenter de reprendre le contrôle de sa vie avant qu’il ne soit trop tard.', 16, 1, 'uploads/6712be0647dae.webp', '2024-11-01'),
+(31, 'L\'Amour ouf', 'Les années 80, dans le nord de la France. Jackie et Clotaire grandissent entre les bancs du lycée et les docks du port. Elle étudie, il traîne. Et puis leurs destins se croisent et c\'est l\'amour fou. La vie s\'efforcera de les séparer mais rien n\'y fait, ces deux-là sont comme les deux ventricules du même cœur...', 0, 1, 'uploads/6712bed77b0ff.webp', '2024-11-04'),
+(32, 'Grounded (Metropolitan Opera)', 'Jess est une pilote de chasse F-16 accomplie, jusqu\'à ce que sa grossesse l’oblige à faire des missions au sol : cibler les ennemis par le biais de drones depuis une caravane à Las Vegas. Cette situation semble idéale au départ car elle permet à Jess de concilier son sens du devoir et sa vie de famille. Si elle est à l’abri du danger physique, elle n’est en rien protégée du traumatisme psychologique de la guerre par procuration… ', 0, 0, 'uploads/6712bfd2387bc.webp', '2024-11-08'),
+(33, 'C\'est le monde à l\'envers !', 'C\'est la crise, tout s\'arrête : plus d\'eau, plus d\'électricité, plus de réseau... Stanislas, homme d\'affaire parisien, perd tout y compris sa fortune. Lui qui déteste la campagne est contraint de partir se réfugier avec sa femme et son fils dans une des exploitations agricoles qu\'il avait acquise dans un but spéculatif. Mais à son arrivée, il se retrouve face à Patrick et sa famille, agriculteurs exploitants des lieux, qui n\'ont pas l\'intention de quitter la ferme... ', 0, 1, 'uploads/6712c0f4b941e.webp', '2024-11-09'),
+(34, 'Barbès, Little Algérie', 'Malek, la quarantaine, célibataire, vient d’emménager à Montmartre et accueille bientôt chez lui son neveu Ryiad fraîchement arrivé d’Algérie. Ensemble ils découvrent Barbès, le quartier de la communauté algérienne, très vivant, malgré la crise sanitaire en cours. Ses rencontres avec les figures locales vont permettre à Malek de retrouver une part de lui qu’il avait enfouie, et de se réconcilier avec ses origines.', 0, 0, 'uploads/6712c185634e3.jpg', '2024-11-09'),
+(35, 'Lee Miller', 'L’incroyable vie de LEE MILLER, ex-modèle pour Vogue et muse de Man Ray devenue l’une des premières femmes photographes de guerre. Partie sur le front et prête à tout pour témoigner des horreurs de la Seconde Guerre, elle a, par son courage et son refus des conventions, changé la façon de voir le monde.', 0, 1, 'uploads/6712c25c5c90f.jpg', '2024-11-09'),
+(36, 'Transformers : le commencement', 'Le premier film d’animation Transformers depuis l’original de 1986. Ce film se déroule entièrement sur Cybertron et raconte comment deux frères d’armes, Optimus Prime et Megatron, sont devenus ennemis jurés, menant au plus grand des combats entre les Autobots et les Decepticons.', 0, 0, 'uploads/6712c3001ea04.webp', '2024-11-09'),
+(37, 'Venom: The Last Dance', 'Dans VENOM: THE LAST DANCE, ultime opus de la trilogie, Tom Hardy est de retour sous les traits de Venom, l’un des personnages le plus complexes de l’univers Marvel. Eddie et Venom sont en cavale. Chacun est traqué par ses semblables et alors que l’étau se resserre, le duo doit prendre une décision dévastatrice qui annonce la conclusion des aventures d’Eddie & Venom.', 12, 0, 'uploads/6712c3b7e10cf.jpg', '2024-11-10'),
+(38, '37 : l\'ombre et la proie', 'Le trajet anxiogène de Vincent, chauffeur-routier, menacé par une jeune femme enceinte qu’il a prise en stop. La passagère, au tempérament instable, détient un pistolet automatique et ordonne à Vincent de continuer à rouler sans s’arrêter. Quand il n’aura plus d’essence, elle le tuera.', 0, 0, 'uploads/6712c49507f24.jpg', '2024-11-10'),
+(45, 'Gladiator II', 'L\'histoire de Lucius, le fils de Lucilla (Connie Nielsen dans Gladiator) et neveu de Commode (Joaquin Phoenix). Lucius est très admiratif du parcours de Maximus et devrait suivre ses traces..', 12, 1, 'uploads/6730e364a849f.webp', '2024-11-10');
 
 -- --------------------------------------------------------
 
@@ -247,7 +249,9 @@ INSERT INTO `movie_genres` (`movie_id`, `genre_id`) VALUES
 (36, 5),
 (37, 1),
 (38, 3),
-(38, 4);
+(38, 4),
+(45, 1),
+(45, 3);
 
 -- --------------------------------------------------------
 
@@ -338,7 +342,7 @@ CREATE TABLE IF NOT EXISTS `reservations` (
   KEY `user_id` (`user_id`),
   KEY `movie_id` (`movie_id`),
   KEY `screening_id` (`screening_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=90 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=91 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `reservations`
@@ -421,7 +425,7 @@ INSERT INTO `reservations` (`id`, `user_id`, `movie_id`, `screening_id`, `seats`
 (74, 5, 6, 6, '10, 20', 25.00, '2024-10-08 13:45:21', 'confirmed', 'QR_67051b518a9f3', 0),
 (75, 2, 6, 6, '18', 12.50, '2024-10-08 14:48:32', 'confirmed', 'QR_67052a2009469', 0),
 (80, 2, 6, 6, '09, 17', 25.00, '2024-10-09 13:18:57', 'confirmed', 'QR_670666a1e9302', 0),
-(81, 2, 6, 6, '14, 15', 25.00, '2024-10-15 14:06:06', 'confirmed', 'QR_670e5aae24bac', 0),
+(81, 2, 6, 6, '14, 15', 25.00, '2024-11-06 14:06:06', 'confirmed', 'QR_670e5aae24bac', 0),
 (82, 2, 38, 24, '10', 15.00, '2024-10-21 22:09:44', 'confirmed', 'QR_6716b5087a601', 0),
 (83, 2, 38, 24, '03', 15.00, '2024-10-21 22:12:13', 'confirmed', 'QR_6716b59da9e63', 0),
 (84, 2, 38, 43, '11', 12.50, '2024-11-04 22:09:11', 'confirmed', 'QR_672937f7e4bc0', 0),
@@ -429,7 +433,8 @@ INSERT INTO `reservations` (`id`, `user_id`, `movie_id`, `screening_id`, `seats`
 (86, 2, 38, 43, '16', 12.50, '2024-11-04 22:22:24', 'confirmed', 'QR_67293b109efec', 0),
 (87, 7, 38, 16, '10', 15.00, '2024-11-05 09:09:47', 'confirmed', 'QR_6729d2cbea85a', 0),
 (88, 7, 38, 16, '11', 15.00, '2024-11-05 09:18:27', 'confirmed', 'QR_6729d4d3a35d0', 0),
-(89, 7, 36, 45, '01, 02', 25.00, '2024-11-05 11:04:19', 'confirmed', 'QR_6729eda357a08', 0);
+(89, 7, 36, 45, '01, 02', 25.00, '2024-11-05 11:04:19', 'confirmed', 'QR_6729eda357a08', 0),
+(90, 5, 38, 43, '03', 12.50, '2024-11-11 14:59:24', 'confirmed', 'QR_67320dbc91ea9', 0);
 
 -- --------------------------------------------------------
 
@@ -466,7 +471,7 @@ INSERT INTO `reviews` (`id`, `movie_id`, `customer_id`, `review_text`, `rating`,
 (20, 38, 2, 'Cool !!!', 4, 'pending', '2024-11-09 15:24:40'),
 (9, 10, 8, 'Harum dolore commodi molestias dolore non et. Neque vitae voluptas dolorem veniam impedit vel id. Ea expedita adipisci dolore excepturi suscipit atque odit.', 2, 'approved', '2024-07-09 09:48:08'),
 (10, 7, 9, 'Enim error sed tempore aliquid unde. Deserunt eum aliquid facere perferendis et possimus voluptatum. Et laborum facere delectus. Qui nulla voluptatem excepturi perspiciatis.', 2, 'approved', '2024-08-19 21:24:46'),
-(19, 38, 2, 'Super film !!!', 4, 'pending', '2024-11-09 15:24:21');
+(19, 38, 2, 'Super film !!!', 4, 'approved', '2024-11-09 15:24:21');
 
 -- --------------------------------------------------------
 
@@ -536,7 +541,7 @@ INSERT INTO `screenings` (`id`, `movie_id`, `room_id`, `start_time`, `end_time`,
 (8, 6, 7, '19:41:53', '23:03:17', '2024-11-06'),
 (9, 6, 9, '16:45:04', '14:10:05', '2024-11-05'),
 (10, 6, 8, '16:17:22', '21:01:58', '2024-11-06'),
-(43, 38, 5, '15:13:00', '16:13:00', '2024-11-04'),
+(43, 38, 5, '15:13:00', '16:13:00', '2024-11-12'),
 (16, 38, 6, '20:12:00', '22:12:00', '2024-11-05'),
 (44, 38, 4, '12:33:00', '13:30:00', '2024-11-06'),
 (45, 36, 4, '15:01:00', '16:01:00', '2024-11-06');
@@ -565,7 +570,7 @@ CREATE TABLE IF NOT EXISTS `seats` (
 INSERT INTO `seats` (`id`, `room_id`, `seat_number`, `reserved`, `is_accessible`) VALUES
 (1, 5, '01', 1, 1),
 (2, 5, '02', 1, 1),
-(3, 5, '03', 0, 0),
+(3, 5, '03', 1, 0),
 (4, 5, '04', 0, 0),
 (5, 5, '05', 1, 0),
 (6, 5, '06', 0, 0),
@@ -745,7 +750,7 @@ INSERT INTO `seats` (`id`, `room_id`, `seat_number`, `reserved`, `is_accessible`
 (180, 4, '20', 0, 0),
 (181, 5, '01', 1, 0),
 (182, 5, '02', 1, 0),
-(183, 5, '03', 0, 0),
+(183, 5, '03', 1, 0),
 (184, 5, '04', 0, 0),
 (185, 5, '05', 0, 0),
 (186, 5, '06', 0, 0),

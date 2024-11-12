@@ -196,16 +196,16 @@ class MovieController
         $movie  = $this->moviesManager->getFilmById($movieId);
         $ratings = $this->moviesManager->getMovieAverageRating($movieId);
         $approveReviewCount = $this->reviewManager->getApprovedReviewCount($movieId);
+        $approvedReviews = $this->reviewManager->getApprovedReviewsByMovieId($movieId);
  
         if (!empty($screenings)) {
             $movieTitle = $screenings[0]['title'];
             $movieDescription = $screenings[0]['description'];
             $moviePoster = $screenings[0]['poster'];
         } else {
-            // Ajouter un message d'erreur si aucune séance n'est trouvée
             $movieTitle = $movie['title'];
             $movieDescription = $movie['description'];
-            $moviePoster = $movie['poster']; // Une image par défaut
+            $moviePoster = $movie['poster']; 
         }
         
         require __DIR__ . '/../views/frontend/seances.php';

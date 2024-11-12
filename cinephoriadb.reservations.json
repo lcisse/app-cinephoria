@@ -1,0 +1,91 @@
+[{
+  "_id": {
+    "$oid": "672937f86c685b9a9503bfc4"
+  },
+  "movie_title": "37 : l'ombre et la proie",
+  "reservation_date": {
+    "$date": "2024-11-04T21:09:11.956Z"
+  },
+  "user_id": 2,
+  "seats_reserved": "11",
+  "total_price": "12.5",
+  "status": "confirmed"
+},
+{
+  "_id": {
+    "$oid": "67293a486c685b9a9503bfc9"
+  },
+  "movie_title": "37 : l'ombre et la proie",
+  "reservation_date": {
+    "$date": "2024-11-04T21:19:04.000Z"
+  },
+  "user_id": 2,
+  "seats_reserved": "01",
+  "total_price": "12.5",
+  "status": "confirmed"
+},
+{
+  "_id": {
+    "$oid": "67293b106c685b9a9503bfcb"
+  },
+  "movie_title": "37 : l'ombre et la proie",
+  "reservation_date": {
+    "$date": "2024-11-04T21:22:24.654Z"
+  },
+  "user_id": 2,
+  "seats_reserved": "16",
+  "total_price": "12.5",
+  "status": "confirmed"
+},
+{
+  "_id": {
+    "$oid": "6729d2cc1da0c4a7010a5623"
+  },
+  "movie_title": "37 : l'ombre et la proie",
+  "reservation_date": {
+    "$date": "2024-11-05T08:09:47.000Z"
+  },
+  "user_id": 7,
+  "seats_reserved": "10",
+  "total_price": "15",
+  "status": "confirmed"
+},
+{
+  "_id": {
+    "$oid": "6729d4d31da0c4a7010a5627"
+  },
+  "movie_title": "37 : l'ombre et la proie",
+  "reservation_date": {
+    "$date": "2024-11-05T09:18:27.000Z"
+  },
+  "user_id": 7,
+  "seats_reserved": "11",
+  "total_price": "15",
+  "status": "confirmed"
+},
+{
+  "_id": {
+    "$oid": "6729eda31da0c4a7010a562f"
+  },
+  "movie_title": "Transformers : le commencement",
+  "reservation_date": {
+    "$date": "2024-11-05T11:04:19.000Z"
+  },
+  "user_id": 7,
+  "seats_reserved": "01, 02",
+  "total_price": "25",
+  "status": "confirmed"
+},
+{
+  "_id": {
+    "$oid": "67320dbc3da60dd721014570"
+  },
+  "movie_title": "37 : l'ombre et la proie",
+  "reservation_date": {
+    "$date": "2024-11-11T14:59:24.000Z"
+  },
+  "user_id": 5,
+  "seats_reserved": "03",
+  "total_price": "12.5",
+  "status": "confirmed"
+}]

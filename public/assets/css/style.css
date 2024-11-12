@@ -52,7 +52,7 @@ p{
     background: var(--cn-color-green-1) !important;
     width: 100%;
     top: 0;
-    z-index: 999999999999999999999999;
+    z-index: 99999;
 }
 
 h.navbar-toggler-icon {
@@ -234,6 +234,23 @@ L.star-rating {
 
 #screenings-section .card.movie-title-desc .reviewCount:hover {
     color: var(--cn-color-orange-2);
+}
+
+#modalReview {
+    z-index: 999999;
+}
+
+#modalReview i {
+    color: var(--cn-color-green-2);
+}
+
+#modalReview p {
+    font-size: 16px;
+}
+
+#modalReview .btn {
+    padding: 4px 16px;
+    font-size: 18px;
 }
 
 #screenings-section .card.movie-title-desc p {

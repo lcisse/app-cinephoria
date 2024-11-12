@@ -84,4 +84,23 @@ class ReviewManager extends BaseManager
 
         return $result['approved_review_count'] ?? NULL;  // Retourner le nombre d'avis approuvés ou 0 s'il n'y en a pas
     }
+
+    public function getApprovedReviewsByMovieId($movieId)
+    {
+        $sql = "
+            SELECT 
+                reviews.review_text, 
+                reviews.rating, 
+                reviews.submission_date, 
+                users.username 
+            FROM reviews 
+            JOIN users ON reviews.customer_id = users.id 
+            WHERE reviews.movie_id = :movie_id AND reviews.status = 'approved' 
+            ORDER BY reviews.submission_date DESC
+        ";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([':movie_id' => $movieId]);
+        
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

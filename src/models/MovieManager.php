@@ -11,10 +11,10 @@ class MovieManager extends BaseManager
         $sql = "CREATE TABLE IF NOT EXISTS movies (
             id INT PRIMARY KEY AUTO_INCREMENT,
             title VARCHAR(255) NOT NULL,
-            description TEXT,
+            description TEXT NOT NULL,
             age_minimum INT,
             favorite BOOLEAN DEFAULT 0,
-            poster VARCHAR(255),
+            poster VARCHAR(255) NOT NULL,
             rating FLOAT,
             publication_date DATE
         )";
