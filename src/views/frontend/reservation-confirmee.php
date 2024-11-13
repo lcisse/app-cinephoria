@@ -26,6 +26,7 @@
                 <div class="col">
                     <h2>Votre réservation a bien été prise en compte</h2>
                     <a href="<?= BASE_URL ?>/index.php?action=home">Revenir sur le site</a>
+                    <a class="d-block" href="<?= BASE_URL ?>/index.php?action=espace-utilisateur">Voir ma commande</a>
                 </div>
             </div>
         </div>
