@@ -22,19 +22,19 @@
     <div class="col cinemas-genres-jours">
         <h5>Cinémas</h5>
         <div>
-            <input type="checkbox" id="nantes" class="cinema-checkbox" value="nantes">
+            <input type="radio" id="nantes" class="cinema-radio" name="cinema" value="nantes">
             <label for="nantes">Nantes</label><br>
-            <input type="checkbox" id="bordeaux" class="cinema-checkbox" value="bordeaux">
+            <input type="radio" id="bordeaux" class="cinema-radio" name="cinema" value="bordeaux">
             <label for="bordeaux">Bordeaux</label><br>
-            <input type="checkbox" id="paris" class="cinema-checkbox" value="paris">
+            <input type="radio" id="paris" class="cinema-radio" name="cinema" value="paris">
             <label for="paris">Paris</label><br>
-            <input type="checkbox" id="toulpuse" class="cinema-checkbox" value="toulouse">
+            <input type="radio" id="toulouse" class="cinema-radio" name="cinema" value="toulouse">
             <label for="toulouse">Toulouse</label><br>
-            <input type="checkbox" id="lille" class="cinema-checkbox" value="lille">
+            <input type="radio" id="lille" class="cinema-radio" name="cinema" value="lille">
             <label for="lille">Lille</label><br>
-            <input type="checkbox" id="charleroi" class="cinema-checkbox" value="charleroi">
+            <input type="radio" id="charleroi" class="cinema-radio" name="cinema" value="charleroi">
             <label for="charleroi">Charleroi</label><br>
-            <input type="checkbox" id="liege" class="cinema-checkbox" value="liege">
+            <input type="radio" id="liege" class="cinema-radio" name="cinema" value="liege">
             <label for="liege">Liège</label><br>
 
         </div>
@@ -87,18 +87,18 @@
 </div>
 </section>
 
-<section id="all-films-list" class="bloc-section">
+<section id="all-films-list" class="bloc-section" data-base-url="<?= BASE_URL ?>">
 <div class="container">
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4 d-flex align-items-stretch">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 d-flex align-items-stretch">
 
     <?php foreach ($movies as $movie): ?>
         <?php $movie['screening_days'] = $this->convertDayToFrench($movie['screening_days']);?>
-                <div class="col movie-card" data-cinema="<?= htmlspecialchars($movie['cinema'] ?? '') ?>" data-genre="<?= htmlspecialchars($movie['genre'] ?? '') ?>" data-day="<?= isset($movie['screening_days']) ? htmlspecialchars($movie['screening_days']) : '' ?>">
+                <div class="col movie-card" data-movie-id="<?= htmlspecialchars($movie['id'] ?? '') ?>" data-cinema="<?= htmlspecialchars($movie['cinema'] ?? '') ?>" data-genre="<?= htmlspecialchars($movie['genre'] ?? '') ?>" data-day="<?= isset($movie['screening_days']) ? htmlspecialchars($movie['screening_days']) : '' ?>">
             <div class="card h-100 d-flex flex-column position-relative">
                 <img src="<?= BASE_URL ?>/public/<?= htmlspecialchars($movie['poster']) ?>" class="card-img-top" alt="...">
                 <div class="card-body flex-grow-1 position-relative">
                     <h3 class="card-title"><?= htmlspecialchars($movie['title']) ?> </h3>
-                    <p class="card-text"><?= htmlspecialchars($movie['description']) ?></p> 
+                    <p class="card-text"><?= htmlspecialchars(mb_strimwidth($movie['description'], 0, 120, '...')) ?></p> 
                     <?= $movie['age_minimum'] !== 0 ? '<span class="position-absolute top-0 end-0 badge rounded-pill bg-dark mt-1 me-1 p-2 fs-6 age-min">-' . htmlspecialchars($movie['age_minimum']) . '</span>' : '' ?>
                 </div>
                 <ul class="list-group list-group-flush flex-grow-5">
@@ -135,7 +135,14 @@
                     </li>
                 </ul>
                 <div class="card-body mt-auto flex-grow-0">
-                    <a type="button" class="btn prim" href="<?= BASE_URL ?>/index.php?action=seances&movie_id=<?= htmlspecialchars($movie['id']) ?>" class="btn btn-prim">Séances</a>
+                <?php 
+                    $cinemaId = $movie['cinema_id']; 
+                ?>
+                    <?php if ($cinemaId): ?>
+                        <a type="button" class="btn prim" href="<?= BASE_URL ?>/index.php?action=seances&movie_id=<?= htmlspecialchars($movie['id']) ?>&cinema_id=<?= $cinemaId ?>">Séances</a>
+                        <?php else: ?>
+                            <a type="button" class="btn prim" href="<?= BASE_URL ?>/index.php?action=seances&movie_id=<?= htmlspecialchars($movie['id']) ?>&cinemaName=nantes">Séances</a>
+                        <?php endif; ?>
                 </div>
                 <?= $movie['favorite'] !== 0 ? '<span class="position-absolute top-0 end-0 badge rounded-0 mt-1 me-1 ps-2 p-1 fs-6 cine-heart">Coup de coeur ❤️</span>' : '' ?>
             </div>
@@ -143,6 +150,24 @@
 
     <?php endforeach; ?>
     </div>
+        <nav id="navPagination" aria-label="Movies page pagination" class="mt-4">
+            <ul class="pagination justify-content-end">
+                <li class="page-item <?= ($page <= 1) ? 'disabled' : '' ?>">
+                <a class="page-link" href="?action=films&page=<?= $page - 1 ?>" tabindex="-1">Précédente</a>
+                </li>
+
+                <!-- Lien pour chaque page -->
+                <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                <li class="page-item <?= ($i == $page) ? 'active' : '' ?>">
+                    <a class="page-link" href="?action=films&page=<?= $i ?>"><?= $i ?></a>
+                </li>
+                <?php endfor; ?>
+
+                <li class="page-item <?= ($page >= $totalPages) ? 'disabled' : '' ?>">
+                <a class="page-link" href="?action=films&page=<?= $page + 1 ?>">Suivante</a>
+                </li>
+            </ul>
+        </nav>
 </div>
 </section>
 

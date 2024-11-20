@@ -99,29 +99,6 @@ class BusersController
         }
     }
 
-    /*public function resetEmployeePassword()
-    {
-        $data = json_decode(file_get_contents('php://input'), true);
-        $employeeId = $data['employee_id'];
-        $newPassword = $data['new_password'];
-
-        // Vérification de la force du mot de passe
-        if (!$this->usersController->isValidPassword($newPassword)) {
-            echo json_encode([
-                'success' => false,
-                'message' => "Le mot de passe doit comporter au moins 8 caractères, avec une majuscule, une minuscule, un chiffre et un caractère spécial."
-            ]);
-            return;
-        }
-
-        try {
-            $this->usersManager->resetEmployeePassword($employeeId, $newPassword);
-            echo json_encode(['success' => true]);
-        } catch (Exception $e) {
-            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
-        }
-    }*/
-
     public function resetEmployeePassword()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {

@@ -9,6 +9,7 @@ use App\Models\SeatManager;
 use App\controllers\UsersController;
 use App\models\mongodb\ReservationMongoManager;
 use App\models\ReviewManager;
+use App\models\CinemaManager;
 
 class MovieController
 {
@@ -16,6 +17,7 @@ class MovieController
     private $usersController;
     private $reservationMongoManager;
     private $reviewManager;
+    private $cinemaManager;
 
     public function __construct()
     {
@@ -23,6 +25,7 @@ class MovieController
         $this->usersController = new UsersController();
         $this->reservationMongoManager = new ReservationMongoManager();
         $this->reviewManager = new ReviewManager();
+        $this->cinemaManager = new CinemaManager();
     }
 
     private function convertDayToFrench($englishDays) 
@@ -62,25 +65,35 @@ class MovieController
 
     public function showFimsPage($movieId)
     {
-        $movies = $this->moviesManager->getAllMovies();
 
+        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1; // Page par défaut : 1
+        $limit = 8; 
+        $offset = ($page - 1) * $limit; // Calcul de l'offset pour SQL
+
+        $movies = $this->moviesManager->getPaginatedMovies($offset, $limit);
+
+        $totalMovies = $this->moviesManager->getTotalMoviesCount();
+        $totalPages = ceil($totalMovies / $limit);
+
+       // $movies = $this->moviesManager->getAllMovies();
         $ratings = [];
 
         foreach ($movies as $movie) {
             $ratings[$movie['id']] = $this->moviesManager->getMovieAverageRating($movie['id']);
 
-            // Vérifier si 'screening_day' existe avant d'essayer de le convertir
             if (isset($movie['screening_days'])) {
-                $movie['screening_days'] = $this->convertDayToFrench($movie['screening_days']); // Convertir le jour au format français
+                $movie['screening_days'] = $this->convertDayToFrench($movie['screening_days']); 
             }
         }
+
+        
+        $cinemaId = isset($_SESSION['cinemaId']) ? $_SESSION['cinemaId'] : null;
 
         require __DIR__ . '/../views/frontend/films.php';
     }
 
     public function showRecapCommande()
     {
-        // Vérifier si des données sont envoyées via POST (utilisateur connecté) ou si elles sont en session temporaire
         if ($_SERVER['REQUEST_METHOD'] === 'POST' || isset($_SESSION['temp_reservation'])) {
             
             // Si les données sont en POST
@@ -88,9 +101,8 @@ class MovieController
                 $selectedSeats = $_POST['seats'];
                 $screeningId = $_POST['screeningId'];
                 $totalSeats = count(explode(', ', $selectedSeats)); // Calculer le nombre de sièges à partir de la chaîne de sièges
-                $totalPrice = $_POST['totalPrice'];  // Le prix est calculé côté client dans ce cas
+                $totalPrice = $_POST['totalPrice'];  
             }
-            // Si les données sont en session temporaire
             else if (isset($_SESSION['temp_reservation'])) {
                 $reservationData = $_SESSION['temp_reservation'];
                 unset($_SESSION['temp_reservation']); // Supprimer les données temporaires après utilisation
@@ -115,7 +127,6 @@ class MovieController
                 $totalPrice = $totalSeats * $pricePerSeat;
             }
 
-            // Récupérer les informations sur la projection et le film
             $screeningDetails = $this->moviesManager->getScreeningDetails($screeningId);
             $movieTitle = $screeningDetails['title'];
             $cinema = $screeningDetails['cinema'];
@@ -124,10 +135,9 @@ class MovieController
             $screeningDay = $screeningDetails['screening_day'];
             $formattedDate = $this->convertDayToFrench($screeningDay);
 
-            // Afficher la vue avec toutes les informations
+            
             require __DIR__ . '/../views/frontend/reservation-commande-recap.php';
         } else {
-            // Rediriger vers la page d'accueil si aucune donnée n'est disponible
             header("Location: index.php?action=home");
             exit();
         }
@@ -141,25 +151,20 @@ class MovieController
             $seats = $_POST['seats'];  
             $totalPrice = $_POST['totalPrice'];
 
-            // Récupérer les détails de la projection pour obtenir l'ID du film
             $screeningDetails = $this->moviesManager->getScreeningDetails($screeningId);
             $movieId = $screeningDetails['movie_id'];
             $movieTitle = $screeningDetails['title'];
 
-            // Générer un QR code (simple texte ici, vous pouvez utiliser une bibliothèque pour générer un vrai QR code)
+            // Générer un QR code (simple texte ici, utiliser une bibliothèque après pour générer un vrai QR code)
             $qrCode = 'QR_' . uniqid();
 
-            // Enregistrer la réservation dans la base de données
             $this->moviesManager->createReservation($userId, $movieId, $screeningId, $seats, $totalPrice, $qrCode);
-
             $this->reservationMongoManager->addReservation($movieTitle, $userId, $seats, $totalPrice, 'confirmed');
 
             $_SESSION['reservation_confirmed'] = true;
 
             unset($_SESSION['temp_reservation']);
 
-            // Rediriger vers une page de confirmation ou d'affichage du QR code
-            //header("Location: index.php?action=confirmPage");
             $this->showConfirmPage();
             exit();
         }
@@ -181,9 +186,8 @@ class MovieController
         foreach ($movies as $movie) {
             $ratings[$movie['id']] = $this->moviesManager->getMovieAverageRating($movie['id']);
 
-            // Vérifier si 'screening_day' existe avant d'essayer de le convertir
             if (isset($movie['screening_days'])) {
-                $movie['screening_days'] = $this->convertDayToFrench($movie['screening_days']); // Convertir le jour au format français
+                $movie['screening_days'] = $this->convertDayToFrench($movie['screening_days']); 
             }
         }
         
@@ -192,7 +196,18 @@ class MovieController
 
     public function showScreenings($movieId)
     {
-        $screenings = $this->moviesManager->getMovieScreenings($movieId);
+        if(isset($_GET['cinema_id']) && !empty($_GET['cinema_id'])) {
+            $cinemaId = (int)$_GET['cinema_id'];
+            $cinemaName = $this->cinemaManager->getCinemaNameById($cinemaId);
+        }
+        
+        if(isset($_GET['cinemaName']) && !empty($_GET['cinemaName'])) {
+            $cinemaName = $_GET['cinemaName'];
+            $movies = $this->moviesManager->getMoviesByCinema($cinemaName);
+            $cinemaId = !empty($movies) ? $movies[0]['cinema_id'] : null;
+        }
+        $screenings = $this->moviesManager->getMovieScreeningsByCinema($movieId, $cinemaId);
+
         $movie  = $this->moviesManager->getFilmById($movieId);
         $ratings = $this->moviesManager->getMovieAverageRating($movieId);
         $approveReviewCount = $this->reviewManager->getApprovedReviewCount($movieId);
@@ -213,11 +228,12 @@ class MovieController
 
     public function handleScreeningsRequest()
     {
-        if (isset($_GET['movie_id']) && isset($_GET['date'])) {
+        if (isset($_GET['movie_id']) && isset($_GET['cinema_id']) && isset($_GET['date'])) {
             $movieId = (int)$_GET['movie_id'];
+            $cinemaId = (int)$_GET['cinema_id'];
             $date = $_GET['date'];
 
-            $screenings = $this->moviesManager->getScreeningsByDate($movieId, $date);
+            $screenings = $this->moviesManager->getScreeningsByMovieAndCinemaAndDate($movieId, $cinemaId, $date);
 
             echo json_encode($screenings);
             exit;
@@ -227,7 +243,6 @@ class MovieController
     public function reservationsSeats($screening_id) {
         $screenings = $this->moviesManager->getScreeningDetails($screening_id);
         $usersController = $this->usersController->isAuthenticated();
-        //var_dump($screenings);
 
        if (!empty($screenings)) {
             $movieTitle = $screenings['title'];
@@ -252,6 +267,27 @@ class MovieController
 
         // Renvoyer les sièges sous format JSON pour être utilisés par AJAX
         echo json_encode($seats);
+        exit;
+    }
+
+    public function filterMoviesByCinema()
+    {
+        $cinemaName = $_GET['cinema_name'] ?? 'all'; // Récupérer la valeur ou 'all' par défaut
+
+        if ($cinemaName === 'all') {
+            $movies = $this->moviesManager->getAllMovies(); // Récupérer tous les films
+        } else {
+            $movies = $this->moviesManager->getMoviesByCinema($cinemaName); // Filtrer par cinéma
+        }
+            // Retour des données au format JSON
+            echo json_encode([
+                'success' => true,
+                'movies' => $movies,
+            ]);
+            exit;
+        
+
+        echo json_encode(['success' => false, 'message' => 'Aucun cinéma sélectionné.']);
         exit;
     }
 

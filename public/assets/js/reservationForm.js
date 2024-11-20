@@ -3,9 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const createAccountForm = document.getElementById("createAccountForm");
     const loginBtn = document.getElementById("loginBtn");
     const createAccountBtn = document.getElementById("createAccountBtn");
-
-
-    
+ 
     function showLoginForm() {
         loginForm.style.display = "block"; 
         createAccountForm.style.display = "none"; 
@@ -20,7 +18,6 @@ document.addEventListener("DOMContentLoaded", function () {
         createAccountBtn.classList.add("active"); 
     }
 
- 
     loginBtn.addEventListener("click", function (event) {
         event.preventDefault(); 
         showLoginForm(); 
@@ -42,11 +39,8 @@ document.addEventListener("DOMContentLoaded", function () {
     function switchSection() {
         seatsSection.classList.remove("active");
         logSection.classList.add("active");
-
-      
         logSection.scrollIntoView({ behavior: 'smooth' });
     }
-
 
     reserveBtn.addEventListener("click", function () {
         fetch("index.php?action=checkAuthentication") 

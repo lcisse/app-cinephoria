@@ -47,6 +47,9 @@ p{
     background: var(--cn-color-orange-2);
 }
 
+.capital {
+    text-transform: capitalize;
+}
 #navbarTop{
     position: fixed;
     background: var(--cn-color-green-1) !important;
@@ -194,6 +197,17 @@ L.star-rating {
     background-color: var(--cn-color-blue-1) !important;
     color: var(--cn-color-green-1);
 }
+
+.pagination .page-link {
+    color: var(--cn-color-green-1);
+    
+}
+  
+.pagination .page-item.active .page-link {
+    background-color: var(--cn-color-orange-1);
+    border-color: var(--cn-color-orange-1);
+}
+
  /* ********** page flims end *********** */
 
  /* ************* page séances *********** */
@@ -314,11 +328,6 @@ L.star-rating {
 
 #film-list-by-cinema h1 {
     margin-bottom: 20px;
-}
-
-#film-list-by-cinema h1 span {
-    text-transform: capitalize;
-    color: var(--cn-color-orange-1);
 }
 
 #film-list-by-cinema .no-movie-available {

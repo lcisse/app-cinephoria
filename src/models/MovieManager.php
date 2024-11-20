@@ -31,6 +31,7 @@ class MovieManager extends BaseManager
                     movies.favorite,
                     movies.poster,
                     GROUP_CONCAT(DISTINCT genres.genre_name SEPARATOR ', ') AS genre,  -- Agrégation des genres
+                    cinemas.id AS cinema_id, 
                     cinemas.cinema_name AS cinema, 
                     GROUP_CONCAT(DISTINCT DATE_FORMAT(movie_schedule.screening_day, '%W') SEPARATOR ', ') AS screening_days  -- Agrégation des jours de projection
                 FROM movies
@@ -42,6 +43,43 @@ class MovieManager extends BaseManager
                 ORDER BY movies.id DESC";  // Groupement par film
 
         return $this->fetchAll($sql);
+    }
+
+    public function getPaginatedMovies($offset, $limit)
+    {
+        $sql = "SELECT 
+                    movies.id, 
+                    movies.title, 
+                    movies.description, 
+                    movies.age_minimum, 
+                    movies.favorite,
+                    movies.poster,
+                    GROUP_CONCAT(DISTINCT genres.genre_name SEPARATOR ', ') AS genre,
+                    cinemas.id AS cinema_id, 
+                    cinemas.cinema_name AS cinema,
+                    GROUP_CONCAT(DISTINCT DATE_FORMAT(movie_schedule.screening_day, '%W') SEPARATOR ', ') AS screening_days
+                FROM movies
+                LEFT JOIN movie_genres ON movies.id = movie_genres.movie_id
+                LEFT JOIN genres ON movie_genres.genre_id = genres.id
+                LEFT JOIN movie_schedule ON movies.id = movie_schedule.movie_id
+                LEFT JOIN cinemas ON movie_schedule.cinema_id = cinemas.id
+                GROUP BY movies.id
+                ORDER BY movies.id DESC
+                LIMIT :offset, :limit";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+        $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getTotalMoviesCount()
+    {
+        $sql = "SELECT COUNT(*) AS total FROM movies";
+        $result = $this->pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
+        return $result['total'];
     }
 
     public function getMoviesSinceLastWednesday()
@@ -71,7 +109,7 @@ class MovieManager extends BaseManager
         return $result['average_rating'] ?? null;  // Retourner la note moyenne ou null s'il n'y a pas d'avis
     }
 
-    public function getMovieScreenings($movieId)
+    /*public function getMovieScreenings($movieId)
     {
         $sql = "SELECT
                     movies.title,
@@ -95,9 +133,35 @@ class MovieManager extends BaseManager
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }*/
+
+    public function getMovieScreeningsByCinema($movieId, $cinemaId)
+    {
+        $sql = "SELECT
+                    movies.title,
+                    movies.description, 
+                    movies.poster,
+                    TIME_FORMAT(screenings.start_time, '%H:%i') AS start_time, 
+                    TIME_FORMAT(screenings.end_time, '%H:%i') AS end_time,  
+                    rooms.room_number, 
+                    rooms.projection_quality,
+                    screenings.screening_day,
+                    cinemas.cinema_name
+                FROM screenings
+                JOIN movies ON screenings.movie_id = movies.id
+                JOIN rooms ON screenings.room_id = rooms.id 
+                JOIN cinemas ON rooms.cinema_id = cinemas.id
+                WHERE movies.id = :movie_id AND cinemas.id = :cinema_id";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':movie_id', $movieId, PDO::PARAM_INT);
+        $stmt->bindParam(':cinema_id', $cinemaId, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getScreeningsByDate($movieId, $date)
+    /*public function getScreeningsByDate($movieId, $date)
     {
         $sql = "SELECT 
                     movies.title,
@@ -123,6 +187,30 @@ class MovieManager extends BaseManager
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
         //$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
+    }*/
+
+    public function getScreeningsByMovieAndCinemaAndDate($movieId, $cinemaId, $date)
+    {
+        $sql = "SELECT 
+                    screenings.id,
+                    TIME_FORMAT(screenings.start_time, '%H:%i') AS start_time, 
+                    TIME_FORMAT(screenings.end_time, '%H:%i') AS end_time,  
+                    rooms.room_number, 
+                    rooms.projection_quality
+                FROM screenings
+                JOIN rooms ON screenings.room_id = rooms.id
+                JOIN cinemas ON rooms.cinema_id = cinemas.id
+                WHERE screenings.movie_id = :movie_id
+                AND cinemas.id = :cinema_id
+                AND screenings.screening_day = :screening_day";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':movie_id', $movieId, PDO::PARAM_INT);
+        $stmt->bindParam(':cinema_id', $cinemaId, PDO::PARAM_INT);
+        $stmt->bindParam(':screening_day', $date, PDO::PARAM_STR);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function getScreeningDetails($screening_id)
@@ -165,7 +253,8 @@ class MovieManager extends BaseManager
                     movies.favorite,
                     movies.poster,
                     GROUP_CONCAT(DISTINCT genres.genre_name SEPARATOR ', ') AS genre,  -- Agrégation des genres
-                    cinemas.cinema_name AS cinema, 
+                    cinemas.id AS cinema_id, 
+                    cinemas.cinema_name AS cinema,
                     GROUP_CONCAT(DISTINCT DATE_FORMAT(movie_schedule.screening_day, '%W') SEPARATOR ', ') AS screening_days  -- Agrégation des jours de projection
                 FROM movies
                 JOIN movie_schedule ON movies.id = movie_schedule.movie_id  -- INNER JOIN pour forcer la relation
@@ -173,12 +262,12 @@ class MovieManager extends BaseManager
                 LEFT JOIN movie_genres ON movies.id = movie_genres.movie_id
                 LEFT JOIN genres ON movie_genres.genre_id = genres.id
                 WHERE cinemas.cinema_name = :cinema_name  -- Filtrer par cinéma
-                GROUP BY movies.id";  // Groupement par film
+                GROUP BY movies.id
+                ORDER BY movies.id DESC";  // Groupement par film
 
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindParam(':cinema_name', $cinema, PDO::PARAM_STR);
         $stmt->execute();
-        
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 

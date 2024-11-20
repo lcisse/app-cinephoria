@@ -3,11 +3,11 @@
 
 <section id="film-list-by-cinema" class="bloc-section">
 <div class="container">
-        <h1><span><?= htmlspecialchars($cinemaName) ?> : </span>Tous les films</h1>
+        <h1><span class="capital"><?= htmlspecialchars($cinemaName) ?> - </span>Tous les films</h1>
     </div>
 <div class="container">
 <?php if (!empty($movies)): ?>
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4 d-flex align-items-stretch">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 d-flex align-items-stretch">
 
     <?php foreach ($movies as $movie): ?>
         <?php $movie['screening_days'] = $this->convertDayToFrench($movie['screening_days']);?>
@@ -16,7 +16,7 @@
                 <img src="<?= BASE_URL ?>/public/<?= htmlspecialchars($movie['poster']) ?>" class="card-img-top" alt="...">
                 <div class="card-body flex-grow-1 position-relative">
                     <h3 class="card-title"><?= htmlspecialchars($movie['title']) ?> </h3>
-                    <p class="card-text"><?= htmlspecialchars($movie['description']) ?></p> 
+                    <p class="card-text"><?= htmlspecialchars(mb_strimwidth($movie['description'], 0, 120, '...')) ?></p> 
                     <?= $movie['age_minimum'] !== 0 ? '<span class="position-absolute top-0 end-0 badge rounded-pill bg-dark mt-1 me-1 p-2 fs-6 age-min">-' . htmlspecialchars($movie['age_minimum']) . '</span>' : '' ?>
                 </div>
                 <ul class="list-group list-group-flush flex-grow-5">
@@ -53,7 +53,7 @@
                     </li>
                 </ul>
                 <div class="card-body mt-auto flex-grow-0">
-                    <a type="button" class="btn prim" href="<?= BASE_URL ?>/index.php?action=seances&movie_id=<?= htmlspecialchars($movie['id']) ?>" class="btn btn-primary">Séances</a>
+                    <a type="button" class="btn prim" href="<?= BASE_URL ?>/index.php?action=seances&movie_id=<?= htmlspecialchars($movie['id']) ?>&cinema_id=<?= htmlspecialchars($movie['cinema_id']) ?>" class="btn btn-primary">Séances</a>
                 </div>
                 <?= $movie['favorite'] !== 0 ? '<span class="position-absolute top-0 end-0 badge rounded-0 mt-1 me-1 ps-2 p-1 fs-6 cine-heart">Coup de coeur ❤️</span>' : '' ?>
             </div>

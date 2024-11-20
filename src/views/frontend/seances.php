@@ -3,7 +3,7 @@
 
 <section id="screenings-section">
     <div class="container">
-        <h1>Séances disponibles</h1>
+        <h1> <span class="capital"><?= $cinemaName ?> </span> - Séances disponibles</h1>
     </div>
 
     <div class="btn-group d-flex flex-wrap" id="day-buttons">
@@ -66,7 +66,7 @@
       </div>
 
     </div>
-    <div id="screenings-data" data-movie-id="<?= $movieId ?>" data-today="<?= date('Y-m-d') ?>" data-base-url="<?= BASE_URL ?>"></div> <!--div disabled-->
+    <div id="screenings-data" data-movie-id="<?= $movieId ?>" data-cinema-id="<?= $cinemaId ?>" data-today="<?= date('Y-m-d') ?>" data-base-url="<?= BASE_URL ?>"></div> <!--div disabled-->
 
     <!-- Modal review-->
     <div class="modal fade" id="modalReview" tabindex="-1" aria-labelledby="modalReviewLabel" aria-hidden="true">
@@ -82,10 +82,10 @@
                         <?php foreach ($approvedReviews as $review): ?>
                             <div class="card text-bg-light mb-3 mx-auto" style="max-width: 90%;">
                                 <div class="card-header">
-                                    <i class="fa-solid fa-circle-user"></i> <?= htmlspecialchars($review['username']) ?>
+                                    <i class="fa-solid fa-circle-user"></i> <?= htmlspecialchars_decode(htmlspecialchars($review['username'])) ?>
                                 </div>
                                 <div class="card-body">
-                                    <p class="card-text"><?= htmlspecialchars($review['review_text']) ?></p>
+                                    <p class="card-text"><?= htmlspecialchars_decode(htmlspecialchars($review['review_text'])) ?></p>
                                 </div>
                             </div>
                         <?php endforeach; ?>

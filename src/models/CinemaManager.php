@@ -1,6 +1,8 @@
 <?php
 namespace App\Models;
 
+use PDO;
+
 class CinemaManager extends BaseManager
 {
     public function createCinemasTable()
@@ -17,5 +19,16 @@ class CinemaManager extends BaseManager
     {
         $sql = "SELECT * FROM cinemas";
         return $this->fetchAll($sql);
+    }
+
+    public function getCinemaNameById($cinemaId)
+    {
+        $sql = "SELECT cinema_name FROM cinemas WHERE id = :cinemaId";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':cinemaId', $cinemaId, PDO::PARAM_INT);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        return $result['cinema_name'] ?? null; 
     }
 }

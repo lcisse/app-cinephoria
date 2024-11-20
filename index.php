@@ -140,10 +140,8 @@ class App
             
             case 'confirmReservation':
                 if ($this->UsersController->isAuthenticated()) {
-                    // Appeler la méthode confirmReservation du MovieController
                     $this->controller->confirmReservation();
                 } else {
-                    // Si l'utilisateur n'est pas authentifié, rediriger vers la page de connexion
                     header("Location: index.php?action=myAccount");
                 }
                 break;
@@ -200,7 +198,7 @@ class App
                 break;
 
             case 'admin-seances':
-                $this->bmovieController->showGestionSeances();
+                //$this->bmovieController->showGestionSeances();
                 break;
 
             case 'createScreening':
@@ -254,6 +252,10 @@ class App
             case 'AddReview':
                 $this->bmovieController->addReview();
                 break;
+
+                case 'filterMoviesByCinema':
+                    $this->controller->filterMoviesByCinema();
+                    break;
 
             default:
                 $this->controller->showHome();
