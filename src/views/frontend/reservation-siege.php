@@ -8,7 +8,7 @@
         <div class="row">
             <div class="col text-center">
                 <h1>Sélectionner vos places</h1>
-                <p><span id="seatCapacity"><?= $seat_capacity ?></span> places libres</p>
+                <p><span id="seatCapacity"><?= $availableSeats ?></span> places libres</p>
             </div>
         </div>
 

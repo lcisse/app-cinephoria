@@ -278,7 +278,8 @@ class MovieManager extends BaseManager
                 JOIN rooms ON seats.room_id = rooms.id
                 JOIN screenings ON rooms.id = screenings.room_id
                 WHERE screenings.id = :screening_id
-                AND seats.room_id = (SELECT room_id FROM screenings WHERE id = :screening_id)";
+                AND seats.room_id = (SELECT room_id FROM screenings WHERE id = :screening_id)
+                ORDER BY seat_number ASC";
 
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindParam(':screening_id', $screening_id, PDO::PARAM_INT);

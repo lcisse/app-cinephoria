@@ -30,6 +30,8 @@ class RoomManager extends BaseManager
             ':seat_capacity' => $seatCapacity,
             ':projection_quality' => $projectionQuality
         ]);
+
+        return $this->pdo->lastInsertId(); // Retourner l'ID de la salle créée
     }
 
     public function getAllRoomsWithCinemas()

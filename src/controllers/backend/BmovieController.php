@@ -12,6 +12,7 @@ use App\models\MovieScheduleManager;
 use App\models\mongodb\ReservationMongoManager;
 use App\models\ReviewManager;
 use App\models\ReservationManager;
+use App\models\SeatManager;
 
 
 
@@ -27,6 +28,7 @@ class BmovieController
     private $reservationMongoManager;
     private $reviewManager;
     private $reservationManager;
+    private $seatManager;
 
     public function __construct()
     {
@@ -40,6 +42,7 @@ class BmovieController
         $this->reservationMongoManager = new ReservationMongoManager();
         $this->reviewManager = new ReviewManager();
         $this->reservationManager = new ReservationManager();
+        $this->seatManager = new SeatManager();
     }
 
     public function showDasboard()
@@ -80,7 +83,11 @@ class BmovieController
             $seatCapacity = $_POST['seat_capacity'];
             $projectionQuality = $_POST['projection_quality'];
 
-            $this->roomManager->createRoom($cinemaId, $roomNumber, $seatCapacity, $projectionQuality);
+            //$this->roomManager->createRoom($cinemaId, $roomNumber, $seatCapacity, $projectionQuality);
+            $roomId = $this->roomManager->createRoom($cinemaId, $roomNumber, $seatCapacity, $projectionQuality);
+
+            // Vérifier et créer les sièges pour cette salle
+            $this->seatManager->createSeatsForRoom($roomId, $cinemaId, $seatCapacity);
 
             session_start();
             $_SESSION['message'] = "Salle créée avec succès !";

@@ -11,6 +11,7 @@ use App\models\mongodb\ReservationMongoManager;
 use App\models\ReviewManager;
 use App\models\CinemaManager;
 
+
 class MovieController
 {
     private $moviesManager;
@@ -18,6 +19,7 @@ class MovieController
     private $reservationMongoManager;
     private $reviewManager;
     private $cinemaManager;
+    private $seatManager;
 
     public function __construct()
     {
@@ -26,6 +28,7 @@ class MovieController
         $this->reservationMongoManager = new ReservationMongoManager();
         $this->reviewManager = new ReviewManager();
         $this->cinemaManager = new CinemaManager();
+        $this->seatManager = new SeatManager();
     }
 
     private function convertDayToFrench($englishDays) 
@@ -243,17 +246,22 @@ class MovieController
     public function reservationsSeats($screening_id) {
         $screenings = $this->moviesManager->getScreeningDetails($screening_id);
         $usersController = $this->usersController->isAuthenticated();
+        
 
        if (!empty($screenings)) {
             $movieTitle = $screenings['title'];
             $moviePoster = $screenings['poster'];
             $cinema = $screenings['cinema'];
+            $cinemaId = $screenings['cinema_id'];
             $room_number = $screenings['room_number'];
+            $roomId = $screenings['room_id'];
             $start_time = $screenings['start_time'];
             $end_time = $screenings['end_time'];
             $screening_day = $screenings['screening_day'];
             $seat_capacity = $screenings['seat_capacity'];
             $projection_quality = $screenings['projection_quality'];
+
+            $availableSeats = $this->seatManager->getAvailableSeats($cinemaId, $roomId);
 
             $dateTime = new \DateTime($screening_day);
             $screening_day = $dateTime->format('d/m');
