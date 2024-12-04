@@ -29,7 +29,7 @@ $userRole = $_SESSION['role'] ?? null;
                 </ul>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">CONTACT</a>
+                <a class="nav-link" href="<?= BASE_URL ?>/index.php?action=contact">CONTACT</a>
               </li>
               <?php if ($userRole == null) :?>
                 <li class="nav-item">

@@ -253,9 +253,13 @@ class App
                 $this->bmovieController->addReview();
                 break;
 
-                case 'filterMoviesByCinema':
-                    $this->controller->filterMoviesByCinema();
-                    break;
+            case 'filterMoviesByCinema':
+                $this->controller->filterMoviesByCinema();
+                break;
+
+            case 'contact':
+                $this->controller->showContact();
+                break;
 
             default:
                 $this->controller->showHome();

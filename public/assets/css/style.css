@@ -545,13 +545,13 @@ L.star-rating {
     margin-bottom: 10px;
 }
       /* ************ section log ********* */
-#log .btn-row, #logs .btn-row {
+#log .btn-row, #logs .btn-row, #contactForm .btn-row {
     border-bottom: 2px solid var(--cn-color-grey-2);
     max-width: 800px;
     margin: 0 auto;
 } 
 
-#logs {
+#logs, #contactForm {
     margin-top: 150px;
     margin-bottom: 100px;
     min-height: 66vh;
@@ -572,9 +572,14 @@ L.star-rating {
     margin: 0 auto;
 }
 
-#log .form-row input, #logs .form-row input{
+#log .form-row input, #logs .form-row input {
     border: 2px solid var(--cn-color-grey-2);
     font-size: 24px;
+}
+
+#contactForm .form-row input, #contactForm .form-row textarea{
+    border: 2px solid var(--cn-color-grey-2);
+    font-size: 18px;
 }
 
 .form-control:focus {
@@ -686,6 +691,13 @@ L.star-rating {
     font-size: 20px;
 }
 /* ********** Fin Page confirm **************** */
+
+/* ********** Page contact **************** */
+ #contactForm .form-row {
+    max-width: 800px;
+    margin: 10px auto !important;
+}
+/* ********** Fin Page contact **************** */
 
 
 /* ******footer************ */

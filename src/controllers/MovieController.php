@@ -314,4 +314,9 @@ class MovieController
             exit();
         }
     }
+
+    public function showContact()
+    {
+        require __DIR__ . '/../views/frontend/contact.php';
+    }
 }
