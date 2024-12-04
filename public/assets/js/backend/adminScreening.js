@@ -23,7 +23,8 @@ document.addEventListener('DOMContentLoaded', function () {
             // Ajouter les salles correspondantes
             cinemaRooms[selectedCinemaId].forEach(room => {
                 const option = document.createElement('option');
-                option.value = room.id;
+                option.value = room.id + ',' + room.capacity;
+                console.log(option.value);
                 option.textContent = room.number ? `Salle ${room.number}` : `Aucune salle pour ce cinéma`;
                 roomSelect.appendChild(option);
 

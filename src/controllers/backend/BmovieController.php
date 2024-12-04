@@ -87,7 +87,7 @@ class BmovieController
             $roomId = $this->roomManager->createRoom($cinemaId, $roomNumber, $seatCapacity, $projectionQuality);
 
             // Vérifier et créer les sièges pour cette salle
-            $this->seatManager->createSeatsForRoom($roomId, $cinemaId, $seatCapacity);
+            //$this->seatManager->createSeatsForRoom($roomId, $cinemaId, $seatCapacity);
 
             session_start();
             $_SESSION['message'] = "Salle créée avec succès !";
@@ -339,7 +339,8 @@ class BmovieController
             foreach ($cinema['rooms'] as $room) {
                 $cinemaRooms[$cinemaId][] = [
                     'id' => $room['id'],
-                    'number' => $room['room_number']
+                    'number' => $room['room_number'],
+                    'capacity' => $room['seat_capacity']
                 ];
             }
         }
@@ -362,12 +363,15 @@ class BmovieController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $movieId = $_GET['filmId-seance']; 
             $cinemaId = $_POST['cinema_id'];
-            $roomId = $_POST['room_id'];
+            $roomIdAndCapacity =  explode(",", $_POST['roomIdAndCapacity']);
+            $roomId = $roomIdAndCapacity[0];
             $screeningDate = $_POST['screening_date'];
             $startTime = $_POST['start_time'];
             $endTime = $_POST['end_time'];
+            $seatCapacity = $roomIdAndCapacity[1];
 
-            $this->screeningManager->createScreening($movieId, $roomId, $screeningDate, $startTime, $endTime);
+            $screeningId = $this->screeningManager->createScreening($movieId, $roomId, $screeningDate, $startTime, $endTime, $cinemaId, $seatCapacity);
+            $this->seatManager->createSeatsForScreening($screeningId, $roomId, $cinemaId, $seatCapacity);
 
             $this->movieScheduleManager->addMovieSchedule($movieId, $cinemaId, $screeningDate);
 

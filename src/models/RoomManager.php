@@ -94,7 +94,8 @@ class RoomManager extends BaseManager
                     cinemas.id AS cinema_id, 
                     cinemas.cinema_name, 
                     rooms.id AS room_id, 
-                    rooms.room_number 
+                    rooms.room_number, 
+                    rooms.seat_capacity 
                 FROM cinemas
                 LEFT JOIN rooms ON rooms.cinema_id = cinemas.id";
         
@@ -105,7 +106,8 @@ class RoomManager extends BaseManager
             $cinemas[$row['cinema_id']]['cinema_name'] = $row['cinema_name'];
             $cinemas[$row['cinema_id']]['rooms'][] = [
                 'id' => $row['room_id'],
-                'room_number' => $row['room_number']
+                'room_number' => $row['room_number'],
+                'seat_capacity' => $row['seat_capacity']
             ];
         }
 

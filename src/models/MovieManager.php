@@ -145,6 +145,7 @@ class MovieManager extends BaseManager
                     TIME_FORMAT(screenings.end_time, '%H:%i') AS end_time,  
                     rooms.room_number, 
                     rooms.projection_quality,
+                    screenings.id,
                     screenings.screening_day,
                     cinemas.cinema_name
                 FROM screenings
@@ -271,7 +272,7 @@ class MovieManager extends BaseManager
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getSeatsByScreening($screening_id)
+    /*public function getSeatsByScreening($screening_id)
     {
         $sql = "SELECT seats.id, seats.seat_number, seats.reserved, seats.is_accessible 
                 FROM seats 
@@ -279,6 +280,20 @@ class MovieManager extends BaseManager
                 JOIN screenings ON rooms.id = screenings.room_id
                 WHERE screenings.id = :screening_id
                 AND seats.room_id = (SELECT room_id FROM screenings WHERE id = :screening_id)
+                ORDER BY seat_number ASC";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':screening_id', $screening_id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC); // Renvoie les résultats des sièges
+    }*/
+
+    public function getSeatsByScreening($screening_id)
+    {
+        $sql = "SELECT id, seat_number, reserved, is_accessible
+                FROM seats
+                WHERE screening_id = :screening_id
                 ORDER BY seat_number ASC";
 
         $stmt = $this->pdo->prepare($sql);
@@ -295,9 +310,9 @@ class MovieManager extends BaseManager
             $seats = explode(', ', $seats); 
         }
 
-        $screeningDetails = $this->getScreeningDetails($screeningId);
+        //$screeningDetails = $this->getScreeningDetails($screeningId);
         
-        $roomId = $screeningDetails['room_id']; 
+        //$roomId = $screeningDetails['room_id']; 
 
         // Commencer la transaction 
         $this->pdo->beginTransaction();
@@ -316,7 +331,7 @@ class MovieManager extends BaseManager
                 ':qr_code' => $qrCode
             ]);
 
-            $this->updateSeatsAsReserved($seats, $roomId);
+            $this->updateSeatsAsReserved($seats, $screeningId);
 
             // Confirmer la transaction
             $this->pdo->commit();
@@ -326,16 +341,16 @@ class MovieManager extends BaseManager
         }
     }
 
-    public function updateSeatsAsReserved(array $seats, $roomId)
+    public function updateSeatsAsReserved(array $seats, $screeningId)
     {
         // Construire la requête pour mettre à jour plusieurs sièges dans une salle spécifique
         $placeholders = implode(',', array_fill(0, count($seats), '?')); // Crée un nombre de placeholders égaux au nombre de sièges
 
-        $sql = "UPDATE seats SET reserved = 1 WHERE seat_number IN ($placeholders) AND room_id = ?";
+        $sql = "UPDATE seats SET reserved = 1 WHERE seat_number IN ($placeholders) AND screening_id = ?";
 
         $stmt = $this->pdo->prepare($sql);
 
-        $stmt->execute(array_merge($seats, [$roomId]));
+        $stmt->execute(array_merge($seats, [$screeningId]));
     }
 
     public function getAllCinemas()

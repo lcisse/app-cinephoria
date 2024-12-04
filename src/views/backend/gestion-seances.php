@@ -39,7 +39,7 @@
                                     </div>                                   
                                     <div class="col-md-6">
                                         <label for="room-number">Salle</label>
-                                        <select id="room-number" class="form-select" name="room_id" required>
+                                        <select id="room-number" class="form-select" name="roomIdAndCapacity" required>
                                             <option value="">Sélectionnez d'abord un cinéma</option>
                                         </select>
                                     </div>           

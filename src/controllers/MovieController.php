@@ -20,6 +20,7 @@ class MovieController
     private $reviewManager;
     private $cinemaManager;
     private $seatManager;
+    private $screeningManager;
 
     public function __construct()
     {
@@ -29,6 +30,7 @@ class MovieController
         $this->reviewManager = new ReviewManager();
         $this->cinemaManager = new CinemaManager();
         $this->seatManager = new SeatManager();
+        $this->screeningManager = new ScreeningManager();
     }
 
     private function convertDayToFrench($englishDays) 
@@ -225,6 +227,9 @@ class MovieController
             $movieDescription = $movie['description'];
             $moviePoster = $movie['poster']; 
         }
+
+        //$this->screeningManager->deleteSeatsForCompletedScreenings(); // supprimer les sièges après la date de screening
+        
         
         require __DIR__ . '/../views/frontend/seances.php';
     }
@@ -261,7 +266,7 @@ class MovieController
             $seat_capacity = $screenings['seat_capacity'];
             $projection_quality = $screenings['projection_quality'];
 
-            $availableSeats = $this->seatManager->getAvailableSeats($cinemaId, $roomId);
+            $availableSeats = $this->seatManager->getAvailableSeats($screening_id);
 
             $dateTime = new \DateTime($screening_day);
             $screening_day = $dateTime->format('d/m');
