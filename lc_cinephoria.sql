@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mer. 04 déc. 2024 à 12:19
+-- Généré le : mer. 04 déc. 2024 à 21:18
 -- Version du serveur : 8.2.0
 -- Version de PHP : 8.2.13
 
@@ -150,7 +150,7 @@ CREATE TABLE IF NOT EXISTS `movies` (
   `poster` varchar(255) NOT NULL,
   `publication_date` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=48 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `movies`
@@ -178,7 +178,8 @@ INSERT INTO `movies` (`id`, `title`, `description`, `age_minimum`, `favorite`, `
 (37, 'Venom: The Last Dance', 'Dans VENOM: THE LAST DANCE, ultime opus de la trilogie, Tom Hardy est de retour sous les traits de Venom, l’un des personnages le plus complexes de l’univers Marvel. Eddie et Venom sont en cavale. Chacun est traqué par ses semblables et alors que l’étau se resserre, le duo doit prendre une décision dévastatrice qui annonce la conclusion des aventures d’Eddie & Venom.', 12, 0, 'uploads/6712c3b7e10cf.jpg', '2024-11-10'),
 (38, '37 : l\'ombre et la proie', 'Le trajet anxiogène de Vincent, chauffeur-routier, menacé par une jeune femme enceinte qu’il a prise en stop. La passagère, au tempérament instable, détient un pistolet automatique et ordonne à Vincent de continuer à rouler sans s’arrêter. Quand il n’aura plus d’essence, elle le tuera.', 0, 0, 'uploads/6712c49507f24.jpg', '2024-11-10'),
 (45, 'Gladiator II', 'L\'histoire de Lucius, le fils de Lucilla (Connie Nielsen dans Gladiator) et neveu de Commode (Joaquin Phoenix). Lucius est très admiratif du parcours de Maximus et devrait suivre ses traces', 12, 1, 'uploads/6733b8d3ce6d3.webp', '2024-11-12'),
-(46, 'TEST', 'HYEURYEUR EZRHGUGFRg tkjgohrljypt lkjhitlurjyprtj,hyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy', 12, 1, 'uploads/673cab0a62fd5.webp', '2024-11-19');
+(46, 'TEST', 'HYEURYEUR EZRHGUGFRg tkjgohrljypt lkjhitlurjyprtj,hyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy', 12, 1, 'uploads/673cab0a62fd5.webp', '2024-11-19'),
+(47, 'Wicked', 'WICKED suit le parcours des sorcières légendaires du monde d’Oz. Cynthia Erivo incarne Elphaba, une jeune femme incomprise à cause de la couleur inhabituelle de sa peau verte qui ne soupçonne même pas l’étendue de ses pouvoirs. À ses côtés, la superstar mondiale de la Pop, Ariana Grande, interprète Glinda qui, aussi populaire que privilégiée, ne connaît pas encore la vraie nature de son cœur.', 0, 1, 'uploads/67504f2317042.jpg', '2024-12-04');
 
 -- --------------------------------------------------------
 
@@ -253,7 +254,8 @@ INSERT INTO `movie_genres` (`movie_id`, `genre_id`) VALUES
 (38, 4),
 (45, 1),
 (45, 3),
-(46, 2);
+(46, 2),
+(47, 4);
 
 -- --------------------------------------------------------
 
@@ -325,7 +327,9 @@ INSERT INTO `movie_schedule` (`movie_id`, `cinema_id`, `screening_day`) VALUES
 (46, 3, '2024-12-01'),
 (46, 4, '2024-11-28'),
 (46, 4, '2024-12-04'),
-(46, 4, '2024-12-05');
+(46, 4, '2024-12-05'),
+(47, 2, '2024-12-06'),
+(47, 2, '2024-12-07');
 
 -- --------------------------------------------------------
 
@@ -349,7 +353,7 @@ CREATE TABLE IF NOT EXISTS `reservations` (
   KEY `user_id` (`user_id`),
   KEY `movie_id` (`movie_id`),
   KEY `screening_id` (`screening_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=102 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=103 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `reservations`
@@ -451,7 +455,8 @@ INSERT INTO `reservations` (`id`, `user_id`, `movie_id`, `screening_id`, `seats`
 (98, 3, 46, 49, '25', 12.50, '2024-12-04 10:35:04', 'confirmed', 'QR_675022487b217', 0),
 (99, 3, 38, 43, '02, 03', 25.00, '2024-12-04 11:39:20', 'confirmed', 'QR_67503158e93f1', 0),
 (100, 3, 38, 43, '07, 08', 25.00, '2024-12-04 11:44:34', 'confirmed', 'QR_67503292baa5c', 0),
-(101, 3, 46, 49, '19', 12.50, '2024-12-04 11:45:26', 'confirmed', 'QR_675032c611f5d', 0);
+(101, 3, 46, 49, '19', 12.50, '2024-12-04 11:45:26', 'confirmed', 'QR_675032c611f5d', 0),
+(102, 2, 47, 53, '15, 16', 36.00, '2024-12-04 14:02:07', 'confirmed', 'QR_675052cf40550', 0);
 
 -- --------------------------------------------------------
 
@@ -507,7 +512,7 @@ CREATE TABLE IF NOT EXISTS `rooms` (
   `incident_notes` text,
   PRIMARY KEY (`id`),
   KEY `cinema_id` (`cinema_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `rooms`
@@ -521,6 +526,7 @@ INSERT INTO `rooms` (`id`, `cinema_id`, `room_number`, `seat_capacity`, `project
 (6, 1, '4', 106, 'IMAX', 'Incidunt in eos sapiente.'),
 (21, 4, '1', 40, '3D', ''),
 (22, 4, '2', 50, '4DX', ''),
+(23, 2, '1', 40, '4DX', ''),
 (10, 5, '1', 66, 'IMAX', 'Ducimus qui consequatur quasi sint..!:mùl'),
 (20, 3, '5', 40, '4DX', '');
 
@@ -541,7 +547,7 @@ CREATE TABLE IF NOT EXISTS `screenings` (
   PRIMARY KEY (`id`),
   KEY `movie_id` (`movie_id`),
   KEY `room_id` (`room_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=53 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=55 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `screenings`
@@ -567,7 +573,9 @@ INSERT INTO `screenings` (`id`, `movie_id`, `room_id`, `start_time`, `end_time`,
 (49, 46, 21, '15:00:00', '16:30:00', '2024-12-04'),
 (50, 46, 22, '16:05:00', '17:45:00', '2024-12-04'),
 (51, 46, 21, '15:00:00', '16:30:00', '2024-12-05'),
-(52, 46, 21, '17:50:00', '18:40:00', '2024-12-04');
+(52, 46, 21, '17:50:00', '18:40:00', '2024-12-04'),
+(53, 47, 23, '16:00:00', '17:30:00', '2024-12-07'),
+(54, 47, 23, '16:00:00', '17:40:00', '2024-12-06');
 
 -- --------------------------------------------------------
 
@@ -588,7 +596,7 @@ CREATE TABLE IF NOT EXISTS `seats` (
   KEY `room_id` (`room_id`),
   KEY `cinema_id` (`cinema_id`),
   KEY `screening_id` (`screening_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=451 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=531 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `seats`
@@ -686,6 +694,26 @@ INSERT INTO `seats` (`id`, `room_id`, `cinema_id`, `screening_id`, `seat_number`
 (408, 21, 4, 49, '38', 0, 0),
 (409, 21, 4, 49, '39', 0, 0),
 (410, 21, 4, 49, '40', 0, 0),
+(510, 23, 2, 54, '20', 0, 0),
+(509, 23, 2, 54, '19', 0, 0),
+(508, 23, 2, 54, '18', 0, 0),
+(507, 23, 2, 54, '17', 0, 0),
+(506, 23, 2, 54, '16', 0, 0),
+(505, 23, 2, 54, '15', 0, 0),
+(504, 23, 2, 54, '14', 0, 0),
+(503, 23, 2, 54, '13', 0, 0),
+(502, 23, 2, 54, '12', 0, 0),
+(501, 23, 2, 54, '11', 0, 0),
+(500, 23, 2, 54, '10', 0, 1),
+(499, 23, 2, 54, '09', 0, 1),
+(498, 23, 2, 54, '08', 0, 0),
+(497, 23, 2, 54, '07', 0, 0),
+(496, 23, 2, 54, '06', 0, 0),
+(495, 23, 2, 54, '05', 0, 0),
+(494, 23, 2, 54, '04', 0, 0),
+(493, 23, 2, 54, '03', 0, 0),
+(492, 23, 2, 54, '02', 0, 1),
+(491, 23, 2, 54, '01', 0, 1),
 (450, 21, 4, 52, '40', 0, 0),
 (449, 21, 4, 52, '39', 0, 0),
 (448, 21, 4, 52, '38', 0, 0),
@@ -724,7 +752,67 @@ INSERT INTO `seats` (`id`, `room_id`, `cinema_id`, `screening_id`, `seat_number`
 (425, 21, 4, 52, '15', 0, 0),
 (424, 21, 4, 52, '14', 0, 0),
 (423, 21, 4, 52, '13', 0, 0),
-(422, 21, 4, 52, '12', 0, 0);
+(422, 21, 4, 52, '12', 0, 0),
+(530, 23, 2, 54, '40', 0, 0),
+(529, 23, 2, 54, '39', 0, 0),
+(528, 23, 2, 54, '38', 0, 0),
+(527, 23, 2, 54, '37', 0, 0),
+(526, 23, 2, 54, '36', 0, 0),
+(525, 23, 2, 54, '35', 0, 0),
+(524, 23, 2, 54, '34', 0, 0),
+(523, 23, 2, 54, '33', 0, 0),
+(522, 23, 2, 54, '32', 0, 0),
+(521, 23, 2, 54, '31', 0, 0),
+(520, 23, 2, 54, '30', 0, 0),
+(519, 23, 2, 54, '29', 0, 0),
+(518, 23, 2, 54, '28', 0, 0),
+(517, 23, 2, 54, '27', 0, 0),
+(516, 23, 2, 54, '26', 0, 0),
+(515, 23, 2, 54, '25', 0, 0),
+(514, 23, 2, 54, '24', 0, 0),
+(513, 23, 2, 54, '23', 0, 0),
+(512, 23, 2, 54, '22', 0, 0),
+(511, 23, 2, 54, '21', 0, 0),
+(490, 23, 2, 53, '40', 0, 0),
+(489, 23, 2, 53, '39', 0, 0),
+(488, 23, 2, 53, '38', 0, 0),
+(487, 23, 2, 53, '37', 0, 0),
+(486, 23, 2, 53, '36', 0, 0),
+(485, 23, 2, 53, '35', 0, 0),
+(484, 23, 2, 53, '34', 0, 0),
+(483, 23, 2, 53, '33', 0, 0),
+(482, 23, 2, 53, '32', 0, 0),
+(481, 23, 2, 53, '31', 0, 0),
+(480, 23, 2, 53, '30', 0, 0),
+(479, 23, 2, 53, '29', 0, 0),
+(478, 23, 2, 53, '28', 0, 0),
+(477, 23, 2, 53, '27', 0, 0),
+(476, 23, 2, 53, '26', 0, 0),
+(475, 23, 2, 53, '25', 0, 0),
+(474, 23, 2, 53, '24', 0, 0),
+(473, 23, 2, 53, '23', 0, 0),
+(472, 23, 2, 53, '22', 0, 0),
+(471, 23, 2, 53, '21', 0, 0),
+(470, 23, 2, 53, '20', 0, 0),
+(469, 23, 2, 53, '19', 0, 0),
+(468, 23, 2, 53, '18', 0, 0),
+(467, 23, 2, 53, '17', 0, 0),
+(466, 23, 2, 53, '16', 1, 0),
+(465, 23, 2, 53, '15', 1, 0),
+(464, 23, 2, 53, '14', 0, 0),
+(463, 23, 2, 53, '13', 0, 0),
+(462, 23, 2, 53, '12', 0, 0),
+(461, 23, 2, 53, '11', 0, 0),
+(460, 23, 2, 53, '10', 0, 0),
+(459, 23, 2, 53, '09', 0, 0),
+(458, 23, 2, 53, '08', 0, 0),
+(457, 23, 2, 53, '07', 0, 0),
+(456, 23, 2, 53, '06', 0, 0),
+(455, 23, 2, 53, '05', 0, 0),
+(454, 23, 2, 53, '04', 0, 0),
+(453, 23, 2, 53, '03', 0, 0),
+(452, 23, 2, 53, '02', 0, 0),
+(451, 23, 2, 53, '01', 0, 0);
 
 -- --------------------------------------------------------
 

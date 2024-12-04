@@ -41,17 +41,21 @@ class SeatManager extends BaseManager
             return; // Les sièges sont déjà créés pour cette séance
         }
 
-        $sql = "INSERT INTO seats (room_id, cinema_id, screening_id, seat_number) 
-                VALUES (:room_id, :cinema_id, :screening_id, :seat_number)";
+        $sql = "INSERT INTO seats (room_id, cinema_id, screening_id, seat_number, is_accessible) 
+            VALUES (:room_id, :cinema_id, :screening_id, :seat_number, :is_accessible)";
         $stmt = $this->pdo->prepare($sql);
 
         for ($i = 1; $i <= $seatCapacity; $i++) {
             $seatNumber = sprintf("%02d", $i); // Numéro de siège formaté
+
+            $isAccessible = in_array($seatNumber, ['01', '02', '09', '10']) ? 1 : 0;
+
             $stmt->execute([
                 ':room_id' => $roomId,
                 ':cinema_id' => $cinemaId,
                 ':screening_id' => $screeningId,
-                ':seat_number' => $seatNumber
+                ':seat_number' => $seatNumber,
+                ':is_accessible' => $isAccessible
             ]);
         }
     }

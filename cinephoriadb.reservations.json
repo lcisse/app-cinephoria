@@ -88,4 +88,160 @@
   "seats_reserved": "03",
   "total_price": "12.5",
   "status": "confirmed"
+},
+{
+  "_id": {
+    "$oid": "67346d00a0b89e7f3a0053a8"
+  },
+  "movie_title": "37 : l'ombre et la proie",
+  "reservation_date": {
+    "$date": "2024-11-13T10:10:23.000Z"
+  },
+  "user_id": 2,
+  "seats_reserved": "02",
+  "total_price": "15",
+  "status": "confirmed"
+},
+{
+  "_id": {
+    "$oid": "67346d77a0b89e7f3a0053aa"
+  },
+  "movie_title": "37 : l'ombre et la proie",
+  "reservation_date": {
+    "$date": "2024-11-13T10:12:22.000Z"
+  },
+  "user_id": 2,
+  "seats_reserved": "02",
+  "total_price": "15",
+  "status": "confirmed"
+},
+{
+  "_id": {
+    "$oid": "674ed06768e3821e7a0c02a5"
+  },
+  "movie_title": "37 : l'ombre et la proie",
+  "reservation_date": {
+    "$date": "2024-12-03T10:33:27.000Z"
+  },
+  "user_id": 7,
+  "seats_reserved": "01",
+  "total_price": "12.5",
+  "status": "confirmed"
+},
+{
+  "_id": {
+    "$oid": "674ed0d268e3821e7a0c02a6"
+  },
+  "movie_title": "37 : l'ombre et la proie",
+  "reservation_date": {
+    "$date": "2024-12-03T10:35:14.000Z"
+  },
+  "user_id": 3,
+  "seats_reserved": "01, 02, 03, 04",
+  "total_price": "50",
+  "status": "confirmed"
+},
+{
+  "_id": {
+    "$oid": "67501514e9dc754416057b16"
+  },
+  "movie_title": "TEST",
+  "reservation_date": {
+    "$date": "2024-12-04T09:38:44.000Z"
+  },
+  "user_id": 7,
+  "seats_reserved": "01, 02",
+  "total_price": "25",
+  "status": "confirmed"
+},
+{
+  "_id": {
+    "$oid": "67501f23e9dc754416057b1a"
+  },
+  "movie_title": "TEST",
+  "reservation_date": {
+    "$date": "2024-12-04T10:21:39.000Z"
+  },
+  "user_id": 3,
+  "seats_reserved": "10",
+  "total_price": "12.5",
+  "status": "confirmed"
+},
+{
+  "_id": {
+    "$oid": "67502209e9dc754416057b1c"
+  },
+  "movie_title": "TEST",
+  "reservation_date": {
+    "$date": "2024-12-04T10:34:00.000Z"
+  },
+  "user_id": 3,
+  "seats_reserved": "10",
+  "total_price": "12.5",
+  "status": "confirmed"
+},
+{
+  "_id": {
+    "$oid": "67502248e9dc754416057b1e"
+  },
+  "movie_title": "TEST",
+  "reservation_date": {
+    "$date": "2024-12-04T10:35:04.000Z"
+  },
+  "user_id": 3,
+  "seats_reserved": "25",
+  "total_price": "12.5",
+  "status": "confirmed"
+},
+{
+  "_id": {
+    "$oid": "67503159e9dc754416057b25"
+  },
+  "movie_title": "37 : l'ombre et la proie",
+  "reservation_date": {
+    "$date": "2024-12-04T11:39:20.000Z"
+  },
+  "user_id": 3,
+  "seats_reserved": "02, 03",
+  "total_price": "25",
+  "status": "confirmed"
+},
+{
+  "_id": {
+    "$oid": "67503293e9dc754416057b27"
+  },
+  "movie_title": "37 : l'ombre et la proie",
+  "reservation_date": {
+    "$date": "2024-12-04T11:44:34.000Z"
+  },
+  "user_id": 3,
+  "seats_reserved": "07, 08",
+  "total_price": "25",
+  "status": "confirmed"
+},
+{
+  "_id": {
+    "$oid": "675032c6e9dc754416057b28"
+  },
+  "movie_title": "TEST",
+  "reservation_date": {
+    "$date": "2024-12-04T11:45:26.000Z"
+  },
+  "user_id": 3,
+  "seats_reserved": "19",
+  "total_price": "12.5",
+  "status": "confirmed"
+},
+{
+  "_id": {
+    "$oid": "675052cfe9dc754416057b30"
+  },
+  "movie_title": "Wicked",
+  "reservation_date": {
+    "$date": "2024-12-04T14:02:07.000Z"
+  },
+  "user_id": 2,
+  "seats_reserved": "15, 16",
+  "total_price": "36",
+  "status": "confirmed"
 }]
