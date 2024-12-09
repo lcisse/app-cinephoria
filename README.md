@@ -9,15 +9,15 @@ Cinéphoria est une application de gestion de cinéma qui combine une base de do
 Ce guide vous aide à déployer l'application localement en utilisant WAMP pour MySQL et MongoDB Compass pour MongoDB.
 
 # Prérequis
-WAMP Server :
-PHP version ≥ 7.4
-MySQL version ≥ 5.7
-MongoDB :
-Version ≥ 4.4
-Navigateur Web :
-Un navigateur récent comme Google Chrome, Firefox ou Edge.
-Git (optionnel) :
-Pour cloner le projet depuis un dépôt Git.
+    1. WAMP Server :
+        . PHP version ≥ 7.4
+        . MySQL version ≥ 5.7
+    2. MongoDB :
+        . Version ≥ 4.4
+    3. Navigateur Web :
+        . Un navigateur récent comme Google Chrome, Firefox ou Edge.
+    4. Git (optionnel) :
+        . Pour cloner le projet depuis un dépôt Git.
 
 # Étape 1 : Configuration du projet
 1. Cloner ou télécharger le projet : git clone https://github.com/lcisse/app-cinephoria.git 
