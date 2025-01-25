@@ -261,6 +261,10 @@ class App
                 $this->controller->showContact();
                 break;
 
+            case 'getQrCode':
+                $this->bmovieController->getQrCode();
+                break;
+
             default:
                 $this->controller->showHome();
                 break;

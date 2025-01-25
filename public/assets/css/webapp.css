@@ -1,0 +1,46 @@
+:root {
+    --cn-color-green-1: #0f3c44;
+    --cn-color-green-2: #035f70;
+    --cn-color-green-3: #d2e8e3;
+    --cn-color-blue-1: #00c7f8;
+    --cn-color-grey-1: #f1f2f7;
+    --cn-color-grey-2: #d4d5da;
+    --cn-color-white-1: #f1f2f7;
+    --cn-color-orange-1: #de7420;
+    --cn-color-orange-2: #fd8f3b;
+}
+
+#web-app {
+    margin-top: 100px;
+}
+
+#web-app .movie-card .card-title {
+    padding: 3px 5px 0;
+}
+
+#web-app .movie-card .img-dateTime-room {
+    overflow: hidden;
+}
+
+.img-dateTime-room::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 15%; 
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0));
+    pointer-events: none; 
+    z-index: 1;
+}
+
+#web-app .movie-card .img-dateTime-room img {
+    position: relative;
+    z-index: 0; 
+}
+
+#web-app .img-dateTime-room span {
+    position: relative;
+    color: var(--cn-color-white-1);
+    z-index: 2; 
+}

@@ -39,16 +39,20 @@ class ReservationManager extends BaseManager
     public function getUserReservations($userId)
     {
         $sql = "SELECT 
-                movies.id AS movie_id, 
+                movies.id AS movie_id,
+                movies.poster AS movie_poster, 
                 movies.title AS movie_title, 
                 screenings.screening_day, 
                 screenings.start_time, 
                 screenings.end_time, 
+                reservations.id, 
                 reservations.price, 
-                reservations.seats 
+                reservations.seats,
+                rooms.room_number AS room_number 
                 FROM reservations
                 JOIN screenings ON reservations.screening_id = screenings.id
                 JOIN movies ON reservations.movie_id = movies.id
+                JOIN rooms ON screenings.room_id = rooms.id
                 WHERE reservations.user_id = :user_id
                 ORDER BY reservations.reservation_date DESC";
 
@@ -57,5 +61,13 @@ class ReservationManager extends BaseManager
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getQrCodeByReservationId($reservationId)
+    {
+        $sql = "SELECT qr_code FROM reservations WHERE id = :id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([':id' => $reservationId]);
+        return $stmt->fetchColumn();
     }
 }

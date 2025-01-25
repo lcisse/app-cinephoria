@@ -20,7 +20,7 @@
         <div class="">
             <div class="row">
                 <div class="col">
-                    <h2>La liste de tous mes commandes</h2>
+                    <h2>La liste de toutes mes commandes</h2>
                     <table class="table table-striped">
                         <thead>
                             <tr>
@@ -100,7 +100,71 @@
         </div>
     </div>
 
-
 </div>
+<!-- Affichage web-App -->
+<section id="web-app">
+        <div class="container d-sm-none">
+            <div class="admin-title">
+                <h2>Mes séances</h2>
+            </div>
+            <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 d-flex align-items-stretch d-block d-sm-none">
+
+            <?php foreach ($orders as $order): ?>
+                <a href="#" data-id="<?= $order['id']; ?>" data-bs-toggle="modal" data-bs-target="#modalQr" class="show-qr">
+                <div class="col movie-card">
+                    <div class="card h-100 d-flex flex-column position-relative">
+                        <div class="img-dateTime-room position-relative">
+                            <img src="<?= BASE_URL ?>/public/<?= htmlspecialchars($order['movie_poster']); ?>" class="card-img-top" alt="...">
+                            <span class="position-absolute bottom-0 start-0 badge rounded-pill  mt-1 me-1 p-2 fs-6 age-min"> 
+                                <?= htmlspecialchars(date('d/m', strtotime($order['screening_day']))); ?>
+                            </span>
+                            <span class="position-absolute bottom-0 end-0 badge rounded-pill  mt-1 me-1 p-2 fs-6 age-min">
+                                <?= htmlspecialchars(date('H\hi', strtotime($order['start_time'])) . '-' . date('H\hi', strtotime($order['end_time']))); ?>
+                                Salle <?= htmlspecialchars($order['room_number']); ?>
+                            </span>
+                        </div>
+                        <h6 class="card-title"><?= htmlspecialchars($order['movie_title']); ?></h6>
+                    </div>
+                </div>
+                </a> 
+
+            <?php endforeach; ?>
+            </div>
+        </div>
+        
+        <!-- Modal pour réinitialiser le mot de passe -->
+        <div class="modal fade" id="modalQr" tabindex="-1" aria-labelledby="modalLabelQr" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="modalLabelQr">Mon billet</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <img id="qrCodeImage" src="" alt="QR Code">
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+<script>
+    document.querySelectorAll('.show-qr').forEach((element) => {
+        element.addEventListener('click', (event) => {
+            event.preventDefault();
+            const reservationId = event.currentTarget.getAttribute('data-id');
+
+            fetch(`index.php?action=getQrCode&reservationId=${reservationId}`)
+                .then((response) => response.json())
+                .then((data) => {
+                    const qrCodeImage = document.getElementById('qrCodeImage');
+                    qrCodeImage.src = `<?= BASE_URL ?>/public/${data.qrCode}`;
+                })
+                .catch((error) => {
+                    console.error('Erreur lors du chargement du QR code:', error);
+                });
+        });
+    });
+</script>
+
 <?php $content = ob_get_clean(); ?>
 <?php require_once ('layout-admin.php');?>

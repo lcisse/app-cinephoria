@@ -11,6 +11,8 @@ use App\models\mongodb\ReservationMongoManager;
 use App\models\ReviewManager;
 use App\models\CinemaManager;
 
+require_once __DIR__ . '/../../lips/phpqrcode/qrlib.php';
+
 
 class MovieController
 {
@@ -154,16 +156,28 @@ class MovieController
             $userId = $_SESSION['user_id'];
             $screeningId = $_POST['screeningId'];
             $seats = $_POST['seats'];  
+            $numberOfSeats = count(explode(', ', $seats));
             $totalPrice = $_POST['totalPrice'];
 
             $screeningDetails = $this->moviesManager->getScreeningDetails($screeningId);
             $movieId = $screeningDetails['movie_id'];
             $movieTitle = $screeningDetails['title'];
+            
+            // Générer le contenu du QR code
+            $qrCodeData = json_encode([
+                'id_de_la_seance' => $screeningId,
+                'nombre_de_siege' => $numberOfSeats,
+            ]);
 
-            // Générer un QR code (simple texte ici, utiliser une bibliothèque après pour générer un vrai QR code)
-            $qrCode = 'QR_' . uniqid();
+            // Définir le chemin où enregistrer le QR code
+            $qrCodePath = 'qrcodes/' . uniqid() . '.png'; 
+            $fullPath = __DIR__ . '/../../public/' . $qrCodePath;
 
-            $this->moviesManager->createReservation($userId, $movieId, $screeningId, $seats, $totalPrice, $qrCode);
+            // Générer le QR code
+            \QRcode::png($qrCodeData, $fullPath, QR_ECLEVEL_L, 10);
+
+
+            $this->moviesManager->createReservation($userId, $movieId, $screeningId, $seats, $totalPrice, $qrCodeData, $qrCodePath);
             $this->reservationMongoManager->addReservation($movieTitle, $userId, $seats, $totalPrice, 'confirmed');
 
             $_SESSION['reservation_confirmed'] = true;

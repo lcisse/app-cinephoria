@@ -12,9 +12,9 @@ class ScreeningManager extends BaseManager
             id INT PRIMARY KEY AUTO_INCREMENT,
             movie_id INT,
             room_id INT,
-            screening_day DATE,
             start_time TIME,
             end_time TIME,
+            screening_day DATE,
             FOREIGN KEY (movie_id) REFERENCES movies(id) ON DELETE CASCADE,
             FOREIGN KEY (room_id) REFERENCES rooms(id) ON DELETE CASCADE
         )";
@@ -145,56 +145,6 @@ class ScreeningManager extends BaseManager
             ':screening_id' => $screeningId
         ]);
     }
-
-    /*public function getScreeningDetailsById($screeningId)
-    {
-        $sql = "SELECT 
-                    screenings.id,
-                    screenings.screening_day,
-                    TIME_FORMAT(screenings.start_time, '%H:%i') AS start_time, 
-                    TIME_FORMAT(screenings.end_time, '%H:%i') AS end_time,  
-                    rooms.room_number, 
-                    rooms.projection_quality,
-                    cinemas.cinema_name,
-                    cinemas.id AS cinema_id,  
-                    rooms.id AS room_id,
-                    movie_schedule.cinema_id AS schedule_cinema_id
-                FROM screenings
-                JOIN rooms ON screenings.room_id = rooms.id 
-                JOIN cinemas ON rooms.cinema_id = cinemas.id
-                JOIN movie_schedule ON screenings.movie_id = movie_schedule.movie_id 
-                                    AND screenings.screening_day = movie_schedule.screening_day
-                WHERE screenings.id = :screening_id";
-
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->bindParam(':screening_id', $screeningId, PDO::PARAM_INT);
-        $stmt->execute();
-
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    }*/
-
-    /*public function resetSeatsAfterScreening()
-    {
-        $sql = "SELECT DISTINCT rooms.id AS room_id, rooms.cinema_id
-                FROM screenings
-                JOIN rooms ON screenings.room_id = rooms.id
-                WHERE CONCAT(screenings.screening_day, ' ', screenings.end_time) < NOW()";
-        
-        $stmt = $this->pdo->query($sql);
-        $roomsToReset = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        foreach ($roomsToReset as $room) {
-            $sql = "UPDATE seats 
-                    SET reserved = 0 
-                    WHERE room_id = :room_id AND cinema_id = :cinema_id";
-            
-            $resetStmt = $this->pdo->prepare($sql);
-            $resetStmt->execute([
-                ':room_id' => $room['room_id'],
-                ':cinema_id' => $room['cinema_id']
-            ]);
-        }
-    }*/
 
     public function getAllScreenings()
     {

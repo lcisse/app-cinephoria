@@ -205,3 +205,9 @@ td {
   }
 
 /* fin users space */
+@media (max-width: 851px) {
+  #navAdmin, .admin-right-container {
+      display: none;
+      
+  }
+}

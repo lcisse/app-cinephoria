@@ -520,4 +520,17 @@ class BmovieController
         }
     }
 
+    public function getQrCode()
+    {
+        if (isset($_GET['reservationId'])) {
+            $reservationId = $_GET['reservationId'];
+            $qrCodePath = $this->reservationManager->getQrCodeByReservationId($reservationId);
+
+            echo json_encode(['qrCode' => $qrCodePath]);
+        } else {
+            http_response_code(400);
+            echo json_encode(['error' => 'ID de réservation manquant.']);
+        }
+    }
+
 }
