@@ -14,6 +14,14 @@ session_start();
     <link href="https://fonts.googleapis.com/css2?family=Sofia+Sans+Extra+Condensed:ital,wght@0,1..1000;1,1..1000&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/public/assets/css/style.css">
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="<?= BASE_URL ?>/manifest.json">
+    <link rel="apple-touch-icon" href="<?= BASE_URL ?>/public/assets/icons/icon-96x96.png">
+    <meta name="apple-mobile-web-app-status-bar" content="white">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="theme-color" content="#0F3C44">
+
 </head>
 <body>
     <?php require('navbar.php') ?>
@@ -27,5 +35,7 @@ session_start();
     <script src="<?= BASE_URL ?>/public/assets/js/screenings"></script>
     <script src="<?= BASE_URL ?>/public/assets/js/myAccount"></script>
     <script src="<?= BASE_URL ?>/public/assets/js/roomSeats"></script>
+    <script src="<?= BASE_URL ?>/public/assets/js/appMobile"></script>
+    <script src="<?= BASE_URL ?>/public/assets/js/serviceWorker"></script>
 </body>
 </html>

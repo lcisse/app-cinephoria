@@ -1,7 +1,7 @@
 <?php $title = "Cinéphoria - Mon compte"; ?>
 <?php ob_start(); ?>
 
-<section id="logs" class="section-transitions">
+<section id="logs" class="section-transitions" data-base-url="<?= BASE_URL ?>">
     <div class="container">
         <div class="row mt-4">
             <div class="col text-center">

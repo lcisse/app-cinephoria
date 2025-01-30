@@ -102,7 +102,7 @@
 
 </div>
 <!-- Affichage web-App -->
-<section id="web-app">
+<section id="web-app" data-base-url="<?= BASE_URL ?>">
         <div class="container d-sm-none">
             <div class="admin-title">
                 <h2>Mes séances</h2>
@@ -129,6 +129,9 @@
                 </a> 
 
             <?php endforeach; ?>
+            </div>
+            <div class="user-logout mt-3 mb-3">
+                <a class="btn" href="<?= BASE_URL ?>/index.php?action=logout">Se déconncter</a>
             </div>
         </div>
         

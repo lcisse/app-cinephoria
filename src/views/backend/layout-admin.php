@@ -12,6 +12,13 @@
     <link rel="stylesheet" href="<?= BASE_URL ?>/public/assets/css/style.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/public/assets/css/admin.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/public/assets/css/webapp.css">
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="<?= BASE_URL ?>/manifest.json">
+    <link rel="apple-touch-icon" href="<?= BASE_URL ?>/public/assets/icons/icon-96x96.png">
+    <meta name="apple-mobile-web-app-status-bar" content="white">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="theme-color" content="#0F3C44">
 </head>
 <body>
     <?php require_once __DIR__ . '/../navbar.php'; ?>
@@ -27,5 +34,7 @@
     <script src="<?= BASE_URL ?>/public/assets/js/backend/index.js"></script>
     <script src="<?= BASE_URL ?>/public/assets/js/backend/adminScreening.js"></script>
     <script src="<?= BASE_URL ?>/public/assets/js/backend/employes.js"></script>
+    <script src="<?= BASE_URL ?>/public/assets/js/appMobile.js"></script>
+    <script src="<?= BASE_URL ?>/public/assets/js/serviceWorker.js"></script>
 </body>
 </html>

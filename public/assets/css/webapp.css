@@ -10,6 +10,11 @@
     --cn-color-orange-2: #fd8f3b;
 }
 
+body.standalone #navbarTop,
+body.standalone #footer {
+  display: none !important;
+}
+
 #web-app {
     margin-top: 100px;
 }

@@ -1,19 +1,23 @@
 document.addEventListener('DOMContentLoaded', function () {
     const cinemaSelect = document.getElementById('cinema');
     const roomSelect = document.getElementById('room-number');
-    const selectedRoomId = roomSelect.getAttribute('data-selected-room'); 
+    const selectedRoomId = roomSelect ? roomSelect.getAttribute('data-selected-room') : ""; 
 
     // Initialiser le sélecteur des salles avec une option par défaut désactivée
     function initializeRoomSelect() {
-        roomSelect.innerHTML = '<option value="" disabled selected>Sélectionnez d\'abord un cinéma</option>';
-        roomSelect.setAttribute('disabled', 'disabled'); // Désactiver par défaut
+        if(roomSelect) {
+            roomSelect.innerHTML = '<option value="" disabled selected>Sélectionnez d\'abord un cinéma</option>';
+            roomSelect.setAttribute('disabled', 'disabled'); // Désactiver par défaut
+        }
+        
     }
 
     // Récupérer les données JSON des cinémas et salles
-    const cinemaRooms = JSON.parse(cinemaSelect.getAttribute('data-cinemas'));
+    const cinemaRooms = cinemaSelect ?  JSON.parse(cinemaSelect.getAttribute('data-cinemas')) : null;
+  
 
     // Mettre à jour les options des salles en fonction du cinéma sélectionné
-    cinemaSelect.addEventListener('change', function () {
+    cinemaSelect?.addEventListener('change', function () {
         const selectedCinemaId = this.value;
 
         // Réinitialiser les options des salles
@@ -46,5 +50,8 @@ document.addEventListener('DOMContentLoaded', function () {
     initializeRoomSelect();
 
     // Déclencher l'événement 'change' manuellement pour gérer les préremplissages au chargement
-    cinemaSelect.dispatchEvent(new Event('change'));
+    if(cinemaSelect) {
+        cinemaSelect.dispatchEvent(new Event('change'));
+    }
+        
 });

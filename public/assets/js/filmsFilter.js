@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const genreCheckboxes = document.querySelectorAll('input[type="checkbox"].genre-checkbox');
     const dayCheckboxes = document.querySelectorAll('input[type="checkbox"].day-checkbox');
     const movieContainer = document.querySelector('#all-films-list .row');
-    const BASE_URL = document.getElementById('all-films-list').getAttribute('data-base-url').toLowerCase();
+    const BASE_URL = document.getElementById('all-films-list') ? document.getElementById('all-films-list').getAttribute('data-base-url').toLowerCase() : "";
     const navPagination = document.getElementById('navPagination');
     const checkboxes = document.querySelectorAll('input[type="checkbox"]');
 

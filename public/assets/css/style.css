@@ -759,3 +759,16 @@ footer {
         height: 500px; 
     }
 }
+
+@media (max-width: 455px) {
+    #createAccountBtn1 {
+
+    }
+    .btn {
+        font-size: 14px;
+    }
+
+    #log .form-row input, #logs .form-row input {
+        font-size: 14px;
+    }
+}
