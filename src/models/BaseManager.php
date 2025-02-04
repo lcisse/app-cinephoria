@@ -35,4 +35,9 @@ class BaseManager
         $stmt = $this->pdo->query($sql);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    public function setPdo(PDO $pdo)
+    {
+        $this->pdo = $pdo;
+    }
 }

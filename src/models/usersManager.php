@@ -86,4 +86,19 @@ class UsersManager extends BaseManager
         $stmt->bindParam(':id', $employeeId, PDO::PARAM_INT);
         $stmt->execute();
     }
+
+    public function deleteUserByEmail($email)
+    {
+        try {
+            $sql = "DELETE FROM users WHERE email = :email";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+            $stmt->execute();
+            return $stmt->rowCount() > 0; // Retourne true si un utilisateur a été supprimé
+        } catch (PDOException $e) {
+            echo "Erreur lors de la suppression de l'utilisateur : " . $e->getMessage();
+            return false;
+        }
+    }
+
 }

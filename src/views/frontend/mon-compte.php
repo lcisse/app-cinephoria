@@ -17,12 +17,12 @@
             <form action="<?= BASE_URL ?>/index.php?action=myAccount" method="POST">
                 <input type="hidden" name="action" value="login"> 
                 <div class="mb-3">
-                    <input type="email" class="form-control" name="email" aria-describedby="emailHelp" placeholder="E-mail*" required>
+                    <input type="email" id="emailLogin" class="form-control" name="email" aria-describedby="emailHelp" placeholder="E-mail*" required>
                 </div>
                 <div class="mb-3">
-                    <input type="password" class="form-control" name="password" placeholder="Mot de passe*" required>
+                    <input type="password" id="mdpLogin" class="form-control" name="password" placeholder="Mot de passe*" required>
                 </div>
-                <button type="submit" class="btn mt-3">Je me connecte</button>
+                <button type="submit" id="submitLogin"  class="btn mt-3">Je me connecte</button>
             </form>
             </div>
             <div class="col" id="createFormAccount">
