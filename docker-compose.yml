@@ -1,0 +1,55 @@
+services:
+  web:
+    build: .
+    container_name: cinephoria_web
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+      - mongodb
+    volumes:
+      - .:/var/www/html
+      - ./public/assets:/var/www/html/public/assets
+
+  db:
+    image: mysql:8.2.0
+    container_name: cinephoria_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: lc_cinephoria
+      MYSQL_USER: lamine
+      MYSQL_PASSWORD: Root1234!!
+      MYSQL_INITDB_SKIP_TZINFO: 1
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./db-init/my.cnf:/etc/mysql/my.cnf
+      - ./db-init/lc_cinephoria.sql:/docker-entrypoint-initdb.d/lc_cinephoria.sql:ro
+      
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: cinephoria_phpmyadmin
+    restart: always
+    depends_on:
+      - db
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "8081:80"
+
+  mongodb:
+    image: mongo:6
+    container_name: cinephoria_mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+      - ./db-init/mongodb-init.js:/docker-entrypoint-initdb.d/mongodb-init.js:ro
+
+volumes:
+  db_data:
+  mongodb_data:
