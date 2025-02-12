@@ -13,7 +13,7 @@ class MongoDBConnection {
     // Constructor privé pour empêcher l'instanciation directe
     private function __construct($dbName = "cinephoriadb") {
         try {
-            $this->client = new Client("mongodb://localhost:27017");
+            $this->client = new Client("mongodb://mongodb:27017");
             $this->db = $this->client->$dbName;
         } catch (\Exception $e) {
             echo "Échec de la connexion à MongoDB : " . $e->getMessage();

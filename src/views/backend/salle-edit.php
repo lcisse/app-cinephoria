@@ -33,8 +33,8 @@
                                         </select>
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="room-number" class="form-label">Numéro de la salle</label>
-                                        <input type="number" name="room_number" id="room-number" class="form-control" value="<?= $room['room_number']; ?>" min="1" required>
+                                        <label for="room-number-e" class="form-label">Numéro de la salle</label>
+                                        <input type="number" name="room_number" id="room-number-e" class="form-control" value="<?= $room['room_number']; ?>" min="1" required>
                                     </div>
                                     <div class="col-md-6">
                                         <label for="seat-capacity" class="form-label">Nombre de places</label>

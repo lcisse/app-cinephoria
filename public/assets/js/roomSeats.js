@@ -199,7 +199,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         alert("Veuillez sélectionner des sièges avant de réserver.");
                     }
                 } else {
-                    console.log('noooooooooooooo');
                     // Si l'utilisateur n'est pas authentifié, on stocke les données en session
                     const reservationData = {
                         seats: selectedSeatNumbers.join(', '),  

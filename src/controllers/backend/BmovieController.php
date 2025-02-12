@@ -442,6 +442,10 @@ class BmovieController
             $startTime = $_POST['start_time'];
             $endTime = $_POST['end_time'];
 
+           /* var_dump($_POST['room_id']);
+            exit;*/
+
+
             $this->screeningManager->updateScreening($screeningId, $movieId, $roomId, $screeningDate, $startTime, $endTime);
             $this->movieScheduleManager->updateMovieSchedule($movieId, $cinemaId, $screeningDate);
 

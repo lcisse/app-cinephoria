@@ -18,9 +18,9 @@
     
 
     <script src="<?= BASE_URL ?>/public/assets/js/bootstrap.bundle.min.js"></script>
-    <script src="<?= BASE_URL ?>/public/assets/js/filmsFilter"></script>
-    <script src="<?= BASE_URL ?>/public/assets/js/screenings"></script>
-    <script src="<?= BASE_URL ?>/public/assets/js/roomSeats"></script>
+    <script src="<?= BASE_URL ?>/public/assets/js/filmsFilter.js"></script>
+    <script src="<?= BASE_URL ?>/public/assets/js/screenings.js"></script>
+    <script src="<?= BASE_URL ?>/public/assets/js/roomSeats.js"></script>
     <!-- <script src="/public/assets/js/reservationForm"></script> -->
 </body>
 </html>
