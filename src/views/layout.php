@@ -1,5 +1,10 @@
 <?php 
 //session_start();
+//var_dump($_SESSION['role']);
+require_once __DIR__ . '/../../config/session.php';
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">

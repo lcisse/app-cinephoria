@@ -1,6 +1,6 @@
 <?php
 namespace App\controllers\backend;
-
+require_once __DIR__ . '/../../../config/session.php';
 use App\Models\UsersManager;
 use App\controllers\UsersController;
 
@@ -19,7 +19,7 @@ class BusersController
 
     public function showGestionEmployes()
     {
-        session_start();
+        //session_start();
         $employes = $this->usersManager->getEmployees();
         $userRole = $_SESSION['role'] ?? null; 
 
@@ -42,21 +42,21 @@ class BusersController
             $confirmPassword = $_POST['confirm_password'];
 
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                session_start();
+                //session_start();
                 $_SESSION['errorEm'] = "Email invalide.";
                 header('Location: index.php?action=admin-employes');
                 exit();
             }
 
             if (!$this->usersController->isValidPassword($password)) {
-                session_start();
+                //session_start();
                 $_SESSION['errorEm'] = "Le mot de passe doit comporter au moins 8 caractères, avec une majuscule, une minuscule, un chiffre et un caractère spécial.";
                 header('Location: index.php?action=admin-employes');
                 exit();
             }
 
             if ($password !== $confirmPassword) {
-                session_start();
+                //session_start();
                 $_SESSION['errorEm'] = "Les mots de passe ne correspondent pas.";
                 header('Location: index.php?action=admin-employes');
                 exit();
@@ -67,13 +67,13 @@ class BusersController
             try {
                 $this->usersManager->addUser($firstName, $lastName, $username, $email, $password, $role);
 
-                session_start();
+                //session_start();
                 $_SESSION['messageEmploye'] = "Compte employé créé avec succès !";
 
                 header('Location: index.php?action=admin-employes');
                 exit();
             } catch (\Exception $e) {
-                session_start();
+                //session_start();
                 $_SESSION['errorEm'] = "Erreur lors de la création du compte employé : " . $e->getMessage();
                 header('Location: index.php?action=admin-employes');
                 exit();
@@ -88,7 +88,7 @@ class BusersController
 
             try {
                 $this->usersManager->deleteEmployee($employeeId);
-                session_start();
+                //session_start();
                 $_SESSION['messageEmploye'] = "Employé supprimé avec succès !";
             } catch (\Exception $e) {
                 $_SESSION['errorEm'] = "Erreur lors de la suppression de l'employé : " . $e->getMessage();
@@ -106,7 +106,7 @@ class BusersController
             $newPassword = $_POST['new_password'];
 
             if (!$this->usersController->isValidPassword($newPassword)) {
-                session_start();
+                //session_start();
                 $_SESSION['errorEm'] = "Le mot de passe doit comporter au moins 8 caractères, avec une majuscule, une minuscule, un chiffre et un caractère spécial.";
                 header('Location: index.php?action=admin-employes');
                 exit();
@@ -114,12 +114,12 @@ class BusersController
 
             try {
                 $this->usersManager->resetEmployeePassword($employeeId, $newPassword);
-                session_start();
+                //session_start();
                 $_SESSION['messageEmploye'] = "Mot de passe réinitialisé avec succès !";
                 header('Location: index.php?action=admin-employes');
                 exit();
             } catch (\Exception $e) {
-                session_start();
+                //session_start();
                 $_SESSION['errorEm'] = "Erreur lors de la réinitialisation du mot de passe : " . $e->getMessage();
                 header('Location: index.php?action=admin-employes');
                 exit();

@@ -1,6 +1,6 @@
 <?php
 namespace App\controllers\backend;
-
+require_once __DIR__ . '/../../../config/session.php';
 use App\Models\DataSeeder;
 use App\controllers\UsersController;
 use App\models\MovieManager;
@@ -47,7 +47,7 @@ class BmovieController
 
     public function showDasboard()
     {
-        session_start(); 
+        //session_start(); 
         
         $reservations = $this->reservationMongoManager->getReservationsLast7Days();
         $userRole = $_SESSION['role'] ?? null; 
@@ -62,7 +62,7 @@ class BmovieController
 
     public function showRooms()
     {
-        session_start();
+        //session_start();
         $rooms = $this->roomManager->getAllRoomsWithCinemas();
         $cinemas = $this->moviesManager->getAllCinemas();
         $userRole = $_SESSION['role'] ?? null; 
@@ -89,7 +89,7 @@ class BmovieController
             // Vérifier et créer les sièges pour cette salle
             //$this->seatManager->createSeatsForRoom($roomId, $cinemaId, $seatCapacity);
 
-            session_start();
+            //session_start();
             $_SESSION['message'] = "Salle créée avec succès !";
             
             header('Location: index.php?action=salles'); 
@@ -103,7 +103,7 @@ class BmovieController
             $roomId = (int)$_GET['id'];
             $this->roomManager->deleteRoom($roomId);
 
-            session_start();
+            //session_start();
             $_SESSION['message'] = "Salle supprimée avec succès !";
 
             header("Location: index.php?action=salles");
@@ -113,7 +113,7 @@ class BmovieController
 
     public function showRoomEdit($roomId)
     {
-        session_start();
+        //session_start();
         $room = $this->roomManager->getRoomById($roomId); 
         $cinemas = $this->moviesManager->getAllCinemas(); 
         $userRole = $_SESSION['role'] ?? null; 
@@ -145,7 +145,7 @@ class BmovieController
 
             $this->roomManager->updateRoom($roomId, $cinemaId, $roomNumber, $seatCapacity, $projectionQuality, $incidentNotes);
 
-            session_start();
+            //session_start();
             $_SESSION['success_message'] = 'La salle a été mise à jour avec succès.';
 
             header("Location: index.php?action=salles&id=$roomId");
@@ -159,7 +159,7 @@ class BmovieController
 
     public function showGestionFilms()
     {
-        session_start();
+        //session_start();
         $genres = $this->genresManager->getAllGenres();
         $films = $this->moviesManager->getAllMovies();
         $userRole = $_SESSION['role'] ?? null; 
@@ -231,7 +231,7 @@ class BmovieController
             }
 
             if (!empty($uploadError)) {
-                session_start();
+                //session_start();
                 $_SESSION['error'] = $uploadError;
                 header('Location: index.php?action=admin-film');
                 exit();
@@ -241,7 +241,7 @@ class BmovieController
 
             $this->moviesGenresManager->addGenresToMovie($movieId, $genres);
 
-            session_start();
+            //session_start();
             $_SESSION['message'] = "Film créé avec succès !";
             header('Location: index.php?action=admin-film');
             exit();
@@ -256,7 +256,7 @@ class BmovieController
             $this->moviesGenresManager->deleteGenresByMovieId($filmId);
             $this->moviesManager->deleteFilm($filmId);
 
-            session_start();
+            //session_start();
             $_SESSION['message'] = "Film supprimé avec succès !";
             header('Location: index.php?action=admin-film');
             exit();
@@ -265,7 +265,7 @@ class BmovieController
 
     public function showEditFilm($filmId)
     {
-        session_start();
+        //session_start();
         $film = $this->moviesManager->getFilmById($filmId); 
         $genres = $this->genresManager->getAllGenres(); 
         $userRole = $_SESSION['role'] ?? null; 
@@ -315,7 +315,7 @@ class BmovieController
             // Mise à jour des genres associés
             $this->moviesGenresManager->updateGenresForMovie($filmId, $genres);
 
-            session_start();
+            //session_start();
             $_SESSION['message'] = "Film a été mise à jour avec succès.";
             header("Location: index.php?action=admin-film&id=$filmId");
             exit();
@@ -324,7 +324,7 @@ class BmovieController
 
     public function showGestionSeances($filmId)
     {
-        session_start();
+        //session_start();
         $screenings = $this->screeningManager->getScreeningsByMovie($filmId);
         $cinemas = $this->roomManager->getAllCinemasWithRooms();
         $userRole = $_SESSION['role'] ?? null; 
@@ -375,7 +375,7 @@ class BmovieController
 
             $this->movieScheduleManager->addMovieSchedule($movieId, $cinemaId, $screeningDate);
 
-            session_start();
+            //session_start();
             $_SESSION['messageScreenings'] = "Séance créée avec succès !";
             header("Location: index.php?action=admin-film&filmId-seance=$movieId");
             exit();
@@ -390,7 +390,7 @@ class BmovieController
 
             $this->screeningManager->deleteScreening($screeningId);
 
-            session_start();
+            //session_start();
             $_SESSION['messageScreenings'] = "Séance supprimée avec succès !";
 
             header("Location: index.php?action=admin-film&filmId-seance=$filmId");
@@ -401,7 +401,7 @@ class BmovieController
 
     public function showEditScreening()
     {
-        session_start();
+        //session_start();
         $screeningId = isset($_GET['screening_id']) ? (int)$_GET['screening_id'] : null;
         $userRole = $_SESSION['role'] ?? null; 
 
@@ -449,7 +449,7 @@ class BmovieController
             $this->screeningManager->updateScreening($screeningId, $movieId, $roomId, $screeningDate, $startTime, $endTime);
             $this->movieScheduleManager->updateMovieSchedule($movieId, $cinemaId, $screeningDate);
 
-            session_start();
+            //session_start();
             $_SESSION['messageScreenings'] = "Séance mise à jour avec succès !";
             header("Location: index.php?action=admin-film&filmId-seance=$movieId");
             exit();
@@ -458,7 +458,7 @@ class BmovieController
 
     public function showReviews()
     {
-        session_start();
+        //session_start();
         $reviews = $this->reviewManager->getAllReviews();
         $userRole = $_SESSION['role'] ?? null; 
 
@@ -472,7 +472,7 @@ class BmovieController
     public function approveReview($reviewId)
     {
         $this->reviewManager->updateReviewStatus($reviewId, 'approved');
-        session_start();
+        //session_start();
         $_SESSION['messageReview'] = "Avis validé avec succès !";
         header('Location: index.php?action=avis');
         exit();
@@ -481,7 +481,7 @@ class BmovieController
     public function deleteReview($reviewId)
     {
         $this->reviewManager->deleteReview($reviewId);
-        session_start();
+        //session_start();
         $_SESSION['messageReview'] = "Avis supprimé avec succès !";
         header('Location: index.php?action=avis'); 
         exit();
@@ -489,7 +489,7 @@ class BmovieController
 
     public function showUserSpace()
     {
-        session_start();
+        //session_start();
         $userId = $_SESSION['user_id'] ?? null;
         $userRole = $_SESSION['role'] ?? null; 
 
@@ -510,7 +510,7 @@ class BmovieController
     public function addReview()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            session_start();
+            //session_start();
             $userId = $_SESSION['user_id'];
             $movieId = $_POST['movie_id'];
             $rating = $_POST['rating'];

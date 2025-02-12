@@ -23,6 +23,7 @@ services:
       MYSQL_INITDB_SKIP_TZINFO: 1
     ports:
       - "3306:3306"
+    command: --defaults-file=/etc/mysql/my.cnf
     volumes:
       - db_data:/var/lib/mysql
       - ./db-init/my.cnf:/etc/mysql/my.cnf
