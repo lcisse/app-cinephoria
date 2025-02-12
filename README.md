@@ -1,80 +1,76 @@
 # app-cinephoria
+
 ECF (évaluation en cours de formation) Studi - CDA (concepteur développeur d'application)
 
 # Cinéphoria - Guide de déploiement en local
 
 # Description
+
 Cinéphoria est une application de gestion de cinéma qui combine une base de données relationnelle (MySQL) pour la gestion des films, séances, salles, utilisateurs, etc., et une base de données non relationnelle (MongoDB) pour visualiser le nombre de réservations par film sur une période de 7 jours via un Dashboard.
 
-Ce guide vous aide à déployer l'application localement en utilisant WAMP pour MySQL et MongoDB Compass pour MongoDB.
+# Processus d'Installation et Configuration
 
-# Prérequis
-    1. WAMP Server :
-        . PHP version ≥ 7.4
-        . MySQL version ≥ 5.7
-    2. MongoDB :
-        . Version ≥ 4.4
-    3. Navigateur Web :
-        . Un navigateur récent comme Google Chrome, Firefox ou Edge.
-    4. Git (optionnel) :
-        . Pour cloner le projet depuis un dépôt Git.
+L’environnement de développement est basé sur Docker afin d’assurer une portabilité et une uniformité sur différents environnements.
 
-# Étape 1 : Configuration du projet
-1. Cloner ou télécharger le projet : git clone https://github.com/lcisse/app-cinephoria.git 
-cd cinephoria
+# Installation des outils
 
-2. Placer le projet dans le répertoire de WAMP :
-    . Copiez le dossier du projet dans le répertoire www de WAMP :
-   C:\wamp64\www\cinephoria
-3. Démarrer WAMP :
-   . Lancez WAMP Server et assurez-vous que Apache et MySQL sont actifs
+Avant de lancer le projet, il est nécessaire d’installer certains outils :
 
-# Étape 2 : Importation des bases de données
+    1. Installer Docker Desktop
+    2. Installer Git
+    3. Installer Visual Studio Code
 
-1. Base de données relationnelle (MySQL)
-   . Ouvrir phpMyAdmin :
-      . Rendez-vous sur http://localhost/phpmyadmin.
-   . Créer la base de données :
-      . Créez une nouvelle base nommée lc_cinephoria.
-   . Importer les données :
-      . Allez dans l'onglet Importer de phpMyAdmin, sélectionnez le fichier SQL suivant : /db/lc_cinephoria.sql
-      . Cliquez sur Exécuter pour importer les données.
-   
-2. Base de données non relationnelle (MongoDB)
-    . Démarrer MongoDB :
-        . Lancez MongoDB Compass ou assurez-vous que le service MongoDB est actif.
-    . Importer la base de données :
-        . Utilisez l'outil mongorestore ou MongoDB Compass pour importer la base cinephoriadb : mongorestore --db cinephoriadb /db/cinephoriadb
-     . (Adaptez le chemin selon votre système et emplacement du dossier db).
-   
-Étape 3 : Configurer l'application
-    1. Fichier de configuration :
-        . Vérifiez les fichiers Manager.php et MongoDBConnection.php, et assurez-vous que les paramètres de connexion à MySQL et MongoDB sont corrects :
+# Cloner ou télécharger le projet :
 
-        private function __construct() 
-        {
-            try {
-                $this->bdd = new PDO('mysql:host=localhost;dbname=lc_cinephoria;charset=utf8', 'root', '');
-                $this->bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            } catch (\Exception $e) {
-                die('Erreur : ' . $e->getMessage());
-            }
-        }
+    . git clone https://github.com/lcisse/app-cinephoria.git
 
-        . Assurez-vous que $dbName = "cinephoriadb" dans MongoDBConnection.php et dans ReservationMongoManager.php
+# Lancer les conteneurs Docker
 
-    2. Accéder au site :
-        . Ouvrez un navigateur et rendez-vous sur : http://localhost/cinephoria
+Le projet utilise un fichier docker-compose.yml pour lancer tous les services nécessaires :
+. docker-compose up -d --build
+
+Ce que fait cette commande :
+
+    . web : Démarre l’application PHP avec Apache
+    . db : Lance MySQL avec la base de données lc_cinephoria
+    . mongodb : Lance le service MongoDB
+    . phpmyadmin : Fournit une interface graphique pour MySQL
+
+# Vérification des services
+
+Vérifier que les conteneurs sont bien démarrés : docker ps
+
+    . cinephoria_web → Serveur Apache/PHP
+    . cinephoria_db → Base de données MySQL
+    . cinephoria_mongodb → Base de données NoSQL
+    . cinephoria_phpmyadmin → Interface pour MySQL
+
+# Accéder à l'application
+
+    . Interface principale : http://localhost:8080
+    . Accès à phpMyAdmin : http://localhost:8081
+    . Accès MongoDB Compass : Connexion à mongodb://localhost:27017
+
+# Gestion de la Base de Données
+
+Importation automatique via Docker
+Lors du premier démarrage, Docker importe automatiquement la base lc_cinephoria.sql
+
+# Tests et Vérifications
+
+Le projet utilise PHPUnit pour les tests unitaires et fonctionnels :
+
+    . Lancer les tests : vendor/bin/phpunit tests/
+    . Exécuter un test spécifique : vendor/bin/phpunit tests/functional/LoginTest.php
 
 # Page d'accueil (films récents)
+
 Par défaut, seuls les films publiés depuis le mercredi dernier sont affichés.
 
 # Ajout de données
+
     1. Ajout de films :
         . Connectez-vous en tant qu'administrateur ou employé.
         . Ajoutez des films depuis l'espace d'administration pour qu'ils apparaissent sur la page d'accueil.
     2. Ajout de séances :
         . Ajoutez des séances pour lier des films à des salles et cinémas.
-
-
-
