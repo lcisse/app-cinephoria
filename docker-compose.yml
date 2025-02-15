@@ -32,7 +32,7 @@ services:
       - ./db-init/lc_cinephoria.sql:/docker-entrypoint-initdb.d/lc_cinephoria.sql:ro
     networks:
       - cinephoria_network
-      
+
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
     container_name: cinephoria_phpmyadmin
@@ -51,6 +51,8 @@ services:
     restart: always
     ports:
       - "27017:27017"
+    networks:
+      - cinephoria_network
     volumes:
       - mongodb_data:/data/db
       - ./db-init/mongodb-init.js:/docker-entrypoint-initdb.d/mongodb-init.js:ro
@@ -60,5 +62,5 @@ volumes:
   mongodb_data:
 
 networks:
-  cinephoria_network:  
+  cinephoria_network:
     driver: bridge

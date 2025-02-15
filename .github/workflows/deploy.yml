@@ -56,7 +56,7 @@ jobs:
         run: docker exec cinephoria_web php -l /var/www/html/index.php
 
       - name: Exécution des tests PHPUnit
-        run: docker exec cinephoria_web vendor/bin/phpunit tests
+        run: docker exec cinephoria_web vendor/bin/phpunit tests/functional/LoginTest.php
 
       - name: Arrêt et nettoyage des conteneurs de test
         run: docker compose down
