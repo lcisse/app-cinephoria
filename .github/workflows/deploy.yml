@@ -25,7 +25,7 @@ jobs:
 
       - name: Installer les dépendances système pour Composer
         run: |
-          apt-get update && apt-get install -y git unzip zip
+          sudo apt-get update && apt-get install -y git unzip zip
 
       - name: Construction et push de l'image Docker
         run: |
