@@ -1,6 +1,6 @@
 <?php
 namespace App\controllers;
-
+require_once __DIR__ . '/../../config/session.php';
 use App\Models\DataSeeder;
 use App\models\MovieManager;
 use App\models\ScreeningManager;

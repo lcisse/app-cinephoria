@@ -8,7 +8,10 @@ RUN apt-get update && apt-get install -y \
     libjpeg-dev \
     libfreetype6-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install pdo pdo_mysql gd
+    && docker-php-ext-install pdo pdo_mysql gd session
+
+# Activer la gestion des sessions PHP
+RUN mkdir -p /var/lib/php/sessions && chmod -R 777 /var/lib/php/sessions
 
 # Activer les modules Apache
 RUN a2enmod rewrite

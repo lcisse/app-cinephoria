@@ -39,7 +39,7 @@ class UsersManager extends BaseManager
                 ':role' => $role
             ]);
 
-            echo "Utilisateur ajouté avec succès.";
+            //echo "Utilisateur ajouté avec succès.";
         } catch (PDOException $e) {
             echo "Erreur lors de l'ajout de l'utilisateur : " . $e->getMessage();
         }

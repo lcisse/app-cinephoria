@@ -4,5 +4,6 @@ if (!defined('BASE_URL')) {
     
     $base_url = str_replace($_SERVER['DOCUMENT_ROOT'], '', $root) . '/app-cinephoria';
 
-    define('BASE_URL', $base_url);
+    //define('BASE_URL', $base_url); //sans docker
+    define('BASE_URL', 'http://localhost:8080'); // avec docker
 }

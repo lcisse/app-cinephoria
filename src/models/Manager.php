@@ -14,7 +14,7 @@ class Manager
     private function __construct() 
     {
         try {
-            $this->bdd = new PDO('mysql:host=localhost;dbname=lc_cinephoria;charset=utf8', 'root', '');
+            $this->bdd = new PDO('mysql:host=db;dbname=lc_cinephoria;charset=utf8', 'lamine', 'Root1234!!');
             $this->bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (\Exception $e) {
             die('Erreur : ' . $e->getMessage());

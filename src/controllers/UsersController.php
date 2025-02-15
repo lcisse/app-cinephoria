@@ -1,6 +1,6 @@
 <?php
 namespace App\controllers;
-
+require_once __DIR__ . '/../../config/session.php';
 use App\Models\DataSeeder;
 use App\models\MovieManager;
 use App\models\ScreeningManager;
@@ -53,7 +53,7 @@ class UsersController
                 $this->usersManager->addUser($firstName, $lastName, $username, $email, $password, 'user');
 
                 $user = $this->usersManager->getUserByEmail($email);
-                session_start();
+                //session_start();
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['username'] = $user['username'];
                 $_SESSION['role'] = $user['role'];
@@ -81,7 +81,7 @@ class UsersController
 
             if ($user && password_verify($password, $user['password'])) {
                 if (session_status() === PHP_SESSION_NONE) {
-                    session_start();
+                    //session_start();
                 }
                 //session_start();
                 $_SESSION['user_id'] = $user['id'];
@@ -132,7 +132,8 @@ class UsersController
 
     public function logout()
     {
-        session_start();
+        //session_start();
+        require_once __DIR__ . '/../../config/session.php';
         session_destroy();
         header("Location: index.php?action=myAccount");
         exit();
@@ -140,13 +141,15 @@ class UsersController
 
     public function isAuthenticated()
     {
-        session_start();
+        if (session_status() === PHP_SESSION_NONE) {
+            //session_start();
+        }
         return isset($_SESSION['user_id']);
     }
 
     public function checkAuthentication()
     {
-        session_start();
+        //session_start();
         $isAuthenticated = isset($_SESSION['user_id']);
         echo json_encode(['isAuthenticated' => $isAuthenticated]);
     }

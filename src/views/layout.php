@@ -1,6 +1,10 @@
 <?php 
-//require_once __DIR__ . '/../../config.php'; 
-session_start();
+//session_start();
+//var_dump($_SESSION['role']);
+require_once __DIR__ . '/../../config/session.php';
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -31,11 +35,11 @@ session_start();
     <?php require('footer.php') ?>
 
     <script src="<?= BASE_URL ?>/public/assets/js/bootstrap.bundle.min.js"></script>
-    <script src="<?= BASE_URL ?>/public/assets/js/filmsFilter"></script>
-    <script src="<?= BASE_URL ?>/public/assets/js/screenings"></script>
-    <script src="<?= BASE_URL ?>/public/assets/js/myAccount"></script>
-    <script src="<?= BASE_URL ?>/public/assets/js/roomSeats"></script>
-    <script src="<?= BASE_URL ?>/public/assets/js/appMobile"></script>
-    <script src="<?= BASE_URL ?>/public/assets/js/serviceWorker"></script>
+    <script src="<?= BASE_URL ?>/public/assets/js/filmsFilter.js"></script>
+    <script src="<?= BASE_URL ?>/public/assets/js/screenings.js"></script>
+    <script src="<?= BASE_URL ?>/public/assets/js/myAccount.js"></script>
+    <script src="<?= BASE_URL ?>/public/assets/js/roomSeats.js"></script>
+    <script src="<?= BASE_URL ?>/public/assets/js/appMobile.js"></script>
+    <script src="<?= BASE_URL ?>/public/assets/js/serviceWorker.js"></script>
 </body>
 </html>

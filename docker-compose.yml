@@ -10,6 +10,8 @@ services:
     volumes:
       - .:/var/www/html
       - ./public/assets:/var/www/html/public/assets
+    networks:
+      - cinephoria_network
 
   db:
     image: mysql:8.2.0
@@ -23,10 +25,13 @@ services:
       MYSQL_INITDB_SKIP_TZINFO: 1
     ports:
       - "3306:3306"
+    command: --defaults-file=/etc/mysql/my.cnf
     volumes:
       - db_data:/var/lib/mysql
       - ./db-init/my.cnf:/etc/mysql/my.cnf
       - ./db-init/lc_cinephoria.sql:/docker-entrypoint-initdb.d/lc_cinephoria.sql:ro
+    networks:
+      - cinephoria_network
       
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
@@ -53,3 +58,7 @@ services:
 volumes:
   db_data:
   mongodb_data:
+
+networks:
+  cinephoria_network:  
+    driver: bridge
