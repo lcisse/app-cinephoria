@@ -6,61 +6,9 @@ on:
       - main
 
 jobs:
-  test:
-    name: Exécution des tests PHP
-    runs-on: ubuntu-latest
-
-    services:
-      mysql:
-        image: mysql:8.2
-        env:
-          MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: lc_cinephoria
-          MYSQL_USER: lamine
-          MYSQL_PASSWORD: Root1234!!
-        ports:
-          - 3306:3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=5
-
-      mongodb:
-        image: mongo:6
-        ports:
-          - 27017:27017
-        options: >-
-          --health-cmd "mongosh --eval 'db.runCommand({ ping: 1 })'" 
-          --health-interval=10s 
-          --health-timeout=5s 
-          --health-retries=5
-
-
-    steps:
-      - name: Checkout du code 
-        uses: actions/checkout@v3
-
-      - name: Configuration de PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: 8.2
-          extensions: pdo_mysql, mysqli, mbstring, zip, pcntl, bcmath, gd, mongodb
-          coverage: none
-
-      - name: Cache Composer dependencies
-        uses: actions/cache@v4
-        with:
-          path: vendor
-          key: composer-${{ hashFiles('**/composer.lock') }}
-          restore-keys: composer-
-
-      - name: Installation des dépendances PHP
-        run: composer install --no-interaction --prefer-dist
-
-      - name: Exécution des tests PHPUnit
-        run: vendor/bin/phpunit tests
-
   build:
     name: Construction de l image Docker
-    runs-on: ubuntu-latest
-    needs: test
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Checkout du code
@@ -77,13 +25,64 @@ jobs:
           docker build -t ${{ secrets.DOCKER_USERNAME }}/cinephoria-web:latest .
           docker push ${{ secrets.DOCKER_USERNAME }}/cinephoria-web:latest
 
-  deploy:
-    name: Déploiement sur le VPS PlanetHoster
-    runs-on: ubuntu-latest
+  test:
+    name: Exécution des tests PHP dans Docker
+    runs-on: ubuntu-22.04
     needs: build
 
+    services:
+      mysql:
+        image: mysql:8.2
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: lc_cinephoria
+          MYSQL_USER: lamine
+          MYSQL_PASSWORD: Root1234!!
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd "mysqladmin ping -h 127.0.0.1 -uroot -proot"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+      mongodb:
+        image: mongo:6
+        ports:
+          - 27017:27017
+        options: >-
+          --health-cmd "mongosh --eval 'db.runCommand({ ping: 1 })'"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
     steps:
-      - name: Déploiement sur VPS PlanetHoster
+      - name: Checkout du code
+        uses: actions/checkout@v3
+
+      - name: Démarrer le conteneur d application
+        run: |
+          docker run -d --name cinephoria_test --network=host \
+            -e DB_HOST=127.0.0.1 \
+            -e DB_DATABASE=lc_cinephoria \
+            -e DB_USERNAME=lamine \
+            -e DB_PASSWORD=Root1234!! \
+            ${{ secrets.DOCKER_USERNAME }}/cinephoria-web:latest
+          sleep 10  # Laisser le temps à la base de données de démarrer
+
+      - name: Installation des dépendances PHP
+        run: docker exec cinephoria_test composer install --no-interaction --prefer-dist
+
+      - name: Exécution des tests PHPUnit
+        run: docker exec cinephoria_test vendor/bin/phpunit tests
+
+  deploy:
+    name: Déploiement sur le VPS Hostinger
+    runs-on: ubuntu-latest
+    needs: test
+
+    steps:
+      - name: Déploiement sur le VPS Hostinger
         run: |
           sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
           cd /var/www/html/cinephoria
