@@ -24,8 +24,10 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Installer les dépendances système pour Composer
+      - name: Installer les dépendances système pour Composer
         run: |
-          sudo apt-get update && apt-get install -y git unzip zip
+            sudo apt-get update
+            sudo apt-get install -y git unzip zip
 
       - name: Construction et push de l'image Docker
         run: |
