@@ -25,8 +25,8 @@ jobs:
 
       - name: Installer Git, unzip et zip
         run: |
-            apt-get update
-            apt-get install -y git unzip zip
+            sudo apt-get update
+            sudo apt-get install -y git unzip zip
 
       - name: Construction et push de l'image Docker
         run: |
