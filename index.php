@@ -1,7 +1,5 @@
 <?php
-/*if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}*/
+
 require_once __DIR__ . '/config/session.php';
 
 ini_set('display_errors', 1);
@@ -15,15 +13,6 @@ use App\controllers\UsersController;
 use App\controllers\backend\BmovieController;
 use App\controllers\backend\BusersController;
 use App\Models\DatabaseSeeder;
-
-
-/*$controller = new MovieController();
-$controller->showHome();
-$controller->showFimsPage(2);*/
-
-
-/*$seeder = new DatabaseSeeder();
-$seeder->createAllTables();*/
 
 class App
 {
