@@ -1,9 +1,9 @@
 <?php
-namespace App\Models;
+namespace App\models;
 
 require __DIR__ . '/../../vendor/autoload.php';
 
-use App\Models\Manager;
+use App\models\Manager;
 use Faker\Factory;
 
 class DataSeeder

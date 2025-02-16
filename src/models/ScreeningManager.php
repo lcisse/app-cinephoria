@@ -1,8 +1,8 @@
 <?php
-namespace App\Models;
+namespace App\models;
 
 use PDO;
-use App\Models\BaseManager;
+use App\models\BaseManager;
 
 class ScreeningManager extends BaseManager
 {

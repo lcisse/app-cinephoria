@@ -1,9 +1,9 @@
 <?php
-namespace App\Models;
+namespace App\models;
 
 use PDO;
 use PDOException;
-use App\Models\Manager;
+use App\models\Manager;
 
 class BaseManager
 {

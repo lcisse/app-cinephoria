@@ -1,7 +1,7 @@
 <?php
 namespace App\controllers\backend;
 require_once __DIR__ . '/../../../config/session.php';
-use App\Models\UsersManager;
+use App\models\UsersManager;
 use App\controllers\UsersController;
 
 class BusersController

@@ -1,11 +1,11 @@
 <?php
 // à mettre en place
-namespace App\Models;
+namespace App\models;
 
-use App\Models\RoomManager;
-use App\Models\SeatManager;
-use App\Models\ScreeningManager;
-use App\Models\ReviewManager;
+use App\models\RoomManager;
+use App\models\SeatManager;
+use App\models\ScreeningManager;
+use App\models\ReviewManager;
 
 class DatabaseSeeder 
 {

@@ -1,7 +1,7 @@
 <?php
 use PHPUnit\Framework\TestCase;
 use App\controllers\UsersController;
-use App\Models\UsersManager;
+use App\models\UsersManager;
 
 define('PHPUNIT_RUNNING', true);
 

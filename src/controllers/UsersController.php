@@ -1,12 +1,12 @@
 <?php
 namespace App\controllers;
 require_once __DIR__ . '/../../config/session.php';
-use App\Models\DataSeeder;
+use App\models\DataSeeder;
 use App\models\MovieManager;
 use App\models\ScreeningManager;
-use App\Models\ReservationManager;
-use App\Models\SeatManager;
-use App\Models\UsersManager;
+use App\models\ReservationManager;
+use App\models\SeatManager;
+use App\models\UsersManager;
 use App\Services\EmailService;
 use Exception;
 

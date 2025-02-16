@@ -1,7 +1,7 @@
 <?php
 use PHPUnit\Framework\TestCase;
 
-use App\Models\UsersManager;
+use App\models\UsersManager;
 
 class UsersManagerTest extends TestCase
 {

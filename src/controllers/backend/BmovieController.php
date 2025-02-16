@@ -1,7 +1,7 @@
 <?php
 namespace App\controllers\backend;
 require_once __DIR__ . '/../../../config/session.php';
-use App\Models\DataSeeder;
+use App\models\DataSeeder;
 use App\controllers\UsersController;
 use App\models\MovieManager;
 use App\models\RoomManager;

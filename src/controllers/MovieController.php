@@ -1,11 +1,11 @@
 <?php
 namespace App\controllers;
 require_once __DIR__ . '/../../config/session.php';
-use App\Models\DataSeeder;
+use App\models\DataSeeder;
 use App\models\MovieManager;
 use App\models\ScreeningManager;
-use App\Models\ReservationManager;
-use App\Models\SeatManager;
+use App\models\ReservationManager;
+use App\models\SeatManager;
 use App\controllers\UsersController;
 use App\models\mongodb\ReservationMongoManager;
 use App\models\ReviewManager;

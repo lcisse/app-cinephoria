@@ -12,7 +12,7 @@ use App\controllers\MovieController;
 use App\controllers\UsersController;
 use App\controllers\backend\BmovieController;
 use App\controllers\backend\BusersController;
-use App\Models\DatabaseSeeder;
+use App\models\DatabaseSeeder;
 
 class App
 {
