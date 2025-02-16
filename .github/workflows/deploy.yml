@@ -55,6 +55,9 @@ jobs:
       - name: Vérifier les fichiers PHP
         run: docker exec cinephoria_web php -l /var/www/html/index.php
 
+      - name: Génération de l'autoload de Composer
+        run: docker exec cinephoria_web composer dump-autoload
+
       - name: Exécution des tests PHPUnit
         run: docker exec cinephoria_web vendor/bin/phpunit tests/functional/LoginTest.php
 
