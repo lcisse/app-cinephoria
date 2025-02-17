@@ -4,8 +4,11 @@ on:
   push:
     branches:
       - main
+      - develop
+      - 'feature/*' 
 
 jobs:
+  # Construction de l'image Docker
   build:
     name: Construction de l'image Docker
     runs-on: ubuntu-22.04
@@ -28,11 +31,11 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y git unzip zip
 
-      - name: Construction et push de l'image Docker
+      - name: Construction de l'image Docker
         run: |
           docker compose build
-          docker compose push
 
+  # Exécution des tests pour develop et feature/*
   test:
     name: Exécution des tests PHP dans Docker
     runs-on: ubuntu-22.04
@@ -61,11 +64,13 @@ jobs:
       - name: Arrêt et nettoyage des conteneurs de test
         run: docker compose down
 
+  # Déploiement automatique uniquement pour la branche main
   deploy:
     name: Déploiement sur le VPS Hostinger
     runs-on: ubuntu-latest
-    needs: build  
-#    needs: test
+    needs: build
+    needs: test
+    if: github.ref == 'refs/heads/main'  
 
     steps:
       - name: Connexion et déploiement sur le VPS Hostinger
