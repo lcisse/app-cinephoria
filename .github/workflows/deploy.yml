@@ -33,39 +33,33 @@ jobs:
           docker compose build
           docker compose push
 
-  # test:
-  #   name: Exécution des tests PHP dans Docker
-  #   runs-on: ubuntu-22.04
-  #   needs: build
-  #
-  #   steps:
-  #     - name: Checkout du code
-  #       uses: actions/checkout@v3
-  #
-  #     - name: Démarrage de l'environnement de test avec Docker Compose
-  #       run: |
-  #         docker compose up -d --build
-  #         sleep 10  # Laisser le temps aux services de démarrer
-  #
-  #     - name: Autoriser le repo comme "safe directory"
-  #       run: docker exec cinephoria_web git config --global --add safe.directory /var/www/html
-  #
-  #     - name: Installation des dépendances PHP
-  #       run: docker exec cinephoria_web composer install --no-interaction --prefer-dist
-  #
-  #     - name: Nettoyage et régénération de l'autoload
-  #       run: |
-  #         docker exec cinephoria_web composer clear-cache
-  #         docker exec cinephoria_web composer dump-autoload --optimize
-  #
-  #     - name: Vérification de l'existence des fichiers
-  #       run: docker exec cinephoria_web ls -l /var/www/html/src/models/
-  #
-  #     - name: Exécution des tests PHPUnit avec debug
-  #       run: docker exec cinephoria_web vendor/bin/phpunit --debug tests
-  #
-  #     - name: Arrêt et nettoyage des conteneurs de test
-  #       run: docker compose down
+  test:
+    name: Exécution des tests PHP dans Docker
+    runs-on: ubuntu-22.04
+    needs: build
+
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v3
+
+      - name: Démarrage de l'environnement de test avec Docker Compose
+        run: |
+          docker compose up -d --build
+          sleep 10  # Laisser le temps aux services de démarrer (à ajuster si nécessaire)
+
+      - name: Installation des dépendances PHP
+        run: docker exec cinephoria_web composer install --no-interaction --prefer-dist
+
+      - name: Nettoyage et régénération de l'autoload
+        run: |
+          docker exec cinephoria_web composer clear-cache
+          docker exec cinephoria_web composer dump-autoload --optimize
+
+      - name: Exécution des tests PHPUnit avec debug
+        run: docker exec cinephoria_web vendor/bin/phpunit --debug tests
+
+      - name: Arrêt et nettoyage des conteneurs de test
+        run: docker compose down
 
   deploy:
     name: Déploiement sur le VPS Hostinger
