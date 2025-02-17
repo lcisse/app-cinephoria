@@ -77,7 +77,7 @@ jobs:
       - name: Connexion et déploiement sur le VPS Hostinger
         run: |
           sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
-          cd /var/www/html/cinephoria
+          cd /var/www/html
           if [ ! -f "docker-compose.yml" ]; then echo "❌ ERREUR: docker-compose.yml introuvable"; exit 1; fi
           docker-compose pull
           docker-compose down
