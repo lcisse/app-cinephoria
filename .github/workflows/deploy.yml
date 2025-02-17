@@ -64,7 +64,7 @@ jobs:
   deploy:
     name: Déploiement sur le VPS Hostinger
     runs-on: ubuntu-latest
-    needs: build  
+    #needs: build  
     needs: test
 
     steps:
